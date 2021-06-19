@@ -1,10 +1,13 @@
 import { React, useState, useEffect, useRef } from "react";
 import menu from "../../assets/images/icons/menu.svg";
 import close from "../../assets/images/icons/close.svg";
-import { map } from "bluebird";
 import { Link } from "react-router-dom";
 function NavBar() {
   const [width, setWidth] = useState(window.innerWidth);
+  const [loginToggle, setLoginToggle] = useState(false);
+  const handleLoginToggle = () => {
+    setLoginToggle(!loginToggle);
+  };
   const mobileSidebar = useRef();
   const coverAll = useRef();
   const navlist = [
@@ -29,7 +32,6 @@ function NavBar() {
       to: "/contct-us",
     },
   ];
-  // toggle in mobile
   const toggleMobileSidebar = () => {
     const sidebar = mobileSidebar.current;
     const coverall = coverAll.current;
@@ -41,8 +43,6 @@ function NavBar() {
       coverall.style.display = "block";
     }
   };
-  // if user is using screen width of laptop and changes to lower than 1023px width, call the function
-  // if user is using screen width of ipad or mobile and changes to higher than 1024px width, call the function
   const handleWidth = () => {
     const innerWidth = window.innerWidth;
     if (innerWidth > 1023 && width < 1024) {
@@ -81,9 +81,25 @@ function NavBar() {
               );
             })}
           </div>
-          <div className="flex  justify-center space-x-4 items-center">
+          <div className="flex  justify-center space-x-4 items-center group">
             <div>Register</div>
-            <div className="py-5 px-2">Login</div>
+            <div
+              className="w-16 h-16 relative cursor-pointer"
+              onMouseEnter={handleLoginToggle}
+              onMouseLeave={handleLoginToggle}
+            >
+              <div
+                className={`absolute w-full transition-all duration-300 ease-in-out ${
+                  loginToggle ? "h-full" : "h-0"
+                } z-0 bg-alert top-0 right-0 flex justify-center items-center`}
+              >
+                {/* {loginToggle ? "Login" : ""} */}
+                {/* Login */}
+              </div>
+              <div className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20">
+                Login
+              </div>
+            </div>
             <div className="flex space-x-1 items-center">
               <span>En</span>
               <span>

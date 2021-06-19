@@ -1,11 +1,12 @@
 import { Switch, Route } from "react-router-dom";
 import Home from "./web/home/Home";
+import NavBar from "./web/static/NavBar";
 
-function App(props) {
-  const { loggedIn } = props;
+function App() {
+  // const { loggedIn } = props;
   return (
     <div>
-      {/* <NavBar loggedIn={loggedIn} /> */}
+      <NavBar />
       <Switch>
         <Route exact path="/" component={Home} />
       </Switch>

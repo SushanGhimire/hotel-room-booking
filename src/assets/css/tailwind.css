@@ -5,3 +5,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.wp{
+    @apply px-5 md:px-10 lg:px-28;
+}

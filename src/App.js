@@ -5,7 +5,7 @@ import NavBar from "./web/static/NavBar";
 function App() {
   // const { loggedIn } = props;
   return (
-    <div>
+    <div className="font-header">
       <NavBar />
       <Switch>
         <Route exact path="/" component={Home} />

@@ -63,7 +63,7 @@ function NavBar() {
   });
   return (
     <div
-      className={`w-full bg-buttonBlue text-white flex justify-between px-5 md:px-10 lg:px-20 font-header items-center py-5 lg:py-0 sticky top-0 z-50`}
+      className={`w-full bg-primaryBlue text-white flex justify-between px-5 md:px-10 lg:px-28 font-header items-center py-5 lg:py-0 sticky top-0 z-50`}
     >
       {/* logo */}
       <div>

@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useRef } from "react";
-import menu from "../../assets/images/icons/menu.svg";
-import close from "../../assets/images/icons/close.svg";
+import menu from "../../../assets/images/icons/menu.svg";
+import close from "../../../assets/images/icons/close.svg";
 import { Link } from "react-router-dom";
 function NavBar() {
   const [width, setWidth] = useState(window.innerWidth);
@@ -96,9 +96,12 @@ function NavBar() {
                 {/* {loginToggle ? "Login" : ""} */}
                 {/* Login */}
               </div>
-              <div className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20">
+              <Link
+                to="/login"
+                className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
+              >
                 Login
-              </div>
+              </Link>
             </div>
             <div className="flex space-x-1 items-center">
               <span>En</span>

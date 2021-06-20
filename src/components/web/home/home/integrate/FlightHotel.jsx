@@ -1,7 +1,7 @@
 import React from "react";
-import pin from "../../../../assets/images/icons/pin.svg";
-import hotel from "../../../../assets/images/icons/hotel.svg";
-import restaurant from "../../../../assets/images/icons/restaurant.svg";
+import pin from "../../../../../assets/images/icons/pin.svg";
+import hotel from "../../../../../assets/images/icons/hotel.svg";
+import restaurant from "../../../../../assets/images/icons/restaurant.svg";
 
 import SearchCard from "./SearchCard";
 function FlightHotel() {

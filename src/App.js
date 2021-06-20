@@ -1,14 +1,20 @@
 import { Switch, Route } from "react-router-dom";
-import Home from "./web/home/home/Home";
-import NavBar from "./web/static/NavBar";
+import LoginRegister from "./components/authentiction/LoginRegister/LoginRegister";
+import Home from "./components/web/home/home/Home";
+import NavBar from "./components/web/static/NavBar";
 
-function App() {
+function App({ loggedIn }) {
   // const { loggedIn } = props;
   return (
     <div className="font-header bg-lightWhite">
       <NavBar />
       <Switch>
         <Route exact path="/" component={Home} />
+        {!loggedIn && (
+          <>
+            <Route exact path="/login" component={LoginRegister} />
+          </>
+        )}
       </Switch>
       {/* <Footer /> */}
     </div>

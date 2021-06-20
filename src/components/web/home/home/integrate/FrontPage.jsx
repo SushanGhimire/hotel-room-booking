@@ -1,5 +1,5 @@
-import FlightHotel from "../integrate/FlightHotel";
-import kathmandu from "../../../../assets/images/icons/kathmandu.png";
+import FlightHotel from "./FlightHotel";
+import kathmandu from "../../../../../assets/images/icons/kathmandu.png";
 // import wave from "../../../../assets/images/icons/wave.svg";
 function FrontPage() {
   return (

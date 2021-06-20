@@ -1,8 +1,8 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 // import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-import dropdown from "../../../../assets/images/icons/dropdown.svg";
-import close2 from "../../../../assets/images/icons/close2.svg";
+import dropdown from "../../../../../assets/images/icons/dropdown.svg";
+import close2 from "../../../../../assets/images/icons/close2.svg";
 const people = [
   { name: "Chitwan" },
   { name: "Kathmandu" },

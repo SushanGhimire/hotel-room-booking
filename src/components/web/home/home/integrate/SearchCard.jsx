@@ -1,7 +1,7 @@
-import next from "../../../../assets/images/icons/next.svg";
+import next from "../../../../../assets/images/icons/next.svg";
 import LocationDropDown from "./LocationDropDown";
 import RoomTypesDropdown from "./RoomTypesDropdown";
-import calendar from "../../../../assets/images/icons/calendar.svg";
+import calendar from "../../../../../assets/images/icons/calendar.svg";
 import PriceGuests from "./PriceGuests";
 
 function SearchCard() {

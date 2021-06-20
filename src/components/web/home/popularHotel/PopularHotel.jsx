@@ -31,7 +31,7 @@ function PopularHotel() {
     );
   }
   return (
-    <div className="py-20 flex flex-col">
+    <div className="py-10 flex flex-col">
       <div className="mx-auto text-3xl font-semibold text-buttonBlue">
         Hotels
       </div>

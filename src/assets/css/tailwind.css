@@ -8,3 +8,6 @@
 .wp{
     @apply px-5 md:px-10 lg:px-28;
 }
+.animation{
+    @apply transition-all duration-300 ease-in-out;
+}

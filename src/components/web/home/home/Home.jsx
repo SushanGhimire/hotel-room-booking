@@ -1,6 +1,6 @@
 import FrontPage from "./integrate/FrontPage";
 import PopularRooms from "../PopularRooms/PopularRoom";
-import PopularHotel from "./integrate/PopularHotel";
+import PopularHotel from "../popularHotel/PopularHotel";
 function Home() {
   return (
     <div>

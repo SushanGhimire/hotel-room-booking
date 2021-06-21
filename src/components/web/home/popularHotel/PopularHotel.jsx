@@ -78,9 +78,9 @@ function PopularHotel() {
     );
   }
   return (
-    <div className="py-10 flex flex-col">
+    <div className="py-5 flex flex-col">
       <div className="mx-auto text-3xl font-semibold text-buttonBlue">
-        Hotels
+        Popular Hotels
       </div>
       <div className="mt-10 w-full relative ">
         <Swiper

@@ -20,10 +20,10 @@ function PriceGuests() {
     setValue(newValue);
   };
   return (
-    <div className="sm:flex border border-gray-300 rounded-lg p-3 space-y-4 sm:space-y-0">
+    <div className="flex-1 sm:flex border border-gray-300 rounded-lg p-3 space-y-4 sm:space-y-0 xl:space-x-4">
       {/* Price  */}
-      <div className="flex flex-col w-44">
-        <div className="text-xs">Price</div>
+      <div className="flex flex-col mr-4 xl:mr-0">
+        <div className="text-xs  xl:pb-2">Price</div>
         <div className={classes.root}>
           <Slider
             value={value}
@@ -41,8 +41,8 @@ function PriceGuests() {
           <span>max: {value[1]}</span>
         </div>
       </div>
-      {/* Departure  */}
-      <div className="flex flex-col w-44">
+      {/* guest  */}
+      <div className="flex flex-col">
         <div className="text-xs">Guests</div>
         <div className="">
           <input

@@ -20,9 +20,6 @@ function FrontPage() {
         <div className="w-full mt-5 bottom-10 absolute right-0">
           <img src={kathmandu} className="w-full " alt="" />
         </div>
-        {/* <div className="w-full -bottom-48 absolute right-0">
-          <img src={wave} className="w-full transform scale-125" alt="" />
-        </div> */}
       </div>
     </div>
   );

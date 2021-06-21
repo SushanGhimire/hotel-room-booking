@@ -23,7 +23,7 @@ function PriceGuests() {
     <div className="flex-1 sm:flex border border-gray-300 rounded-lg p-3 space-y-4 sm:space-y-0 xl:space-x-4">
       {/* Price  */}
       <div className="flex flex-col mr-4 xl:mr-0">
-        <div className="text-xs  xl:pb-2">Price</div>
+        <div className="text-xs  xl:pb-1.5">Price</div>
         <div className={classes.root}>
           <Slider
             value={value}

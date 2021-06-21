@@ -31,8 +31,8 @@ function Register({ handleToggle }) {
       password: "",
       confirmPassword: "",
     },
-    confirmationEmail: "",
   });
+  const [confirmationEmail, setConfirmationEmail] = useState("");
   const handleErrors = (property, value) => {
     const { errors } = data;
     let result;
@@ -103,10 +103,7 @@ function Register({ handleToggle }) {
       .post("user/register/", formData)
       .then(() => {
         setLoading(false);
-        setData({
-          ...data,
-          confirmationEmail: "Confirmation link has been sent to your email",
-        });
+        setConfirmationEmail("Confirmation link has been sent to your email");
         // window.location = "/login";
         setData({
           username: "",
@@ -119,7 +116,6 @@ function Register({ handleToggle }) {
             password: "",
             confirmPassword: "",
           },
-          confirmationEmail: "",
         });
       })
       .catch((err) => {
@@ -140,14 +136,7 @@ function Register({ handleToggle }) {
       });
   };
 
-  const {
-    username,
-    email,
-    password,
-    confirmPassword,
-    errors,
-    confirmationEmail,
-  } = data;
+  const { username, email, password, confirmPassword, errors } = data;
   const {
     username: usernameErr,
     email: emailErr,
@@ -156,9 +145,6 @@ function Register({ handleToggle }) {
   } = errors;
   return (
     <div className="sm:w-96 flex flex-col py-10 pl-16  mx-auto">
-      {/* <div className="py-5 ">
-        <img src={bed} className="w-16 h-16 mx-auto " alt="" />
-      </div> */}
       <div className="mx-auto text-3xl font-semibold tracking-wider">
         REGISTER
       </div>

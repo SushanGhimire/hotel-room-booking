@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 });
 function PriceGuests() {
   const classes = useStyles();
-  const [value, setValue] = useState(30);
+  const [value, setValue] = React.useState([100, 1000]);
   const [guests, setGuests] = useState(1);
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
@@ -26,13 +26,20 @@ function PriceGuests() {
         <div className="text-xs">Price</div>
         <div className={classes.root}>
           <Slider
-            value={typeof value === "number" ? value : 0}
+            value={value}
             onChange={handleSliderChange}
-            aria-labelledby="input-slider"
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+            min={100}
+            max={10000}
+            defaultValue={[100, 1000]}
             className={classes.slider}
           />
         </div>
-        <div className="text-xs">{value}</div>
+        <div className="text-xs flex space-x-2">
+          <span>min: {value[0]}</span>
+          <span>max: {value[1]}</span>
+        </div>
       </div>
       {/* Departure  */}
       <div className="flex flex-col w-44">
@@ -40,7 +47,7 @@ function PriceGuests() {
         <div className="">
           <input
             type="number"
-            className="bg-lightWhite text-sm w-24 focus:outline-none  border-b border-buttonBlue"
+            className="bg-lightWhite  w-24 focus:outline-none  border-b border-buttonBlue text-lg font-semibold"
             placeholder=""
             value={guests}
             onChange={(e) => setGuests(e.target.value)}
@@ -48,7 +55,7 @@ function PriceGuests() {
             id=""
           />
         </div>
-        <div className="text-xs mt-5">{guests}</div>
+        {/* <div className="text-xs mt-5">{guests}</div> */}
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import restaurant from "../../../../../assets/images/icons/restaurant.svg";
 import SearchCard from "./SearchCard";
 function FlightHotel() {
   return (
-    <div className="mt-16 flex flex-col relative">
+    <div className="mt-5 md:mt-16 flex flex-col relative w-9/12 flex-wrap ">
       <div className="flex md:absolute -top-9 left-0 mb-1 md:mb-0">
         {/* flight  */}
         <div className="flex bg-lightWhite text-xs md:text-sm text-gray-600 items-center py-2 px-4 md:py-3 md:px-8 md:rounded-tl-lg">
@@ -16,7 +16,7 @@ function FlightHotel() {
           <span>Room</span>
         </div>
         {/* Hotel  */}
-        <div className="flex bg-buttonBlue text-lightWhite items-center py-2 px-4 md:py-3 md:px-8 text-sm">
+        <div className="flex bg-buttonBlue text-lightWhite items-center py-2 px-4 md:py-3 md:px-8 text-sm ml-1 md:ml-0">
           <span>
             <img src={hotel} className="w-4 h-4 mr-1" alt="" />
           </span>

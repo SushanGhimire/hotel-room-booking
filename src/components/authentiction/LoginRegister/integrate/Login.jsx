@@ -96,7 +96,7 @@ function Login({ handleToggle }) {
       formData.append("password", password);
       setLoading(true);
       axiosInstance
-        .post("login/", formData)
+        .post("user/login/", formData)
         .then((res) => {
           setLoading(false);
           const { access, refresh } = res.data;
@@ -106,9 +106,9 @@ function Login({ handleToggle }) {
         })
         .catch((err) => {
           setLoading(false);
-          const { non_field_errors } = err.response.data;
+          const { detail } = err.response.data;
           console.log(err.response);
-          if (non_field_errors) {
+          if (detail) {
             setInvalid("Invalid login credentials");
           }
 

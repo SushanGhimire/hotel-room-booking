@@ -1,7 +1,9 @@
 .swiper-container {
     width: 100%;
-    height: 18em;
-    padding: 10px;
+    /* height: 21em; */
+    /* padding-right: 26px;
+    padding-left: 26px; */
+    padding-bottom: 10px;
   
   }
   
@@ -68,6 +70,11 @@ content: "";
   @media screen and (min-width: 1024px) {
     .swiper-container {
       width: 1024px;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    .swiper-container {
+      width: 1200px;
     }
   }
   @media screen and (min-width: 1440px) {

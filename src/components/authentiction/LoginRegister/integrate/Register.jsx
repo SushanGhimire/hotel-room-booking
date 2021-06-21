@@ -100,17 +100,30 @@ function Register({ handleToggle }) {
       confirmationEmail: "",
     });
     axiosInstance
-      .post("register/", formData)
-      .then((res) => {
+      .post("user/register/", formData)
+      .then(() => {
         setLoading(false);
-        // setData({
-        //   ...data,
-        //   confirmationEmail: "Confirmation link has been sent to your email",
-        // });
-        window.location = "/login";
+        setData({
+          ...data,
+          confirmationEmail: "Confirmation link has been sent to your email",
+        });
+        // window.location = "/login";
+        setData({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+          errors: {
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          },
+          confirmationEmail: "",
+        });
       })
       .catch((err) => {
-        console.log(err.response.data);
+        // console.log(err.response);
         const { email, username } = err.response.data;
         if (email) {
           errors.email = "Email already exist";
@@ -156,12 +169,16 @@ function Register({ handleToggle }) {
       >
         {/* username  */}
         <div className="mt-5">
-          <FormControl variant="outlined" className={classes.input}>
+          <FormControl
+            variant="outlined"
+            size="small"
+            className={classes.input}
+          >
             <InputLabel htmlFor="component-outlined">Username</InputLabel>
             <OutlinedInput
               type="text"
               value={username}
-              id="username"
+              id="username1"
               label="Username"
               autoComplete="off"
               onChange={(e) => handleChange(e, "username")}
@@ -173,12 +190,16 @@ function Register({ handleToggle }) {
         </div>
         {/* email  */}
         <div className="mt-5">
-          <FormControl variant="outlined" className={classes.input}>
+          <FormControl
+            variant="outlined"
+            size="small"
+            className={classes.input}
+          >
             <InputLabel htmlFor="component-outlined">Email</InputLabel>
             <OutlinedInput
               type="text"
               value={email}
-              id="email"
+              id="email1"
               label="Email"
               autoComplete="off"
               onChange={(e) => handleChange(e, "email")}
@@ -188,10 +209,14 @@ function Register({ handleToggle }) {
         </div>
         {/* password  */}
         <div className="mt-5">
-          <FormControl variant="outlined" className={classes.input}>
+          <FormControl
+            variant="outlined"
+            size="small"
+            className={classes.input}
+          >
             <InputLabel htmlFor="component-outlined">Password</InputLabel>
             <OutlinedInput
-              id="password"
+              id="password1"
               value={password}
               label="Password"
               type="password"
@@ -205,7 +230,11 @@ function Register({ handleToggle }) {
         </div>
         {/* confirmPassword  */}
         <div className="mt-5">
-          <FormControl variant="outlined" className={classes.input}>
+          <FormControl
+            variant="outlined"
+            size="small"
+            className={classes.input}
+          >
             <InputLabel htmlFor="component-outlined">
               Confirm Password
             </InputLabel>
@@ -213,7 +242,7 @@ function Register({ handleToggle }) {
               id="confirmPassword"
               value={confirmPassword}
               label="Confirm Password"
-              type="confirmPassword"
+              type="password"
               autoComplete="off"
               onChange={(e) => handleChange(e, "confirmPassword")}
             />
@@ -245,7 +274,11 @@ function Register({ handleToggle }) {
         </div>
         {/* signin button  */}
         <div className="w-full my-5 flex justify-center items-center">
-          <button className="border-2 p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none">
+          <button
+            className={`${
+              loading ? "" : "border-2"
+            } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
+          >
             {/* <span className="text-gray-600 ">Sign In</span> */}
 
             {!loading ? (

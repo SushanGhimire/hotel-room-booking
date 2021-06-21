@@ -2,7 +2,7 @@ import { React, useState, useEffect, useRef } from "react";
 import menu from "../../../assets/images/icons/menu.svg";
 import close from "../../../assets/images/icons/close.svg";
 import { Link } from "react-router-dom";
-function NavBar() {
+function NavBar({ loggedIn }) {
   const [width, setWidth] = useState(window.innerWidth);
   const [loginToggle, setLoginToggle] = useState(false);
   const handleLoginToggle = () => {
@@ -82,7 +82,7 @@ function NavBar() {
             })}
           </div>
           <div className="flex  justify-center space-x-4 items-center group">
-            <div>Register</div>
+            {/* <div>Register</div> */}
             <div
               className="w-16 h-16 relative cursor-pointer"
               onMouseEnter={handleLoginToggle}
@@ -96,12 +96,21 @@ function NavBar() {
                 {/* {loginToggle ? "Login" : ""} */}
                 {/* Login */}
               </div>
-              <Link
-                to="/login"
-                className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
-              >
-                Login
-              </Link>
+              {loggedIn ? (
+                <Link
+                  to="/profile"
+                  className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
+                >
+                  Profile
+                </Link>
+              ) : (
+                <Link
+                  to="/login"
+                  className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
+                >
+                  Login
+                </Link>
+              )}
             </div>
             <div className="flex space-x-1 items-center">
               <span>En</span>

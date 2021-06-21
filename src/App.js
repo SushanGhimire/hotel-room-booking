@@ -5,6 +5,7 @@ import NavBar from "./components/web/static/NavBar";
 
 function App({ loggedIn }) {
   // const { loggedIn } = props;
+  console.log(loggedIn);
   return (
     <div className="font-header bg-lightWhite">
       <NavBar />

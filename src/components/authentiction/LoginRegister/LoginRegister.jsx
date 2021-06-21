@@ -9,8 +9,8 @@ function LoginRegister() {
     setToggle(!toggle);
   };
   return (
-    <div className="w-full min-h-screen flex justify-center items-center bg-primaryBlue relative">
-      <div className="w-full max-w-4xl bg-lightWhite relative lg:flex justify-between items-center rounded-lg overflow-hidden shadow-lg z-20">
+    <div className="w-full min-h-screen flex justify-center items-start  bg-primaryBlue relative">
+      <div className="w-full max-w-4xl bg-lightWhite relative lg:flex justify-between items-center rounded-lg overflow-hidden shadow-lg z-20 mt-10">
         {/* login  */}
         <Login handleToggle={handleToggle} />
         {/* register  */}

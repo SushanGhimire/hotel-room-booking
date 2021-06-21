@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "100%",
+    fontSize: 2,
+  },
+  customTextField: {
+    "& input::placeholder": {
+      fontSize: "20px",
+    },
   },
 }));
 function Login({ handleToggle }) {
@@ -107,7 +113,6 @@ function Login({ handleToggle }) {
         .catch((err) => {
           setLoading(false);
           const { detail } = err.response.data;
-          console.log(err.response);
           if (detail) {
             setInvalid("Invalid login credentials");
           }
@@ -138,7 +143,11 @@ function Login({ handleToggle }) {
       >
         {/* Email  */}
         <div className="mt-5">
-          <FormControl variant="outlined" className={classes.input}>
+          <FormControl
+            variant="outlined"
+            size="small"
+            className={classes.input}
+          >
             <InputLabel htmlFor="component-outlined">Email</InputLabel>
             <OutlinedInput
               type="text"
@@ -153,7 +162,11 @@ function Login({ handleToggle }) {
         </div>
         {/* password  */}
         <div className="mt-5">
-          <FormControl variant="outlined" className={classes.input}>
+          <FormControl
+            variant="outlined"
+            size="small"
+            className={classes.input}
+          >
             <InputLabel htmlFor="component-outlined">Password</InputLabel>
             <OutlinedInput
               id="password"
@@ -217,7 +230,7 @@ function Login({ handleToggle }) {
       </form>
       {/* cant signin  */}
       <div className="mx-auto text-xs font-semibold text-gray-400 cursor-pointer animation hover:text-gray-600">
-        CAN'T SIGN IN?
+        FORGOT PASSWORD?
       </div>
       <div
         className="mx-auto text-xs font-semibold text-gray-400 mt-2 cursor-pointer animation hover:text-gray-600"

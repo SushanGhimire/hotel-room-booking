@@ -8,7 +8,6 @@ function NavBar({ loggedIn }) {
   const handleLoginToggle = () => {
     setLoginToggle(!loginToggle);
   };
-  console.log(loggedIn);
   const mobileSidebar = useRef();
   const coverAll = useRef();
   const navlist = [
@@ -99,7 +98,7 @@ function NavBar({ loggedIn }) {
               </div>
               {loggedIn ? (
                 <Link
-                  to="/profile"
+                  to="/dashboard"
                   className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
                 >
                   Profile
@@ -186,7 +185,7 @@ function NavBar({ loggedIn }) {
                 );
               })}
               {loggedIn ? (
-                <Link to="/profile" className="">
+                <Link to="/dashboard" className="">
                   Profile
                 </Link>
               ) : (

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import facebook from "../../../../assets/images/icons/facebook.svg";
 import search from "../../../../assets/images/icons/search.svg";
+import { Link } from "react-router-dom";
+import axiosInstance from "../../axiosInstance";
 // import bed from "../../../../assets/images/icons/bed.svg";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
-import axiosInstance from "../../axiosInstance";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -36,6 +37,7 @@ function Login({ handleToggle }) {
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState("");
   const handleChange = ({ target: { value } }, property) => {
+    handleErrors(property, value);
     setAuthData({
       ...authData,
       [property]: value,
@@ -84,7 +86,6 @@ function Login({ handleToggle }) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(authData);
     const { email, password, errors } = authData;
     const credentials = ["email", "password"];
     let goAhead;
@@ -201,7 +202,11 @@ function Login({ handleToggle }) {
         </div>
         {/* signin button  */}
         <div className="w-full my-5 flex justify-center items-center">
-          <button className="border-2 p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none">
+          <button
+            className={`${
+              loading ? "" : "border-2"
+            } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
+          >
             {/* <span className="text-gray-600 ">Sign In</span> */}
 
             {!loading ? (
@@ -229,9 +234,12 @@ function Login({ handleToggle }) {
         </div>
       </form>
       {/* cant signin  */}
-      <div className="mx-auto text-xs font-semibold text-gray-400 cursor-pointer animation hover:text-gray-600">
+      <Link
+        to="/confirmemail"
+        className="mx-auto text-xs font-semibold text-gray-400 cursor-pointer animation hover:text-gray-600"
+      >
         FORGOT PASSWORD?
-      </div>
+      </Link>
       <div
         className="mx-auto text-xs font-semibold text-gray-400 mt-2 cursor-pointer animation hover:text-gray-600"
         onClick={handleToggle}

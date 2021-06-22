@@ -14,7 +14,7 @@ export default function LocationDropDown() {
   const [selected, setSelected] = useState();
 
   return (
-    <div className="">
+    <div className="z-10">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1 z-20">
           <Listbox.Button className="flex items-center text-sm focus:outline-none">

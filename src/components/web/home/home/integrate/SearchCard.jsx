@@ -40,7 +40,7 @@ function SearchCard() {
                     disableUnderline: true,
                   }}
                   value={arrival}
-                  placeholder="10/10/2018"
+                  placeholder="10/10/2021"
                   onChange={(date) => setArrival(date)}
                   minDate={new Date()}
                   format="MM/dd/yyyy"
@@ -59,7 +59,7 @@ function SearchCard() {
                     disableUnderline: true,
                   }}
                   value={diparture}
-                  placeholder="10/10/2018"
+                  placeholder="10/10/2021"
                   onChange={(date) => setDeparture(date)}
                   minDate={new Date()}
                   format="MM/dd/yyyy"

@@ -8,6 +8,7 @@ function NavBar({ loggedIn }) {
   const handleLoginToggle = () => {
     setLoginToggle(!loginToggle);
   };
+  console.log(loggedIn);
   const mobileSidebar = useRef();
   const coverAll = useRef();
   const navlist = [
@@ -184,8 +185,9 @@ function NavBar({ loggedIn }) {
                   </Link>
                 );
               })}
-              <div>Register</div>
-              <div className="">Login</div>
+              <Link to="/login" className="">
+                Login
+              </Link>
               <div className="flex space-x-1 items-center">
                 <span>En</span>
                 <span>

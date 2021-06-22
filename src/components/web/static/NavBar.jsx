@@ -185,9 +185,15 @@ function NavBar({ loggedIn }) {
                   </Link>
                 );
               })}
-              <Link to="/login" className="">
-                Login
-              </Link>
+              {loggedIn ? (
+                <Link to="/profile" className="">
+                  Profile
+                </Link>
+              ) : (
+                <Link to="/login" className="">
+                  Login
+                </Link>
+              )}
               <div className="flex space-x-1 items-center">
                 <span>En</span>
                 <span>

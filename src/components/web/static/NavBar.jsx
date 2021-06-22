@@ -185,11 +185,25 @@ function NavBar({ loggedIn }) {
                 );
               })}
               {loggedIn ? (
-                <Link to="/dashboard" className="">
+                <Link
+                  to="/dashboard"
+                  className=""
+                  onClick={() => {
+                    toggleMobileSidebar();
+                    scrollToTop();
+                  }}
+                >
                   Profile
                 </Link>
               ) : (
-                <Link to="/login" className="">
+                <Link
+                  to="/login"
+                  className=""
+                  onClick={() => {
+                    toggleMobileSidebar();
+                    scrollToTop();
+                  }}
+                >
                   Login
                 </Link>
               )}

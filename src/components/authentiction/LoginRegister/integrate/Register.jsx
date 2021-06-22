@@ -148,7 +148,7 @@ function Register({ handleToggle }) {
     confirmPassword: confirmPasswordErr,
   } = errors;
   return (
-    <div className="sm:w-96 flex flex-col py-10 pl-16  mx-auto">
+    <div className="sm:w-96 flex flex-col py-10 px-5 lg:px-0 lg:pl-16  mx-auto">
       <div className="mx-auto text-3xl font-semibold tracking-wider">
         REGISTER
       </div>

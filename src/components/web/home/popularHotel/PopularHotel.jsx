@@ -30,7 +30,7 @@ function PopularHotel() {
   for (let i = 0; i < 10; i++) {
     cards.push(
       <SwiperSlide className="" key={i}>
-        <div className="flex flex-col w-full bg-white shadow-md h-full font-header cursor-pointer relative group rounded overflow-hidden">
+        <div className="flex flex-col w-full bg-white shadow-md h-full font-header cursor-pointer relative group rounded overflow-hidden transform hover:scale-105 animation">
           {/* image  */}
           <div className="h-80 w-full relative">
             <div className="absolute w-full h-full bg-black bg-opacity-0 animation group-hover:bg-opacity-40 top-0 right-0 flex justify-center items-center">
@@ -78,9 +78,12 @@ function PopularHotel() {
     );
   }
   return (
-    <div className="py-5 flex flex-col">
-      <div className="mx-auto text-3xl font-semibold text-buttonBlue">
-        Popular Hotels
+    <div className="py-16 flex flex-col">
+      <div className="mx-auto text-xs pb-1 font-semibold text-buttonBlue opacity-50">
+        OUR HOTELS
+      </div>
+      <div className="mx-auto text-4xl font-semibold text-buttonBlue">
+        Featured Hotels
       </div>
       <div className="mt-10 w-full relative ">
         <Swiper
@@ -92,7 +95,7 @@ function PopularHotel() {
             clickable: true,
           }}
           navigation={true}
-          spaceBetween={5}
+          spaceBetween={10}
           className="mySwiper"
           breakpoints={{
             // when window width is >= 640px

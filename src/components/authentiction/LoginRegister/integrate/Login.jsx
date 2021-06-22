@@ -132,7 +132,7 @@ function Login({ handleToggle }) {
   } = authData;
 
   return (
-    <div className="sm:w-96 flex flex-col py-10 pr-16  mx-auto">
+    <div className="sm:w-96 flex flex-col py-10 px-5 lg:px-0 lg:pr-16  mx-auto">
       {/* <div className="py-5 ">
         <img src={bed} className="w-16 h-16 mx-auto " alt="" />
       </div> */}

@@ -30,7 +30,7 @@ function PopularRoom() {
   for (let i = 0; i < 10; i++) {
     cards.push(
       <SwiperSlide className="" key={i}>
-        <div className="flex flex-col w-full bg-white shadow-md h-full font-subHeader cursor-pointer relative group rounded overflow-hidden text-gray-600">
+        <div className="flex flex-col w-full bg-white shadow-md h-full font-subHeader cursor-pointer relative group rounded overflow-hidden text-gray-600 transform hover:scale-105 animation">
           <div className="h-56 w-full relative">
             <div className="absolute w-full h-full bg-black bg-opacity-0 animation group-hover:bg-opacity-40 top-0 right-0 flex justify-center items-center">
               <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-header opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation">
@@ -63,8 +63,11 @@ function PopularRoom() {
   }
   return (
     <div className="py-20 flex flex-col">
-      <div className="mx-auto text-3xl font-semibold text-buttonBlue">
-        Popular Rooms
+      <div className="mx-auto text-xs pb-1 font-semibold text-buttonBlue opacity-50">
+        OUR ROOMS
+      </div>
+      <div className="mx-auto text-4xl font-semibold text-buttonBlue">
+        Featured Rooms
       </div>
       <div className="mt-10 w-full relative  px-5">
         <Swiper
@@ -76,7 +79,7 @@ function PopularRoom() {
             clickable: true,
           }}
           navigation={true}
-          spaceBetween={5}
+          spaceBetween={10}
           className="mySwiper"
           breakpoints={{
             // when window width is >= 640px

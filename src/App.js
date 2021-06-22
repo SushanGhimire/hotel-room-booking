@@ -2,6 +2,7 @@ import { Switch, Route } from "react-router-dom";
 import LoginRegister from "./components/authentiction/LoginRegister/LoginRegister";
 import Home from "./components/web/home/home/Home";
 import NavBar from "./components/web/static/NavBar";
+import Footer from "./components/web/static/Footer";
 import EmailVerify from "./components/authentiction/email-verification/EmailVerify";
 import EmailVerification from "./components/authentiction/password-reset/EmailVerification";
 import PasswordReset from "./components/authentiction/password-reset/PasswordReset";
@@ -24,7 +25,7 @@ function App({ loggedIn }) {
           </>
         )}
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

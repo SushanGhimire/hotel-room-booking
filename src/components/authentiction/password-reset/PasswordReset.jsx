@@ -42,7 +42,6 @@ function PasswordReset() {
     } else if (password.length < 8) {
       setError("passsword must be 8 character long");
     } else {
-      console.log(Password);
       setLoading(true);
       axiosInstance
         .patch("/user/password-reset-complete/", Password)

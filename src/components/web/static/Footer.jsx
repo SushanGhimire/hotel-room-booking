@@ -3,13 +3,19 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import SendIcon from "@material-ui/icons/Send";
-
+import footerbg from "../../../assets/images/home/footerbg.jpg";
 function Footer() {
   const date = new Date();
   return (
     <>
-      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 wp py-16 md:py-24 bg-primaryBlue text-white">
-        <div className="flex flex-col">
+      <div
+        className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 wp py-16 md:py-24  text-white bg-cover bg-center relative"
+        style={{
+          backgroundImage: `url(${footerbg})`,
+        }}
+      >
+        <div className="w-full h-full top-0 bg-black absolute z-10 bg-opacity-70"></div>
+        <div className="flex flex-col z-20">
           <div className="text-3xl font-semibold mx-auto">LOGO</div>
           {/* social links */}
           <div className="flex mx-auto ">
@@ -24,7 +30,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col z-20 ">
           <div className="text-xl font-semibold mx-auto">QUICK LINKS</div>
           <div className="mx-auto">
             <ul className="text-center text-lg mt-2">
@@ -36,7 +42,7 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col z-20 ">
           <div className="text-xl font-semibold mx-auto">CUSTOMER CARE</div>
           <div>
             <ul className="text-center text-lg mt-2">
@@ -45,7 +51,7 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col z-20">
           <div className="text-xl font-semibold mx-auto">OUR LOCATION</div>
           <div>
             <ul className="text-center text-lg mt-2">
@@ -64,7 +70,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className=" bg-buttonBlue text-white text-center py-4">
+      <div className=" col-span-1 sm:col-span-2 md:col-span-4 bg-black py-4 text-white text-center  z-20">
         <span className="">
           Copyright &copy; {date.getFullYear()} All rights reserved
         </span>

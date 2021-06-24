@@ -20,7 +20,7 @@ function PriceGuests() {
     setValue(newValue);
   };
   return (
-    <div className="w-full grid grid-cols-2 gap-6 border border-gray-300 rounded-lg p-3 ">
+    <div className="w-full grid md:grid-cols-2 gap-6 border border-gray-300 rounded-lg p-3 ">
       {/* Price  */}
       <div className="flex flex-col mr-4 xl:mr-0">
         <div className="text-xs  xl:pb-1.5">Price</div>

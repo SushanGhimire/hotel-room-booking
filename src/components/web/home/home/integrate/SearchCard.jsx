@@ -27,7 +27,7 @@ function SearchCard() {
         </div>
       </div>
       {/* input date bars  */}
-      <div className="w-full grid sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-8 relative">
+      <div className="w-full grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-8 relative">
         <div className="col-span-1 flex items-center">
           {/* Arraival  */}
           <div className="flex border justify-between items-center border-gray-300 rounded-lg p-3">
@@ -70,7 +70,7 @@ function SearchCard() {
             </div>
           </div>
         </div>
-        <div className="col-span-2 flex">
+        <div className="md:col-span-2 flex">
           {/* price and Guests  */}
           <PriceGuests />
         </div>

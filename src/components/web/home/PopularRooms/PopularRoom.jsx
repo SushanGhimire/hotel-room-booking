@@ -44,7 +44,7 @@ function PopularRoom() {
             />
           </div>
           <div className="flex flex-col px-4 space-y-1 pt-4 pb-6">
-            <div className="flex justify-between font-semibold font-header text-buttonBlue">
+            <div className="flex justify-between font-semibold font-header text-gray-500">
               <span>Luxury Room</span>
               <span>Rs 12000/day</span>
             </div>
@@ -63,13 +63,35 @@ function PopularRoom() {
   }
   return (
     <div className="py-20 flex flex-col">
-      <div className="mx-auto text-xs pb-1 font-semibold text-buttonBlue opacity-50">
+      {/* <div className="mx-auto text-xs pb-1 font-semibold text-buttonBlue opacity-50">
         OUR ROOMS
       </div>
       <div className="mx-auto text-4xl font-semibold text-buttonBlue">
         Featured Rooms
+      </div> */}
+      <div className="flex justify-between items-center mb-5">
+        <div className="px-20 text-4xl font-semibold">Featured Rooms</div>
+        <div className="px-20  font-semibold flex items-center animation transform hover:scale-110 cursor-pointer">
+          <span>Explore All</span>
+          <span className="">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
-      <div className="mt-10 w-full relative  px-5">
+      <div className=" w-full relative  px-5">
         <Swiper
           autoplay={{
             delay: 4000,

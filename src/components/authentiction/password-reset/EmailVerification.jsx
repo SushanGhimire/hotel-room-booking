@@ -5,7 +5,10 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
-import kathmandu from "../../../assets/images/icons/kathmandu.png";
+// import kathmandu from "../../../assets/images/icons/kathmandu.png";
+import logreg from "../../../assets/images/home/logreg.jpg";
+import reg from "../../../assets/images/home/reg.jpg";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -75,8 +78,14 @@ function EmailVerification() {
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-start  bg-primaryBlue relative">
-      <div className="w-full max-w-4xl bg-lightWhite relative md:flex justify-between items-center rounded-lg overflow-hidden shadow-lg mt-10 2xl:mt-32 h-96  z-10">
+    <div
+      className="w-full min-h-screen flex justify-center items-start  relative bg-cover bg-center pb-10"
+      style={{
+        backgroundImage: `url(${logreg})`,
+      }}
+    >
+      <div className="w-full h-full top-0 bg-black absolute z-10 bg-opacity-70"></div>
+      <div className="w-full max-w-4xl bg-lightWhite relative md:flex justify-between items-center rounded-lg overflow-hidden shadow-lg mt-24 2xl:mt-44 h-100 z-10">
         <div className="w-full md:w-2/5 flex flex-col px-10 ">
           {/* <div className="py-5 ">
         <img src={bed} className="w-16 h-16 mx-auto " alt="" />
@@ -142,17 +151,28 @@ function EmailVerification() {
               </button>
             </div>
           </form>
-          <div className="mx-auto text-xs font-semibold text-gray-400 mt-2 cursor-pointer animation hover:text-gray-600 uppercase">
+          <div className="mx-auto text-xs font-semibold text-gray-400 mt-2  uppercase">
             Please verify your email first.
           </div>
+          <Link
+            to="/login"
+            className="mx-auto text-xs font-semibold text-gray-400 mt-2 cursor-pointer animation hover:text-gray-600 uppercase"
+          >
+            GO TO LOGIN PAGE
+          </Link>
         </div>
-        <div className={`hidden md:flex animation flex-1 h-full bg-buttonBlue`}>
+        <div
+          className={`hidden md:flex animation flex-1 h-full  bg-cover bg-center`}
+          style={{
+            backgroundImage: `url(${reg})`,
+          }}
+        >
           {/* <img src={hotel} alt="" className="mt-12" /> */}
         </div>
       </div>
-      <div className="w-full mt-5 bottom-10 absolute right-0 z-0">
+      {/* <div className="w-full mt-5 bottom-10 absolute right-0 z-0">
         <img src={kathmandu} className="w-full " alt="" />
-      </div>
+      </div> */}
     </div>
   );
 }

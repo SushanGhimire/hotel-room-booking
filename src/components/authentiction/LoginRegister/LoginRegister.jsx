@@ -10,7 +10,7 @@ function LoginRegister() {
   };
   return (
     <div className="w-full min-h-screen flex justify-center items-start  bg-primaryBlue relative">
-      <div className="w-full max-w-4xl bg-lightWhite relative lg:flex justify-between items-center rounded-lg overflow-hidden shadow-lg z-20 mt-10 2xl:mt-32">
+      <div className="w-full max-w-4xl bg-lightWhite relative lg:flex justify-between items-center rounded-lg overflow-hidden shadow-lg z-20 mt-24 2xl:mt-44">
         {/* login  */}
         <Login handleToggle={handleToggle} />
         {/* register  */}
@@ -23,7 +23,7 @@ function LoginRegister() {
           {/* <img src={hotel} alt="" className="mt-12" /> */}
         </div>
       </div>
-      <div className="w-full mt-5 bottom-10 absolute right-0">
+      <div className="w-full mt-5 bottom-3 absolute right-0">
         <img src={kathmandu} className="w-full " alt="" />
       </div>
     </div>

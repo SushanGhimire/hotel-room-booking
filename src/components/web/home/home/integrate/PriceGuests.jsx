@@ -20,7 +20,7 @@ function PriceGuests() {
     setValue(newValue);
   };
   return (
-    <div className="flex-1 sm:flex border border-gray-300 rounded-lg p-3 space-y-4 sm:space-y-0 xl:space-x-4">
+    <div className="w-full grid grid-cols-2 gap-6 border border-gray-300 rounded-lg p-3 ">
       {/* Price  */}
       <div className="flex flex-col mr-4 xl:mr-0">
         <div className="text-xs  xl:pb-1.5">Price</div>
@@ -47,7 +47,7 @@ function PriceGuests() {
         <div className="">
           <input
             type="number"
-            className="bg-lightWhite  w-24 focus:outline-none  border-b border-buttonBlue text-lg font-semibold"
+            className="bg-white  w-24 focus:outline-none  border-b border-buttonBlue text-lg font-semibold"
             placeholder=""
             value={guests}
             onChange={(e) => setGuests(e.target.value)}

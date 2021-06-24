@@ -9,7 +9,7 @@ function FrontPage() {
         backgroundImage: `url(${front})`,
       }}
     >
-      <div className="w-full flex flex-col mt-24 2xl:mt-44">
+      <div className="w-full flex flex-col mt-36 2xl:mt-80">
         {/* top header  */}
         <div className="flex justify-start  text-5xl lg:text-6xl font-semibold tracking-wider wp">
           <div>
@@ -19,7 +19,7 @@ function FrontPage() {
           </div>
         </div>
         {/* flight hotel roadway field  */}
-        <div className="flex px-5 md:px-10 lg:px-28 2xl:mt-44">
+        <div className="flex px-5 md:px-10 lg:px-28 ">
           <FlightHotel />
         </div>
       </div>

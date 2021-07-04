@@ -2,7 +2,7 @@ import React from "react";
 
 function RoomCard() {
   return (
-    <div className="flex flex-col border shadow text-gray-500 hover:bg-gray-100 animation cursor-pointer transform hover:scale-105">
+    <div className="flex flex-col border shadow text-gray-500 hover:bg-gray-50 animation cursor-pointer transform hover:scale-105">
       {/* image  */}
       <div className="flex h-40">
         <img
@@ -42,7 +42,7 @@ function RoomCard() {
         </div>
       </div>
       <div className="flex pb-4">
-        <button className="mx-auto text-black border border-black rounded-md px-4 py-1 text-sm hover:bg-black hover:text-white animation">
+        <button className="mx-auto text-alert border border-alert rounded-md px-4 py-1 text-sm hover:bg-alert hover:text-white animation">
           More Details
         </button>
       </div>

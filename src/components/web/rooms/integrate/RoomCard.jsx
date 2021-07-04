@@ -12,7 +12,7 @@ function RoomCard() {
         />
       </div>
       {/* room details  */}
-      <div className="flex flex-col px-5 pt-3 pb-4 space-y-2">
+      <div className="flex flex-col px-5 pt-3 pb-4 space-y-2 xl:text-sm">
         {/* room type  */}
         <div className="font-medium text-black text-2xl">Luxury Room</div>
         {/* price */}

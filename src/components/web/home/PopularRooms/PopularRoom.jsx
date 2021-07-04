@@ -69,9 +69,9 @@ function PopularRoom() {
       <div className="mx-auto text-4xl font-semibold text-buttonBlue">
         Featured Rooms
       </div> */}
-      <div className="flex justify-between items-center mb-5">
-        <div className="px-20 text-4xl font-semibold">Featured Rooms</div>
-        <div className="px-20  font-semibold flex items-center animation transform hover:scale-110 cursor-pointer">
+      <div className="sm:flex justify-between items-center mb-5 px-5 md:px-10 lg:px-20 ">
+        <div className="text-3xl md:text-4xl font-semibold">Featured Rooms</div>
+        <div className="font-semibold flex items-center animation transform hover:scale-110 cursor-pointer mt-2 sm:mt-0">
           <span>Explore All</span>
           <span className="">
             <svg

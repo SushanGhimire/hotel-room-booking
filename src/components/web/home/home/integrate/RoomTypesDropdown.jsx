@@ -47,7 +47,7 @@ export default function RoomTypesDropdown() {
                 <Listbox.Option
                   key={personIdx}
                   value={person}
-                  className=" px-3 py-1 cursor-pointer mt-1 hover:bg-buttonBlue hover:text-lightWhite rounded transition-all duration-300 ease-in-out"
+                  className=" px-3 py-1 cursor-pointer mt-1 hover:bg-black hover:text-lightWhite rounded transition-all duration-300 ease-in-out"
                 >
                   <span className="">{person.name}</span>
                 </Listbox.Option>

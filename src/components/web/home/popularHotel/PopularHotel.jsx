@@ -45,7 +45,7 @@ function PopularHotel() {
             />
           </div>
           {/* absolute information  */}
-          <div className="absolute bottom-0 right-0 w-full flex flex-col text-white bg-buttonBlue bg-opacity-60 p-4">
+          <div className="absolute bottom-0 right-0 w-full flex flex-col text-white bg-black bg-opacity-60 p-4">
             <div className="flex justify-between text-lg font-semibold">
               <div>A Star Hotel</div>
               <div className="flex items-center">
@@ -79,9 +79,11 @@ function PopularHotel() {
   }
   return (
     <div className="py-16 flex flex-col">
-      <div className="flex justify-between items-center mb-5">
-        <div className="px-20 text-4xl font-semibold">Featured Hotels</div>
-        <div className="px-20  font-semibold flex items-center animation transform hover:scale-110 cursor-pointer">
+      <div className="sm:flex justify-between items-center mb-5 px-5 md:px-10 lg:px-20 ">
+        <div className="text-3xl md:text-4xl font-semibold">
+          Featured Hotels
+        </div>
+        <div className="font-semibold flex items-center animation transform hover:scale-110 cursor-pointer mt-2 sm:mt-0">
           <span>Explore All</span>
           <span className="">
             <svg

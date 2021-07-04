@@ -19,13 +19,13 @@ function Footer() {
           <div className="text-3xl font-semibold mx-auto">LOGO</div>
           {/* social links */}
           <div className="flex mx-auto ">
-            <div className="transform hover:scale-110 animation cursor-pointer hover:bg-buttonBlue rounded p-1">
+            <div className="transform hover:scale-110 animation cursor-pointer hover:bg-black rounded p-1">
               <FacebookIcon />
             </div>
-            <div className="transform hover:scale-110 animation cursor-pointer hover:bg-buttonBlue rounded p-1">
+            <div className="transform hover:scale-110 animation cursor-pointer hover:bg-black rounded p-1">
               <InstagramIcon className="social" />
             </div>
-            <div className="transform hover:scale-110 animation cursor-pointer hover:bg-buttonBlue rounded p-1">
+            <div className="transform hover:scale-110 animation cursor-pointer hover:bg-black rounded p-1">
               <TwitterIcon className="social" />
             </div>
           </div>

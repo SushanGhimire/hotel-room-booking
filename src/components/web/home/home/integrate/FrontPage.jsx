@@ -4,7 +4,7 @@ import front from "../../../../../assets/images/home/front.jpg";
 function FrontPage() {
   return (
     <div
-      className="w-full min-h-screen  text-white  pb-10   bg-lightWhite bg-cover bg-center flex  relative bg-no-repeat bg-fixed"
+      className="w-full min-h-screen  text-white  pb-10   bg-lightWhite bg-cover md:bg-center flex  relative bg-no-repeat md:bg-fixed"
       style={{
         backgroundImage: `url(${front})`,
       }}

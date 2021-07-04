@@ -6,12 +6,14 @@ import Footer from "./components/web/static/Footer";
 import EmailVerify from "./components/authentiction/email-verification/EmailVerify";
 import EmailVerification from "./components/authentiction/password-reset/EmailVerification";
 import PasswordReset from "./components/authentiction/password-reset/PasswordReset";
+import Rooms from "./components/web/rooms/Rooms";
 function App({ loggedIn }) {
   return (
     <div className="font-header bg-white">
       <NavBar loggedIn={loggedIn} />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/rooms" component={Rooms} />
         <Route exact path="/user/email-verify/:token" component={EmailVerify} />
         <Route exact path="/confirmemail" component={EmailVerification} />
         <Route

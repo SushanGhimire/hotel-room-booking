@@ -32,7 +32,7 @@ function RoomCard() {
         </div>
         {/*Capacity  */}
         <div className="flex">
-          <span className="w-28">Hotel:</span>
+          <span className="w-28">Capacity:</span>
           <span>Max person 3</span>
         </div>
         {/* Bed  */}

@@ -10,13 +10,13 @@ function Rooms() {
   return (
     <>
       <div
-        className="w-full min-h-screen flex flex-col justify-center items-start relative  bg-cover bg-center pb-10"
+        className="w-full min-h-screen flex flex-col justify-center  relative  bg-cover bg-center pb-10"
         style={{
           backgroundImage: `url(${rooms})`,
         }}
       >
         <div className="absolute w-full h-full top-0 bg-black opacity-20 z-0"></div>
-        <div className="w-full flex flex-col mt-36 2xl:mt-80 z-10">
+        <div className="w-full flex flex-col mt-32 2xl:mt-80 z-10">
           {/* top header  */}
           <div className="flex justify-start  text-5xl lg:text-6xl font-semibold tracking-wider wp text-white ">
             <div>

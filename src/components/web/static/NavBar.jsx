@@ -117,6 +117,7 @@ function NavBar({ loggedIn }) {
                 {loggedIn ? (
                   <Link
                     to="/dashboard"
+                    onClick={scrollToTop}
                     className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
                   >
                     Profile
@@ -124,6 +125,7 @@ function NavBar({ loggedIn }) {
                 ) : (
                   <Link
                     to="/login"
+                    onClick={scrollToTop}
                     className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
                   >
                     Login

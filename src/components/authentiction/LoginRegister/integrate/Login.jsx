@@ -236,12 +236,12 @@ function Login({ handleToggle }) {
       {/* cant signin  */}
       <Link
         to="/confirmemail"
-        className="mx-auto text-xs font-semibold text-gray-400 cursor-pointer animation hover:text-gray-600"
+        className="mx-auto text-xs font-semibold text-gray-400 cursor-pointer animation hover:text-gray-600 font-subHeader"
       >
         FORGOT PASSWORD?
       </Link>
       <div
-        className="mx-auto text-xs font-semibold text-gray-400 mt-2 cursor-pointer animation hover:text-gray-600"
+        className="mx-auto text-xs font-semibold text-gray-400 mt-2 cursor-pointer animation hover:text-gray-600 font-subHeader"
         onClick={handleToggle}
       >
         CREATE ACCOUNT

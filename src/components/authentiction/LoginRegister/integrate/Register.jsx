@@ -297,7 +297,7 @@ function Register({ handleToggle }) {
       </form>
       {/* cant signin  */}
       <div
-        className="mx-auto text-xs font-semibold text-gray-400 cursor-pointer animation hover:text-gray-600"
+        className="mx-auto text-xs font-semibold text-gray-400 cursor-pointer animation hover:text-gray-600 font-subHeader"
         onClick={handleToggle}
       >
         ALREADY HAVE AN ACCOUNT?

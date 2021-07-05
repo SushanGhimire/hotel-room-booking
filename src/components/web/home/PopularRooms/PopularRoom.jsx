@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../../authentiction/axiosInstance";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -12,8 +13,31 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 function PopularRoom() {
-  let cards = [];
+  const [roomData, setRoomData] = useState([]);
   let star = [];
+  const roomImg = [
+    {
+      img: "https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1592229505678-cf99a9908e03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1592229505726-ca121723b8ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1560635921-171138a3955e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
+    },
+  ];
   for (let i = 0; i < 5; i++) {
     star.push(
       <svg
@@ -27,40 +51,20 @@ function PopularRoom() {
       </svg>
     );
   }
-  for (let i = 0; i < 10; i++) {
-    cards.push(
-      <SwiperSlide className="" key={i}>
-        <div className="flex flex-col w-full bg-white shadow-md h-full font-subHeader cursor-pointer relative group rounded overflow-hidden text-gray-600 transform hover:scale-105 animation">
-          <div className="h-56 w-full relative">
-            <div className="absolute w-full h-full bg-black bg-opacity-0 animation group-hover:bg-opacity-40 top-0 right-0 flex justify-center items-center">
-              <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm">
-                More Details
-              </button>
-            </div>
-            <img
-              src="https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="flex flex-col px-4 space-y-1 pt-4 pb-6">
-            <div className="flex justify-between items-center font-semibold font-header text-gray-800">
-              <span className="text-xl">Luxury Room</span>
-              <span className="text-highlight">Rs 12000/day</span>
-            </div>
-            <div className="flex text-xl font-header font-semibold text-highlight">
-              A Star Hotel
-            </div>
-            <div className="flex text-sm">Bharatpu-1, Chitwan</div>
-            <div className="flex items-center  space-x-3 text-sm">
-              <span>Review</span>
-              <span className="flex">{star}</span>
-            </div>
-          </div>
-        </div>
-      </SwiperSlide>
-    );
-  }
+  useEffect(() => {
+    axiosInstance
+      .get("/hotel/room/")
+      .then((res) => {
+        console.log(res.data);
+        setRoomData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // return () => {
+    //   cleanup
+    // }
+  }, []);
   return (
     <div className="py-20 flex flex-col">
       <div className="sm:flex justify-between items-center mb-5 px-5 md:px-10 lg:px-20 ">
@@ -123,7 +127,45 @@ function PopularRoom() {
           }}
           // slidesPerView={4}
         >
-          {cards}
+          {Array.isArray(roomData) &&
+            roomData.map((room, index) => {
+              const { name, description } = room;
+              return (
+                <SwiperSlide className="" key={index}>
+                  <div className="flex flex-col w-full bg-white shadow-md h-full font-subHeader cursor-pointer relative group rounded overflow-hidden text-gray-600 transform hover:scale-105 animation">
+                    <div className="h-56 w-full relative">
+                      <div className="absolute w-full h-full bg-black bg-opacity-0 animation group-hover:bg-opacity-40 top-0 right-0 flex justify-center items-center">
+                        <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm">
+                          More Details
+                        </button>
+                      </div>
+                      <img
+                        src={roomImg[index].img}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col px-4 space-y-1 pt-4 pb-6">
+                      <div className="flex justify-between items-center font-semibold font-header text-gray-800">
+                        <span className="text-lg">{name}</span>
+                        <span className="text-highlight">Rs 12000/day</span>
+                      </div>
+                      <div className="flex text-xl font-header font-semibold text-highlight">
+                        A Star Hotel
+                      </div>
+                      <div className="flex text-sm">{description}</div>
+                      <div className="flex items-center  space-x-3 text-sm">
+                        <span>Review</span>
+                        <span className="flex">
+                          {star}
+                          <span></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
         </Swiper>
       </div>
     </div>

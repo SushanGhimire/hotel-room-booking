@@ -2,7 +2,7 @@ import React from "react";
 
 function RoomCard() {
   return (
-    <div className="flex flex-col border shadow text-gray-500 hover:bg-gray-50 animation cursor-pointer transform hover:scale-105">
+    <div className="flex flex-col border shadow text-gray-500 hover:bg-gray-50 animation cursor-pointer transform hover:scale-105 rounded-md overflow-hidden">
       {/* image  */}
       <div className="flex h-40">
         <img
@@ -12,37 +12,41 @@ function RoomCard() {
         />
       </div>
       {/* room details  */}
-      <div className="flex flex-col px-5 pt-3 pb-4 space-y-2 xl:text-sm">
+      <div className="flex flex-col px-5 pt-3 pb-4 space-y-2 xl:text-sm font-subHeader">
         {/* room type  */}
-        <div className="font-medium text-black text-2xl">Luxury Room</div>
+        <div className="font-medium text-black text-2xl font-header">
+          Luxury Room
+        </div>
         {/* price */}
         <div className="text-sm">
-          <span className="font-semibold text-black text-lg">Rs 2000</span>
+          <span className="font-semibold text-highlight font-header text-xl">
+            Rs 2000
+          </span>
           /pernight
         </div>
         {/* hotel name  */}
-        <div className="flex">
-          <span className="w-28">Hotel:</span>
+        <div className="flex items-center">
+          <span className="w-24">Hotel:</span>
           <span>Royal Century</span>
         </div>
         {/* size  */}
-        <div className="flex">
-          <span className="w-28">Size:</span>
+        <div className="flex items-center">
+          <span className="w-24">Size:</span>
           <span>20ft</span>
         </div>
         {/*Capacity  */}
-        <div className="flex">
-          <span className="w-28">Capacity:</span>
+        <div className="flex items-center">
+          <span className="w-24">Capacity:</span>
           <span>Max person 3</span>
         </div>
         {/* Bed  */}
-        <div className="flex">
-          <span className="w-28">Bed:</span>
+        <div className="flex items-center">
+          <span className="w-24">Bed:</span>
           <span>King Beds</span>
         </div>
       </div>
       <div className="flex pb-4">
-        <button className="mx-auto text-alert border border-alert rounded-md px-4 py-1 text-sm hover:bg-alert hover:text-white animation">
+        <button className="mx-auto text-alert border border-alert rounded-md px-4 py-1 text-sm hover:bg-alert hover:text-white animation font-subHeader">
           More Details
         </button>
       </div>

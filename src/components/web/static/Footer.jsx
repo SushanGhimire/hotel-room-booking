@@ -9,7 +9,7 @@ function Footer() {
   return (
     <>
       <div
-        className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 wp py-16 md:py-24  text-white bg-cover bg-center relative"
+        className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 wp py-16 md:py-24  text-white bg-cover bg-center relative font-subHeader"
         style={{
           backgroundImage: `url(${footerbg})`,
         }}

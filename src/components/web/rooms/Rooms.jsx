@@ -10,15 +10,14 @@ function Rooms() {
   return (
     <>
       <div
-        className="w-full min-h-screen flex flex-col justify-center  relative  bg-cover bg-center pb-10"
+        className="w-full min-h-screen  text-white  pb-10   bg-lightWhite bg-cover md:bg-center flex  relative bg-no-repeat md:bg-fixed font-subHeader"
         style={{
           backgroundImage: `url(${rooms})`,
         }}
       >
-        <div className="absolute w-full h-full top-0 bg-black opacity-20 z-0"></div>
-        <div className="w-full flex flex-col mt-32 2xl:mt-80 z-10">
+        <div className="w-full flex flex-col mt-36 2xl:mt-80">
           {/* top header  */}
-          <div className="flex justify-start  text-5xl lg:text-6xl font-semibold tracking-wider wp text-white ">
+          <div className="flex justify-start  text-5xl lg:text-6xl font-semibold tracking-wider wp">
             <div>
               GET ROOMS
               <br />
@@ -38,7 +37,7 @@ function Rooms() {
         </div>
         <div className="w-36 mt-1 bg-black h-0.5 mx-auto"></div>
         {/* rooms  */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-2 mt-10">
           {card}
         </div>
       </div>

@@ -72,7 +72,7 @@ function NavBar({ loggedIn }) {
   return (
     <div className="fixed z-30 w-full font-header">
       <div
-        className={`w-full text-white flex justify-between px-5 md:px-10 lg:px-28 font-header items-center py-5 lg:py-0 bg-opacity-40 animation ${
+        className={`w-full text-white flex justify-between px-5 md:px-10 lg:px-28 font-subHeader items-center py-5 lg:py-0 bg-opacity-40 animation ${
           position ? "bg-black 0" : ""
         } `}
       >

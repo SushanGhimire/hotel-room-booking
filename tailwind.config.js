@@ -9,10 +9,11 @@ module.exports = {
         alert: "#e63946",
         lightWhite: "#f1faee",
         lightBlue: "#a8dadc",
+        highlight: "#E0A975",
       },
       fontFamily: {
-        subHeader: ["Dosis", "sans-serif"],
-        header: ["Roboto", "sans-serif"],
+        subHeader: ["Roboto", "sans-serif"],
+        header: ["Lora", "serif"],
       },
       spacing: {
         68: "17rem",

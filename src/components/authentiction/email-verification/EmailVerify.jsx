@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
+import emailverify from "../../../assets/images/home/emailverify.jpg";
 function EmailVerify() {
   const { token } = useParams();
   console.log(token);
@@ -35,7 +36,12 @@ function EmailVerify() {
     // eslint-disable-next-line
   }, [stop]);
   return (
-    <div className="w-full  flex justify-center items-center py-20">
+    <div
+      className="w-full min-h-screen flex flex-col justify-center items-center relative  bg-cover bg-center pb-10"
+      style={{
+        backgroundImage: `url(${emailverify})`,
+      }}
+    >
       <div
         className={`${
           verified ? "bg-green-600" : "bg-red-600"

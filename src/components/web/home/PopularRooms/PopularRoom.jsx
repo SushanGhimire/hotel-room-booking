@@ -33,8 +33,8 @@ function PopularRoom() {
         <div className="flex flex-col w-full bg-white shadow-md h-full font-subHeader cursor-pointer relative group rounded overflow-hidden text-gray-600 transform hover:scale-105 animation">
           <div className="h-56 w-full relative">
             <div className="absolute w-full h-full bg-black bg-opacity-0 animation group-hover:bg-opacity-40 top-0 right-0 flex justify-center items-center">
-              <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-header opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation">
-                Read More
+              <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm">
+                More Details
               </button>
             </div>
             <img
@@ -44,15 +44,15 @@ function PopularRoom() {
             />
           </div>
           <div className="flex flex-col px-4 space-y-1 pt-4 pb-6">
-            <div className="flex justify-between font-semibold font-header text-gray-500">
-              <span>Luxury Room</span>
-              <span>Rs 12000/day</span>
+            <div className="flex justify-between items-center font-semibold font-header text-gray-800">
+              <span className="text-xl">Luxury Room</span>
+              <span className="text-highlight">Rs 12000/day</span>
             </div>
-            <div className="flex text-xl font-header font-semibold text-alert">
+            <div className="flex text-xl font-header font-semibold text-highlight">
               A Star Hotel
             </div>
-            <div className="flex ">Bharatpu-1, Chitwan</div>
-            <div className="flex items-center  space-x-3">
+            <div className="flex text-sm">Bharatpu-1, Chitwan</div>
+            <div className="flex items-center  space-x-3 text-sm">
               <span>Review</span>
               <span className="flex">{star}</span>
             </div>
@@ -63,16 +63,10 @@ function PopularRoom() {
   }
   return (
     <div className="py-20 flex flex-col">
-      {/* <div className="mx-auto text-xs pb-1 font-semibold text-buttonBlue opacity-50">
-        OUR ROOMS
-      </div>
-      <div className="mx-auto text-4xl font-semibold text-buttonBlue">
-        Featured Rooms
-      </div> */}
       <div className="sm:flex justify-between items-center mb-5 px-5 md:px-10 lg:px-20 ">
-        <div className="text-3xl md:text-4xl font-semibold">Featured Rooms</div>
+        <div className="text-3xl md:text-4xl font-medium">Featured Rooms</div>
         <div className="font-semibold flex items-center animation transform hover:scale-110 cursor-pointer mt-2 sm:mt-0">
-          <span>Explore All</span>
+          <span className="tracking-wide">Explore All</span>
           <span className="">
             <svg
               className="w-6 h-6"

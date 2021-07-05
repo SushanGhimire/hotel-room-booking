@@ -108,7 +108,7 @@ function Register({ handleToggle }) {
       .then(() => {
         setLoading(false);
         setConfirmationEmail("Confirmation link has been sent to your email");
-        // window.location = "/login";
+        window.location = "/login";
         setData({
           username: "",
           email: "",

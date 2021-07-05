@@ -34,8 +34,8 @@ function PopularHotel() {
           {/* image  */}
           <div className="h-80 w-full relative">
             <div className="absolute w-full h-full bg-black bg-opacity-0 animation group-hover:bg-opacity-40 top-0 right-0 flex justify-center items-center">
-              <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-header opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation">
-                Read More
+              <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm">
+                More Details
               </button>
             </div>
             <img
@@ -63,7 +63,7 @@ function PopularHotel() {
                 <div>4.5</div>
               </div>
             </div>
-            <div className="flex justify-between items-center text-sm font-medium">
+            <div className="flex justify-between items-center text-sm font-medium font-subHeader">
               <div className="flex items-center">
                 <div>
                   <img src={pin2} className="w-4 h-4" alt="" />
@@ -80,11 +80,9 @@ function PopularHotel() {
   return (
     <div className="py-16 flex flex-col">
       <div className="sm:flex justify-between items-center mb-5 px-5 md:px-10 lg:px-20 ">
-        <div className="text-3xl md:text-4xl font-semibold">
-          Featured Hotels
-        </div>
+        <div className="text-3xl md:text-4xl font-medium">Featured Hotels</div>
         <div className="font-semibold flex items-center animation transform hover:scale-110 cursor-pointer mt-2 sm:mt-0">
-          <span>Explore All</span>
+          <span className="tracking-wide">Explore All</span>
           <span className="">
             <svg
               className="w-6 h-6"

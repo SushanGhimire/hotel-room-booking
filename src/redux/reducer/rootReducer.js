@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
-import handleIncDec from "./incDecReducer";
-
+import darkModeReducer from "./darkModeReducer";
 const rootReducer = combineReducers({
-  IncDec: handleIncDec,
+  darkmode: darkModeReducer,
 });
 
 export default rootReducer;

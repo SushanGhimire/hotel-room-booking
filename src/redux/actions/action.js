@@ -1,13 +1,7 @@
-import { DEC_NUM, INC_NUM } from "./actionsTypes";
+import { DARK_MODE } from "./actionsTypes";
 
-export const incNumber = () => {
+export const darkToggle = () => {
   return {
-    type: INC_NUM,
-  };
-};
-
-export const decNumber = () => {
-  return {
-    type: DEC_NUM,
+    type: DARK_MODE,
   };
 };

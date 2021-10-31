@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     width: 42,
   },
 });
-function PriceGuests() {
+function PriceGuests({ lang }) {
   const classes = useStyles();
   const [value, setValue] = React.useState([100, 1000]);
   const [guests, setGuests] = useState(1);
@@ -23,7 +23,9 @@ function PriceGuests() {
     <div className="w-full grid md:grid-cols-2 gap-6 border border-gray-300 rounded-lg p-3 ">
       {/* Price  */}
       <div className="flex flex-col mr-4 xl:mr-0">
-        <div className="text-xs  xl:pb-1.5">Price</div>
+        <div className="text-sm  xl:pb-1.5">
+          {lang === "EN" ? "Price" : "मूल्य"}
+        </div>
         <div className={classes.root}>
           <Slider
             value={value}
@@ -43,7 +45,7 @@ function PriceGuests() {
       </div>
       {/* guest  */}
       <div className="flex flex-col">
-        <div className="text-xs">Guests</div>
+        <div className="text-sm">{lang === "EN" ? "Guests" : "अतिथिहरू"}</div>
         <div className="">
           <input
             type="number"

@@ -1,7 +1,8 @@
-import { DARK_MODE } from "../actions/actionsTypes";
+import { DARK_MODE, TOGGLE_LANG } from "../actions/actionsTypes";
 
 const initialState = {
   darkmode: false,
+  lang: "EN",
 };
 
 const darkModeReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const darkModeReducer = (state = initialState, action) => {
       return {
         ...state,
         darkmode: !state.darkmode,
+      };
+    case TOGGLE_LANG:
+      return {
+        ...state,
+        lang: action.payload,
       };
     default:
       return state;

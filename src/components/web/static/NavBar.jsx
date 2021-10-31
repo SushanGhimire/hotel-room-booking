@@ -2,7 +2,11 @@ import { React, useState, useEffect, useRef } from "react";
 import menu from "../../../assets/images/icons/menu.svg";
 import close from "../../../assets/images/icons/close.svg";
 import { Link } from "react-router-dom";
-function NavBar({ loggedIn }) {
+import { useDispatch } from "react-redux";
+import * as actions from "../../../redux/actions/action";
+import { navlist } from "./navList";
+function NavBar({ loggedIn, lang }) {
+  const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const [position, setPosition] = useState(0);
   const [loginToggle, setLoginToggle] = useState(false);
@@ -11,28 +15,6 @@ function NavBar({ loggedIn }) {
   };
   const mobileSidebar = useRef();
   const coverAll = useRef();
-  const navlist = [
-    {
-      name: "Home",
-      to: "/",
-    },
-    {
-      name: "Rooms",
-      to: "/rooms",
-    },
-    {
-      name: "Services",
-      to: "/services",
-    },
-    {
-      name: "About Us",
-      to: "/about-us",
-    },
-    {
-      name: "Contact Us",
-      to: "/contct-us",
-    },
-  ];
   const toggleMobileSidebar = () => {
     const sidebar = mobileSidebar.current;
     const coverall = coverAll.current;
@@ -86,7 +68,7 @@ function NavBar({ loggedIn }) {
           <>
             <div className="flex justify-center space-x-4 items-center">
               {navlist.map((list, index) => {
-                const { name, to } = list;
+                const { name, to, np } = list;
                 return (
                   <Link
                     to={to}
@@ -94,7 +76,7 @@ function NavBar({ loggedIn }) {
                     key={index}
                     className="border-b-2 border-transparent animation hover:border-white h-16 flex justify-center items-center hover"
                   >
-                    {name}
+                    {lang === "EN" ? name : np}
                   </Link>
                 );
               })}
@@ -133,7 +115,7 @@ function NavBar({ loggedIn }) {
                 )}
               </div>
               <div className="flex space-x-1 items-center">
-                <span>En</span>
+                {/* <span>En</span>
                 <span>
                   <svg
                     className="w-5 h-5"
@@ -147,7 +129,17 @@ function NavBar({ loggedIn }) {
                       clipRule="evenodd"
                     />
                   </svg>
-                </span>
+                </span> */}
+                <select
+                  name=""
+                  id=""
+                  className=" bg-transparent focus:outline-none text-black 
+                  cursor-pointer"
+                  onChange={(e) => dispatch(actions.toggleLang(e.target.value))}
+                >
+                  <option value="EN">EN</option>
+                  <option value="NP">NP</option>
+                </select>
               </div>
             </div>
           </>

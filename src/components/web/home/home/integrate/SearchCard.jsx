@@ -8,7 +8,7 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-function SearchCard() {
+function SearchCard({ lang }) {
   const [arrival, setArrival] = useState(new Date());
   const [diparture, setDeparture] = useState(new Date());
   return (
@@ -18,11 +18,11 @@ function SearchCard() {
         <div className="md:flex md:space-x-4 space-y-2 md:space-y-0 md:items-center">
           {/* first class */}
           <div className="flex items-center text-sm">
-            <RoomTypesDropdown />
+            <RoomTypesDropdown lang={lang} />
           </div>
           {/* Number of passenger */}
           <div className="flex items-center text-sm">
-            <LocationDropDown />
+            <LocationDropDown lang={lang} />
           </div>
         </div>
       </div>
@@ -32,7 +32,9 @@ function SearchCard() {
           {/* Arraival  */}
           <div className="flex border justify-between items-center border-gray-300 rounded-lg p-3">
             <div className="flex-flex-col">
-              <div className="text-xs">Arrival</div>
+              <div className="text-sm">
+                {lang === "EN" ? "Arrival" : "आगमन समय"}
+              </div>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   clearable
@@ -53,7 +55,9 @@ function SearchCard() {
           {/* Diparture  */}
           <div className="flex border justify-between items-center border-gray-300 rounded-lg p-3">
             <div className="flex-flex-col">
-              <div className="text-xs">Diparture</div>
+              <div className="text-sm">
+                {lang === "EN" ? "Diparture" : "प्रस्थान समय"}
+              </div>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   clearable
@@ -72,7 +76,7 @@ function SearchCard() {
         </div>
         <div className="md:col-span-2 flex">
           {/* price and Guests  */}
-          <PriceGuests />
+          <PriceGuests lang={lang} />
         </div>
         {/* search button  */}
         <div className="absolute -bottom-10 -right-3 text-sm">
@@ -80,7 +84,7 @@ function SearchCard() {
             className="flex bg-black text-white px-6 py-3 rounded-md
             items-center"
           >
-            <span> Search Hotels</span>
+            <span> {lang === "EN" ? "Search Hotels" : "होटल खोज्नुहोस्"}</span>
             <span>
               <img src={next} className="w-4 h-4 ml-2" alt="" />
             </span>

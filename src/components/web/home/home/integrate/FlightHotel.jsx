@@ -4,7 +4,7 @@ import hotel from "../../../../../assets/images/icons/hotel.svg";
 import restaurant from "../../../../../assets/images/icons/restaurant.svg";
 
 import SearchCard from "./SearchCard";
-function FlightHotel() {
+function FlightHotel({ lang }) {
   return (
     <div className="mt-5 md:mt-16 flex flex-col relative  xl:w-9/12 2xl:w-3/5 flex-wrap mx-auto lg:mx-0">
       <div className="flex  mb-1 md:mb-0">
@@ -13,24 +13,24 @@ function FlightHotel() {
           <span>
             <img src={pin} className="w-4 h-4 mr-1" alt="" />
           </span>
-          <span>Room</span>
+          <span>{lang === "EN" ? "Room" : "कोठा"}</span>
         </div>
         {/* Hotel  */}
         <div className="flex bg-black text-white items-center py-2 px-4 md:py-3 md:px-8 text-sm ml-1 md:ml-0 bg-opacity-80">
           <span>
             <img src={hotel} className="w-4 h-4 mr-1" alt="" />
           </span>
-          <span>Hotel</span>
+          <span>{lang === "EN" ? "Hotel" : "कोहोटलठा"}</span>
         </div>
         {/* Roadways  */}
         <div className="flex bg-black text-lightWhite items-center py-2 px-4 md:py-3 md:px-8 text-sm bg-opacity-80">
           <span>
             <img src={restaurant} className="w-4 h-4 mr-1" alt="" />
           </span>
-          <span>Restuarant</span>
+          <span>{lang === "EN" ? "Restaurant" : "रेस्टुरेन्ट"}</span>
         </div>
       </div>
-      <SearchCard />
+      <SearchCard lang={lang} />
     </div>
   );
 }

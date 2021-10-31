@@ -4,13 +4,13 @@ import { Listbox, Transition } from "@headlessui/react";
 import dropdown from "../../../../../assets/images/icons/dropdown.svg";
 import close2 from "../../../../../assets/images/icons/close2.svg";
 const people = [
-  { name: "Chitwan" },
-  { name: "Kathmandu" },
-  { name: "Pokhara" },
-  { name: "Butwal" },
+  { name: "Chitwan", np: "चितवन" },
+  { name: "Kathmandu", np: "काठमाडौं" },
+  { name: "Pokhara", np: "पोखरा" },
+  { name: "Butwal", np: "बुटवल" },
 ];
 
-export default function LocationDropDown() {
+export default function LocationDropDown({ lang }) {
   const [selected, setSelected] = useState();
 
   return (
@@ -19,7 +19,7 @@ export default function LocationDropDown() {
         <div className="relative mt-1 z-20">
           <Listbox.Button className="flex items-center text-sm focus:outline-none">
             <span className="block truncate">
-              {selected ? selected.name : "Loction"}
+              {selected ? selected.name : lang === "EN" ? "Loction" : "स्थान"}
             </span>
             <span></span>
             <span>
@@ -48,7 +48,9 @@ export default function LocationDropDown() {
                   value={person}
                   className=" px-3 py-1 cursor-pointer mt-1 hover:bg-black hover:text-lightWhite rounded transition-all duration-300 ease-in-out"
                 >
-                  <span className="">{person.name}</span>
+                  <span className="">
+                    {lang === "EN" ? person.name : person.np}
+                  </span>
                 </Listbox.Option>
               ))}
             </Listbox.Options>

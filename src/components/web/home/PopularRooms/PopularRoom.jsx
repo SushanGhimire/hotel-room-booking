@@ -6,13 +6,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "../../../../assets/css/style.css";
-
+import { Link } from "react-router-dom";
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-function PopularRoom() {
+function PopularRoom({ lang }) {
   const [roomData, setRoomData] = useState([]);
   let star = [];
   const roomImg = [
@@ -68,9 +68,17 @@ function PopularRoom() {
   return (
     <div className="py-20 flex flex-col">
       <div className="sm:flex justify-between items-center mb-5 px-5 md:px-10 lg:px-20 ">
-        <div className="text-3xl md:text-4xl font-medium">Featured Rooms</div>
-        <div className="font-semibold flex items-center animation transform hover:scale-110 cursor-pointer mt-2 sm:mt-0">
-          <span className="tracking-wide">Explore All</span>
+        <div className="text-3xl md:text-4xl font-medium">
+          {lang === "EN" ? "Featured Rooms" : "विशेष कोठाहरू"}
+        </div>
+        <Link
+          to="/rooms"
+          className="font-semibold flex items-center animation transform hover:scale-110 cursor-pointer mt-2 sm:mt-0"
+          onClick={() => window.scrollTo(0, 0)}
+        >
+          <span className="tracking-wide">
+            {lang === "EN" ? "Explore All" : "सबै अन्वेषण गर्नुहोस्"}
+          </span>
           <span className="">
             <svg
               className="w-6 h-6"
@@ -87,7 +95,7 @@ function PopularRoom() {
               />
             </svg>
           </span>
-        </div>
+        </Link>
       </div>
       <div className=" w-full relative  px-5">
         <Swiper

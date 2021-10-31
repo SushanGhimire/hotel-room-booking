@@ -12,7 +12,7 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-function PopularHotel() {
+function PopularHotel({ lang }) {
   const [hotelData, setHotelData] = useState([]);
   useEffect(() => {
     axiosInstance
@@ -31,9 +31,12 @@ function PopularHotel() {
   return (
     <div className="py-16 flex flex-col">
       <div className="sm:flex justify-between items-center mb-5 px-5 md:px-10 lg:px-20 ">
-        <div className="text-3xl md:text-4xl font-medium">Featured Hotels</div>
+        <div className="text-3xl md:text-4xl font-medium">
+          {" "}
+          {lang === "EN" ? "Featured Hotels" : "विशेष होटलहरू"}
+        </div>
         <div className="font-semibold flex items-center animation transform hover:scale-110 cursor-pointer mt-2 sm:mt-0">
-          <span className="tracking-wide">Explore All</span>
+          {lang === "EN" ? "Explore All" : "सबै अन्वेषण गर्नुहोस्"}
           <span className="">
             <svg
               className="w-6 h-6"

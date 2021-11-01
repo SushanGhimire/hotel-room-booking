@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://hotel-booking-113.herokuapp.com/";
+const baseURL = "https://hotel-register.herokuapp.com/";
 // const baseURL = "https://api.retailscout.io/";
 
 const axiosInstance = axios.create({

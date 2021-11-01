@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axiosInstance from "../../authentication/axiosInstance";
+import { ToastContainer, toast } from "react-toastify";
 
 function RegisterForm() {
   const selectedImageName = useRef();
@@ -124,6 +125,15 @@ function RegisterForm() {
         .post("/hotel/register/", formData)
         .then(() => {
           setLoading(false);
+          toast.success("Hotel added sucessfully", {
+            position: "top-right",
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         })
         .catch((err) => {
           // console.log(err.response);
@@ -187,159 +197,168 @@ function RegisterForm() {
     address: addressErr,
   } = errors;
   return (
-    <div className=" flex flex-col p-5 mx-auto  flex-1">
-      <div className="mx-auto text-3xl font-semibold tracking-wider">
-        HOTEL REGISTER
-      </div>
-      <form
-        onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-5"
-        autoComplete="off"
-      >
-        {/* name  */}
-        <div className="form-group">
-          <label>Hotel Name</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your hotel name ..."
-            type="text"
-            value={name}
-            label="hotelname"
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "name")}
-          />
-          {nameErr && <div className="error text-red-600">{nameErr}</div>}
+    <>
+      <ToastContainer />
+      <div className=" flex flex-col p-5 mx-auto  flex-1">
+        <div className="mx-auto text-3xl font-semibold tracking-wider">
+          HOTEL REGISTER
         </div>
-        {/* address  */}
-        <div className="form-group">
-          <label>Address</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your address ..."
-            type="text"
-            value={address}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "address")}
-          />
-          {addressErr && <div className="error text-red-600">{addressErr}</div>}
-        </div>
-        {/* telephone  */}
-        <div className="form-group">
-          <label>Telephone Number</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your telephone number ..."
-            type="text"
-            value={tele_no}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "tele_no")}
-          />
-          {tele_noErr && <div className="error text-red-600">{tele_noErr}</div>}
-        </div>
-        {/* Phone  */}
-        <div className="form-group">
-          <label>Phone Number</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your phone number ..."
-            type="text"
-            value={phone_no}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "phone_no")}
-          />
-          {phone_noErr && (
-            <div className="error text-red-600">{phone_noErr}</div>
-          )}
-        </div>
-        {/* pan  */}
-        <div className="form-group">
-          <label>PAN Number</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your address ..."
-            type="text"
-            value={pan_no}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "pan_no")}
-          />
-          {pan_noErr && <div className="error text-red-600">{pan_noErr}</div>}
-        </div>
-        {/* pandoc  */}
-        {/* image  */}
-        <div className="">
-          <div className="flex flex-col space-y-1 relative ">
-            <label>Select PAN Document Image</label>
-            <label
-              htmlFor="input-file"
-              className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-md  p-2.5  w-full  pr-20 h-11 flex justify-center items-center  text-gray-500 text-sm overflow-hidden"
-              ref={selectedImageName}
-            ></label>
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-5"
+          autoComplete="off"
+        >
+          {/* name  */}
+          <div className="form-group">
+            <label>Hotel Name</label>
+            {/* Select Custom Dropdown */}
             <input
-              type="file"
-              id="input-file"
-              onChange={(event) => {
-                handleImageSet(event.target.files[0]);
-              }}
-              // className="hidden"
-              hidden
+              placeholder="Your hotel name ..."
+              type="text"
+              value={name}
+              label="hotelname"
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "name")}
             />
-            <label
-              htmlFor="input-file"
-              className={`bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400
-             top-6 rounded  py-2 px-4 text-md absolute  right-1 cursor-pointer `}
-            >
-              Browse...
-            </label>
+            {nameErr && <div className="error text-red-600">{nameErr}</div>}
           </div>
-          {imageError && <div className="error text-red-600">{imageError}</div>}
-        </div>
-        {/* description  */}
-        <div className="form-group md:col-span-2">
-          <label>Description</label>
-          <textarea
-            value={description}
-            onChange={(e) => handleChange(e, "description")}
-            className="h-32 resize-none"
-          />
-          {descriptionErr && (
-            <div className="error text-red-600">{descriptionErr}</div>
-          )}
-          {error && <div className="error text-red-600">{error}</div>}
-        </div>
-        {/* signin button  */}
-        <div className="col-span-1 md:col-span-2 w-full my-5 flex justify-center items-center">
-          <button
-            className={`${
-              loading ? "" : "border-2"
-            } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
-          >
-            {/* <span className="text-gray-600 ">Sign In</span> */}
-
-            {!loading ? (
-              <svg
-                className="w-6 h-6 text-gray-400 group-hover:text-gray-600 animation"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <div className="lds-ring">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+          {/* address  */}
+          <div className="form-group">
+            <label>Address</label>
+            {/* Select Custom Dropdown */}
+            <input
+              placeholder="Your address ..."
+              type="text"
+              value={address}
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "address")}
+            />
+            {addressErr && (
+              <div className="error text-red-600">{addressErr}</div>
             )}
-          </button>
-        </div>
-      </form>
-    </div>
+          </div>
+          {/* telephone  */}
+          <div className="form-group">
+            <label>Telephone Number</label>
+            {/* Select Custom Dropdown */}
+            <input
+              placeholder="Your telephone number ..."
+              type="text"
+              value={tele_no}
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "tele_no")}
+            />
+            {tele_noErr && (
+              <div className="error text-red-600">{tele_noErr}</div>
+            )}
+          </div>
+          {/* Phone  */}
+          <div className="form-group">
+            <label>Phone Number</label>
+            {/* Select Custom Dropdown */}
+            <input
+              placeholder="Your phone number ..."
+              type="text"
+              value={phone_no}
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "phone_no")}
+            />
+            {phone_noErr && (
+              <div className="error text-red-600">{phone_noErr}</div>
+            )}
+          </div>
+          {/* pan  */}
+          <div className="form-group">
+            <label>PAN Number</label>
+            {/* Select Custom Dropdown */}
+            <input
+              placeholder="Your address ..."
+              type="text"
+              value={pan_no}
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "pan_no")}
+            />
+            {pan_noErr && <div className="error text-red-600">{pan_noErr}</div>}
+          </div>
+          {/* pandoc  */}
+          {/* image  */}
+          <div className="">
+            <div className="flex flex-col space-y-1 relative ">
+              <label>Select PAN Document Image</label>
+              <label
+                htmlFor="input-file"
+                className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-md  p-2.5  w-full  pr-20 h-11 flex justify-center items-center  text-gray-500 text-sm overflow-hidden"
+                ref={selectedImageName}
+              ></label>
+              <input
+                type="file"
+                id="input-file"
+                onChange={(event) => {
+                  handleImageSet(event.target.files[0]);
+                }}
+                // className="hidden"
+                hidden
+              />
+              <label
+                htmlFor="input-file"
+                className={`bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400
+             top-6 rounded  py-2 px-4 text-md absolute  right-1 cursor-pointer `}
+              >
+                Browse...
+              </label>
+            </div>
+            {imageError && (
+              <div className="error text-red-600">{imageError}</div>
+            )}
+          </div>
+          {/* description  */}
+          <div className="form-group md:col-span-2">
+            <label>Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => handleChange(e, "description")}
+              className="h-32 resize-none"
+            />
+            {descriptionErr && (
+              <div className="error text-red-600">{descriptionErr}</div>
+            )}
+            {error && <div className="error text-red-600">{error}</div>}
+          </div>
+          {/* signin button  */}
+          <div className="col-span-1 md:col-span-2 w-full my-5 flex justify-center items-center">
+            <button
+              className={`${
+                loading ? "" : "border-2"
+              } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
+            >
+              {/* <span className="text-gray-600 ">Sign In</span> */}
+
+              {!loading ? (
+                <svg
+                  className="w-6 h-6 text-gray-400 group-hover:text-gray-600 animation"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
+                <div className="lds-ring">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }
 

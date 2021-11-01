@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axiosInstance from "../../authentication/axiosInstance";
+import { ToastContainer, toast } from "react-toastify";
 
 function RoomForm() {
   const selectedImageName = useRef();
@@ -150,8 +151,26 @@ function RoomForm() {
         .post("/hotel/room/create/", formData)
         .then(() => {
           setLoading(false);
+          toast.success("Room added sucessfully", {
+            position: "top-right",
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         })
         .catch((err) => {
+          toast.success("Room added sucessfully", {
+            position: "top-right",
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
           // console.log(err.response);
           const { email, name } = err.response.data;
           if (email) {
@@ -226,213 +245,218 @@ function RoomForm() {
   } = errors;
   console.log(userFile);
   return (
-    <div className=" flex flex-col p-5 mx-auto  flex-1">
-      <div className="mx-auto text-3xl font-semibold tracking-wider">
-        ADD ROOM
-      </div>
-      <form
-        onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-5"
-        autoComplete="off"
-      >
-        {/* room code  */}
-        <div className="form-group">
-          <label>Room Code</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your room code ..."
-            type="text"
-            value={room_code}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "room_code")}
-          />
-          {room_codeErr && (
-            <div className="error text-red-600">{room_codeErr}</div>
-          )}
+    <>
+      <ToastContainer />
+      <div className=" flex flex-col p-5 mx-auto  flex-1">
+        <div className="mx-auto text-3xl font-semibold tracking-wider">
+          ADD ROOM
         </div>
-        {/* room type  */}
-        <div className="form-group">
-          <label>Room Type</label>
-          {/* Select Custom Dropdown */}
-
-          <select
-            name=""
-            id=""
-            value={room_type}
-            onChange={(e) => handleChange(e, "room_type")}
-          >
-            <option value="NR">Normal</option>
-            <option value="DL">Dilux</option>
-            <option value="LU">Luxury</option>
-            <option value="PR">Presidental</option>
-            <option value="DI">Divine</option>
-          </select>
-        </div>
-        {/* Guest type  */}
-        <div className="form-group">
-          <label>Guest Type</label>
-          {/* Select Custom Dropdown */}
-
-          <select
-            name=""
-            id=""
-            value={guest_type}
-            onChange={(e) => handleChange(e, "guest_type")}
-          >
-            <option value="1A">1 Adult</option>
-            <option value="2A">2 Adult</option>
-            <option value="4A">4 Adult</option>
-            <option value="2A2C">2 Adult 2 Childern</option>
-            <option value="4+">4+ Adult</option>
-          </select>
-        </div>
-        {/* GUest Number  */}
-        <div className="form-group">
-          <label>Guest Number</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Guest number ..."
-            type="text"
-            value={guest_number}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "guest_number")}
-          />
-          {guest_numberErr && (
-            <div className="error text-red-600">{guest_numberErr}</div>
-          )}
-        </div>
-        {/* Check In  */}
-        <div className="form-group">
-          <label>Check In</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your room code ..."
-            type="date"
-            value={check_in}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "check_in")}
-          />
-          {check_inErr && (
-            <div className="error text-red-600">{check_inErr}</div>
-          )}
-        </div>
-        {/* Check Out  */}
-        <div className="form-group">
-          <label>Check Out</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your room code ..."
-            type="date"
-            value={check_out}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "check_out")}
-          />
-          {check_outErr && (
-            <div className="error text-red-600">{check_outErr}</div>
-          )}
-        </div>
-        {/* image  */}
-        <div className="">
-          <div className="flex flex-col space-y-1 relative ">
-            <label>Select Room Image</label>
-            <label
-              htmlFor="input-file"
-              className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-md  p-2.5  w-full  pr-20 h-11 flex justify-center items-center  text-gray-500 text-sm overflow-hidden"
-              ref={selectedImageName}
-            ></label>
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-5"
+          autoComplete="off"
+        >
+          {/* room code  */}
+          <div className="form-group">
+            <label>Room Code</label>
+            {/* Select Custom Dropdown */}
             <input
-              type="file"
-              id="input-file"
-              onChange={(event) => {
-                handleImageSet(event.target.files[0]);
-              }}
-              // className="hidden"
-              hidden
+              placeholder="Your room code ..."
+              type="text"
+              value={room_code}
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "room_code")}
             />
-            <label
-              htmlFor="input-file"
-              className={`bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400
-             top-6 rounded  py-2 px-4 text-md absolute  right-1 cursor-pointer `}
-            >
-              Browse...
-            </label>
-          </div>
-          {imageError && <div className="error text-red-600">{imageError}</div>}
-        </div>
-        {/* Status  */}
-        <div className="form-group">
-          <label>Status</label>
-          {/* Select Custom Dropdown */}
-
-          <select
-            name=""
-            id=""
-            value={status}
-            onChange={(e) => handleChange(e, "status")}
-          >
-            <option value="DF">Draft</option>
-            <option value="PH">Publish</option>
-          </select>
-        </div>
-        {/* Room Feature  */}
-        <div className="form-group md:col-span-2">
-          <label>Room Feature</label>
-          <textarea
-            value={room_feature}
-            onChange={(e) => handleChange(e, "room_feature")}
-            className="h-32 resize-none"
-          />
-          {room_featureErr && (
-            <div className="error text-red-600">{room_featureErr}</div>
-          )}
-        </div>
-        {/* description  */}
-        <div className="form-group md:col-span-2">
-          <label>Description</label>
-          <textarea
-            value={description}
-            onChange={(e) => handleChange(e, "description")}
-            className="h-32 resize-none"
-          />
-          {descriptionErr && (
-            <div className="error text-red-600">{descriptionErr}</div>
-          )}
-          {error && <div className="error text-red-600">{error}</div>}
-        </div>
-        {/* signin button  */}
-        <div className="col-span-1 md:col-span-2 w-full my-5 flex justify-center items-center">
-          <button
-            className={`${
-              loading ? "" : "border-2"
-            } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
-          >
-            {/* <span className="text-gray-600 ">Sign In</span> */}
-
-            {!loading ? (
-              <svg
-                className="w-6 h-6 text-gray-400 group-hover:text-gray-600 animation"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <div className="lds-ring">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+            {room_codeErr && (
+              <div className="error text-red-600">{room_codeErr}</div>
             )}
-          </button>
-        </div>
-      </form>
-    </div>
+          </div>
+          {/* room type  */}
+          <div className="form-group">
+            <label>Room Type</label>
+            {/* Select Custom Dropdown */}
+
+            <select
+              name=""
+              id=""
+              value={room_type}
+              onChange={(e) => handleChange(e, "room_type")}
+            >
+              <option value="NR">Normal</option>
+              <option value="DL">Dilux</option>
+              <option value="LU">Luxury</option>
+              <option value="PR">Presidental</option>
+              <option value="DI">Divine</option>
+            </select>
+          </div>
+          {/* Guest type  */}
+          <div className="form-group">
+            <label>Guest Type</label>
+            {/* Select Custom Dropdown */}
+
+            <select
+              name=""
+              id=""
+              value={guest_type}
+              onChange={(e) => handleChange(e, "guest_type")}
+            >
+              <option value="1A">1 Adult</option>
+              <option value="2A">2 Adult</option>
+              <option value="4A">4 Adult</option>
+              <option value="2A2C">2 Adult 2 Childern</option>
+              <option value="4+">4+ Adult</option>
+            </select>
+          </div>
+          {/* GUest Number  */}
+          <div className="form-group">
+            <label>Guest Number</label>
+            {/* Select Custom Dropdown */}
+            <input
+              placeholder="Guest number ..."
+              type="text"
+              value={guest_number}
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "guest_number")}
+            />
+            {guest_numberErr && (
+              <div className="error text-red-600">{guest_numberErr}</div>
+            )}
+          </div>
+          {/* Check In  */}
+          <div className="form-group">
+            <label>Check In</label>
+            {/* Select Custom Dropdown */}
+            <input
+              placeholder="Your room code ..."
+              type="date"
+              value={check_in}
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "check_in")}
+            />
+            {check_inErr && (
+              <div className="error text-red-600">{check_inErr}</div>
+            )}
+          </div>
+          {/* Check Out  */}
+          <div className="form-group">
+            <label>Check Out</label>
+            {/* Select Custom Dropdown */}
+            <input
+              placeholder="Your room code ..."
+              type="date"
+              value={check_out}
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "check_out")}
+            />
+            {check_outErr && (
+              <div className="error text-red-600">{check_outErr}</div>
+            )}
+          </div>
+          {/* image  */}
+          <div className="">
+            <div className="flex flex-col space-y-1 relative ">
+              <label>Select Room Image</label>
+              <label
+                htmlFor="input-file"
+                className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-md  p-2.5  w-full  pr-20 h-11 flex justify-center items-center  text-gray-500 text-sm overflow-hidden"
+                ref={selectedImageName}
+              ></label>
+              <input
+                type="file"
+                id="input-file"
+                onChange={(event) => {
+                  handleImageSet(event.target.files[0]);
+                }}
+                // className="hidden"
+                hidden
+              />
+              <label
+                htmlFor="input-file"
+                className={`bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400
+             top-6 rounded  py-2 px-4 text-md absolute  right-1 cursor-pointer `}
+              >
+                Browse...
+              </label>
+            </div>
+            {imageError && (
+              <div className="error text-red-600">{imageError}</div>
+            )}
+          </div>
+          {/* Status  */}
+          <div className="form-group">
+            <label>Status</label>
+            {/* Select Custom Dropdown */}
+
+            <select
+              name=""
+              id=""
+              value={status}
+              onChange={(e) => handleChange(e, "status")}
+            >
+              <option value="DF">Draft</option>
+              <option value="PH">Publish</option>
+            </select>
+          </div>
+          {/* Room Feature  */}
+          <div className="form-group md:col-span-2">
+            <label>Room Feature</label>
+            <textarea
+              value={room_feature}
+              onChange={(e) => handleChange(e, "room_feature")}
+              className="h-32 resize-none"
+            />
+            {room_featureErr && (
+              <div className="error text-red-600">{room_featureErr}</div>
+            )}
+          </div>
+          {/* description  */}
+          <div className="form-group md:col-span-2">
+            <label>Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => handleChange(e, "description")}
+              className="h-32 resize-none"
+            />
+            {descriptionErr && (
+              <div className="error text-red-600">{descriptionErr}</div>
+            )}
+            {error && <div className="error text-red-600">{error}</div>}
+          </div>
+          {/* signin button  */}
+          <div className="col-span-1 md:col-span-2 w-full my-5 flex justify-center items-center">
+            <button
+              className={`${
+                loading ? "" : "border-2"
+              } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
+            >
+              {/* <span className="text-gray-600 ">Sign In</span> */}
+
+              {!loading ? (
+                <svg
+                  className="w-6 h-6 text-gray-400 group-hover:text-gray-600 animation"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
+                <div className="lds-ring">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }
 

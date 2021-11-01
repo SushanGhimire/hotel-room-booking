@@ -44,6 +44,7 @@ function Login({ handleToggle }) {
     });
   };
   const handleErrors = (property, value) => {
+    setInvalid("");
     const { errors } = authData;
     value = value === undefined ? authData[property] : value;
     errors.login = errors.login && "";
@@ -106,6 +107,7 @@ function Login({ handleToggle }) {
         .post("user/login/", formData)
         .then((res) => {
           setLoading(false);
+          console.log(res.data);
           const { access, refresh } = res.data;
           localStorage.setItem("access", access);
           localStorage.setItem("refresh", refresh);
@@ -113,7 +115,7 @@ function Login({ handleToggle }) {
         })
         .catch((err) => {
           setLoading(false);
-          // console.log(err.response);
+          console.log(err.response);
           const { detail } = err.response.data;
           if (detail) {
             setInvalid("Invalid login credentials");

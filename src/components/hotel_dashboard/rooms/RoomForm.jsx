@@ -1,25 +1,27 @@
 import React, { useState, useRef } from "react";
 import axiosInstance from "../../authentication/axiosInstance";
 
-function RegisterForm() {
+function RoomForm() {
   const selectedImageName = useRef();
+  const [loading, setLoading] = useState(false);
   const [imageError, setImageError] = useState("");
   const [userFile, setUserFile] = useState("");
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
-    name: "",
-    address: "",
-    phone_no: "",
-    tele_no: "",
-    pan_no: "",
+    room_code: "",
+    room_type: "NR",
+    guest_type: "1A",
+    guest_number: "",
+    check_in: "",
+    check_out: "",
+    room_feature: "",
+    status: "DF",
     description: "",
-    confirmPassword: "",
     errors: {
-      name: "",
-      address: "",
-      phone_no: "",
-      tele_no: "",
-      pan_no: "",
+      room_code: "",
+      guest_number: "",
+      check_in: "",
+      check_out: "",
+      room_feature: "",
       description: "",
     },
   });
@@ -35,36 +37,44 @@ function RegisterForm() {
       )} cannot be left empty`;
       result = false;
     } else {
-      if (property === "name") {
+      if (property === "room_code") {
         if (value === "") {
-          errors.name = "Hotel name cannot be left empty.";
+          errors.room_code = "cannot be left null";
           result = false;
         } else {
-          errors.name = "";
+          errors.room_code = "";
           result = true;
         }
-      } else if (property === "address") {
+      } else if (property === "guest_number") {
         if (value === "") {
-          errors.address = "Address cannot be left empty.";
+          errors.guest_number = "Guest number cannot be left emppty";
           result = false;
         } else {
-          errors.address = "";
+          errors.guest_number = "";
           result = true;
         }
-      } else if (property === "tele_no") {
-        if (value === "" || isNaN(value) || value.length < 9) {
-          errors.tele_no = "Invalid telephone number.";
+      } else if (property === "check_in") {
+        if (value === "") {
+          errors.check_in = "Check in cannot be left emppty";
           result = false;
         } else {
-          errors.tele_no = "";
+          errors.check_in = "";
           result = true;
         }
-      } else if (property === "phone_no") {
-        if (value === "" || isNaN(value) || value.length < 10) {
-          errors.phone_no = "Invalid phone number.";
+      } else if (property === "check_out") {
+        if (value === "") {
+          errors.check_out = "Check out cannot be left emppty";
           result = false;
         } else {
-          errors.phone_no = "";
+          errors.check_out = "";
+          result = true;
+        }
+      } else if (property === "room_feature") {
+        if (value === "") {
+          errors.room_feature = "Room feature cannot be left emppty";
+          result = false;
+        } else {
+          errors.room_feature = "";
           result = true;
         }
       } else if (property === "description") {
@@ -93,35 +103,51 @@ function RegisterForm() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { name, pan_no, address, phone_no, tele_no, description, errors } =
-      data;
+    const {
+      room_code,
+      room_type,
+      guest_type,
+      guest_number,
+      check_in,
+      check_out,
+      room_feature,
+      status,
+      description,
+      errors,
+    } = data;
     if (
-      name === "" ||
-      pan_no === "" ||
-      address === "" ||
-      tele_no === "" ||
+      room_code === "" ||
+      room_type === "" ||
+      guest_type === "" ||
+      guest_number === "" ||
+      check_in === "" ||
+      check_out === "" ||
+      room_feature === "" ||
+      status === "" ||
       description === "" ||
-      userFile === "" ||
-      phone_no === ""
+      errors === "" ||
+      description === ""
     ) {
       setError("Please fill the above fields completely.");
     } else {
       setError("");
       const formData = new FormData();
-      formData.append("name", name);
-      formData.append("address", address);
-      formData.append("phone_no", phone_no);
-      formData.append("tele_no", tele_no);
-      formData.append("pan_no", pan_no);
+      formData.append("room_code", room_code);
+      formData.append("room_type", room_type);
+      formData.append("guest_type", guest_type);
+      formData.append("guest_number", guest_number);
+      formData.append("check_in", check_in);
+      formData.append("check_out", check_out);
+      formData.append("room_feature", room_feature);
+      formData.append("status", status);
       formData.append("description", description);
-      formData.append("pan_doc", userFile);
       setLoading(true);
       setData({
         ...data,
         confirmationEmail: "",
       });
       axiosInstance
-        .post("/hotel/register/", formData)
+        .post("/hotel/room/create/", formData)
         .then(() => {
           setLoading(false);
         })
@@ -176,99 +202,139 @@ function RegisterForm() {
       selectedImageName.current.innerHTML = fileName;
     }
   };
-  const { name, pan_no, address, phone_no, tele_no, description, errors } =
-    data;
   const {
-    name: nameErr,
-    pan_no: pan_noErr,
-    phone_no: phone_noErr,
-    tele_no: tele_noErr,
+    room_code,
+    room_type,
+    guest_type,
+    guest_number,
+    check_in,
+    check_out,
+    room_feature,
+    status,
+    description,
+    errors,
+  } = data;
+  const {
+    room_code: room_codeErr,
+    // room_type: room_typeErr,
+    // guest_type: guest_typeErr,
+    guest_number: guest_numberErr,
+    check_in: check_inErr,
+    check_out: check_outErr,
+    room_feature: room_featureErr,
     description: descriptionErr,
-    address: addressErr,
   } = errors;
+  console.log(userFile);
   return (
     <div className=" flex flex-col p-5 mx-auto  flex-1">
       <div className="mx-auto text-3xl font-semibold tracking-wider">
-        HOTEL REGISTER
+        ADD ROOM
       </div>
       <form
         onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-5"
         autoComplete="off"
       >
-        {/* name  */}
+        {/* room code  */}
         <div className="form-group">
-          <label>Hotel Name</label>
+          <label>Room Code</label>
           {/* Select Custom Dropdown */}
           <input
-            placeholder="Your hotel name ..."
+            placeholder="Your room code ..."
             type="text"
-            value={name}
-            label="hotelname"
+            value={room_code}
             autoComplete="off"
-            onChange={(e) => handleChange(e, "name")}
+            onChange={(e) => handleChange(e, "room_code")}
           />
-          {nameErr && <div className="error text-red-600">{nameErr}</div>}
-        </div>
-        {/* address  */}
-        <div className="form-group">
-          <label>Address</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your address ..."
-            type="text"
-            value={address}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "address")}
-          />
-          {addressErr && <div className="error text-red-600">{addressErr}</div>}
-        </div>
-        {/* telephone  */}
-        <div className="form-group">
-          <label>Telephone Number</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your telephone number ..."
-            type="text"
-            value={tele_no}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "tele_no")}
-          />
-          {tele_noErr && <div className="error text-red-600">{tele_noErr}</div>}
-        </div>
-        {/* Phone  */}
-        <div className="form-group">
-          <label>Phone Number</label>
-          {/* Select Custom Dropdown */}
-          <input
-            placeholder="Your phone number ..."
-            type="text"
-            value={phone_no}
-            autoComplete="off"
-            onChange={(e) => handleChange(e, "phone_no")}
-          />
-          {phone_noErr && (
-            <div className="error text-red-600">{phone_noErr}</div>
+          {room_codeErr && (
+            <div className="error text-red-600">{room_codeErr}</div>
           )}
         </div>
-        {/* pan  */}
+        {/* room type  */}
         <div className="form-group">
-          <label>PAN Number</label>
+          <label>Room Type</label>
+          {/* Select Custom Dropdown */}
+
+          <select
+            name=""
+            id=""
+            value={room_type}
+            onChange={(e) => handleChange(e, "room_type")}
+          >
+            <option value="NR">Normal</option>
+            <option value="DL">Dilux</option>
+            <option value="LU">Luxury</option>
+            <option value="PR">Presidental</option>
+            <option value="DI">Divine</option>
+          </select>
+        </div>
+        {/* Guest type  */}
+        <div className="form-group">
+          <label>Guest Type</label>
+          {/* Select Custom Dropdown */}
+
+          <select
+            name=""
+            id=""
+            value={guest_type}
+            onChange={(e) => handleChange(e, "guest_type")}
+          >
+            <option value="1A">1 Adult</option>
+            <option value="2A">2 Adult</option>
+            <option value="4A">4 Adult</option>
+            <option value="2A2C">2 Adult 2 Childern</option>
+            <option value="4+">4+ Adult</option>
+          </select>
+        </div>
+        {/* GUest Number  */}
+        <div className="form-group">
+          <label>Guest Number</label>
           {/* Select Custom Dropdown */}
           <input
-            placeholder="Your address ..."
+            placeholder="Guest number ..."
             type="text"
-            value={pan_no}
+            value={guest_number}
             autoComplete="off"
-            onChange={(e) => handleChange(e, "pan_no")}
+            onChange={(e) => handleChange(e, "guest_number")}
           />
-          {pan_noErr && <div className="error text-red-600">{pan_noErr}</div>}
+          {guest_numberErr && (
+            <div className="error text-red-600">{guest_numberErr}</div>
+          )}
         </div>
-        {/* pandoc  */}
+        {/* Check In  */}
+        <div className="form-group">
+          <label>Check In</label>
+          {/* Select Custom Dropdown */}
+          <input
+            placeholder="Your room code ..."
+            type="date"
+            value={check_in}
+            autoComplete="off"
+            onChange={(e) => handleChange(e, "check_in")}
+          />
+          {check_inErr && (
+            <div className="error text-red-600">{check_inErr}</div>
+          )}
+        </div>
+        {/* Check Out  */}
+        <div className="form-group">
+          <label>Check Out</label>
+          {/* Select Custom Dropdown */}
+          <input
+            placeholder="Your room code ..."
+            type="date"
+            value={check_out}
+            autoComplete="off"
+            onChange={(e) => handleChange(e, "check_out")}
+          />
+          {check_outErr && (
+            <div className="error text-red-600">{check_outErr}</div>
+          )}
+        </div>
         {/* image  */}
         <div className="">
           <div className="flex flex-col space-y-1 relative ">
-            <label>Select PAN Document Image</label>
+            <label>Select Room Image</label>
             <label
               htmlFor="input-file"
               className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-md  p-2.5  w-full  pr-20 h-11 flex justify-center items-center  text-gray-500 text-sm overflow-hidden"
@@ -292,6 +358,33 @@ function RegisterForm() {
             </label>
           </div>
           {imageError && <div className="error text-red-600">{imageError}</div>}
+        </div>
+        {/* Status  */}
+        <div className="form-group">
+          <label>Status</label>
+          {/* Select Custom Dropdown */}
+
+          <select
+            name=""
+            id=""
+            value={status}
+            onChange={(e) => handleChange(e, "status")}
+          >
+            <option value="DF">Draft</option>
+            <option value="PH">Publish</option>
+          </select>
+        </div>
+        {/* Room Feature  */}
+        <div className="form-group md:col-span-2">
+          <label>Room Feature</label>
+          <textarea
+            value={room_feature}
+            onChange={(e) => handleChange(e, "room_feature")}
+            className="h-32 resize-none"
+          />
+          {room_featureErr && (
+            <div className="error text-red-600">{room_featureErr}</div>
+          )}
         </div>
         {/* description  */}
         <div className="form-group md:col-span-2">
@@ -343,4 +436,4 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+export default RoomForm;

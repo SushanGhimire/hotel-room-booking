@@ -3,32 +3,44 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import App from "./App";
 import jwt_decode from "jwt-decode";
 import DashboardManagement from "./components/dashboard/Dashboard-Management";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PageNotFound from "./components/common/PageNotFound";
 import ProfileDashboardMgnt from "./components/profile_dashboard/ProfileDashboardMgnt";
+import HotelDashboardMgnt from "./components/hotel_dashboard/HotelDashboardMgnt";
+import * as actions from "./redux/actions/action";
 // import LoadingPage from "./common/LoadingPage";
 function UrlDasWebmgnr() {
   const [loggedIn, setLoggedIn] = useState(true);
   const histroy = useHistory();
-  const role = "USER";
+  const dispatch = useDispatch();
+  const [role, setRole] = useState("H");
   // const [loading, setLoading] = useState(false);
   const darkmode = useSelector((state) => state.darkmode.darkmode);
   function tokenManager() {
     const token = localStorage.getItem("refresh");
     let decoded;
-    try {
-      decoded = jwt_decode(token);
-    } catch (e) {
-      localStorage.clear();
+    if (token) {
+      try {
+        decoded = jwt_decode(token);
+        console.log(decoded);
+      } catch (e) {
+        localStorage.clear();
+      }
+      const loggedIn = decoded && decoded.exp && decoded.user_id && true;
+      if (loggedIn) {
+        setLoggedIn(loggedIn);
+        const { user_type } = decoded;
+        setRole(user_type);
+        dispatch(actions.setRole(user_type));
+      } else {
+        window.location = "/";
+        localStorage.clear();
+      }
     }
-    const loggedIn = decoded && decoded.jti ? true : true;
-    setLoggedIn(loggedIn);
-    // setLoading(false);
   }
   useEffect(() => {
-    // setLoading(true);
     histroy.listen(() => tokenManager());
-    tokenManager();
+    // eslint-disable-next-line
   }, [histroy]);
 
   return (
@@ -40,6 +52,9 @@ function UrlDasWebmgnr() {
         )}
         {loggedIn && role === "USER" && (
           <Route path="/profile" component={ProfileDashboardMgnt} />
+        )}
+        {loggedIn && role === "H" && (
+          <Route path="/h-dashboard" component={HotelDashboardMgnt} />
         )}
         <Route
           path="/"

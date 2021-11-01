@@ -3,7 +3,7 @@ import { DARK_MODE, TOGGLE_LANG, SET_ROLE } from "../actions/actionsTypes";
 const initialState = {
   darkmode: false,
   lang: "EN",
-  role: "USER",
+  role: "H",
 };
 
 const darkModeReducer = (state = initialState, action) => {

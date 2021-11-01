@@ -113,6 +113,7 @@ function Login({ handleToggle }) {
         })
         .catch((err) => {
           setLoading(false);
+          // console.log(err.response);
           const { detail } = err.response.data;
           if (detail) {
             setInvalid("Invalid login credentials");

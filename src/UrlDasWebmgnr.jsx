@@ -4,9 +4,10 @@ import App from "./App";
 import jwt_decode from "jwt-decode";
 import DashboardManagement from "./components/dashboard/Dashboard-Management";
 import { useSelector } from "react-redux";
+import PageNotFound from "./components/common/PageNotFound";
 // import LoadingPage from "./common/LoadingPage";
 function UrlDasWebmgnr() {
-  const [loggedIn, setLoggedIn] = useState("");
+  const [loggedIn, setLoggedIn] = useState(true);
   const histroy = useHistory();
   // const [loading, setLoading] = useState(false);
   const darkmode = useSelector((state) => state.darkmode.darkmode);
@@ -18,7 +19,7 @@ function UrlDasWebmgnr() {
     } catch (e) {
       localStorage.clear();
     }
-    const loggedIn = decoded && decoded.jti && true;
+    const loggedIn = decoded && decoded.jti ? true : true;
     setLoggedIn(loggedIn);
     // setLoading(false);
   }
@@ -31,6 +32,7 @@ function UrlDasWebmgnr() {
   return (
     <div className={`relative ${darkmode ? "dark" : ""}`}>
       <Switch>
+        <Route path="/page-not-found" component={PageNotFound} />
         {loggedIn && (
           <Route path="/dashboard" component={DashboardManagement} />
         )}

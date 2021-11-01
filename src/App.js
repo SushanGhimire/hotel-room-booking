@@ -1,15 +1,17 @@
-import { Switch, Route } from "react-router-dom";
-import LoginRegister from "./components/authentiction/LoginRegister/LoginRegister";
+import { Switch, Route, useHistory } from "react-router-dom";
+import LoginRegister from "./components/authentication/LoginRegister/LoginRegister";
 import Home from "./components/web/home/home/Home";
 import NavBar from "./components/web/static/NavBar";
 import Footer from "./components/web/static/Footer";
-import EmailVerify from "./components/authentiction/email-verification/EmailVerify";
-import EmailVerification from "./components/authentiction/password-reset/EmailVerification";
-import PasswordReset from "./components/authentiction/password-reset/PasswordReset";
+import EmailVerify from "./components/authentication/email-verification/EmailVerify";
+import EmailVerification from "./components/authentication/password-reset/EmailVerification";
+import PasswordReset from "./components/authentication/password-reset/PasswordReset";
 import Rooms from "./components/web/rooms/Rooms";
 import { useSelector } from "react-redux";
+
 function App({ loggedIn }) {
   const lang = useSelector((state) => state.darkmode.lang);
+  const history = useHistory();
   return (
     <div className="font-header bg-white">
       <NavBar loggedIn={loggedIn} lang={lang} />
@@ -49,6 +51,11 @@ function App({ loggedIn }) {
             <PasswordReset loggedIn={loggedIn} lang={lang} {...props} />
           )}
         />
+        <Route
+          exact
+          path="/hotel-register"
+          render={(props) => <PasswordReset lang={lang} {...props} />}
+        />
         {!loggedIn && (
           <>
             <Route
@@ -60,6 +67,13 @@ function App({ loggedIn }) {
             />
           </>
         )}
+
+        <Route
+          path="*"
+          render={() => {
+            history.push("/page-not-found");
+          }}
+        />
       </Switch>
       <Footer />
     </div>

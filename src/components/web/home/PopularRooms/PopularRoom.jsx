@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../../../authentiction/axiosInstance";
+import axiosInstance from "../../../authentication/axiosInstance";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles

@@ -7,12 +7,40 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
+@layer base {
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [multiple],
+  textarea,
+  select {
+    @apply px-5 py-2 w-full rounded-md  border-2 placeholder-gray-dark focus:outline-none focus:border-purple-300 dark:focus:border-gray-500 focus:bg-transparent focus:ring-0  border-border dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600;
+  }
+  [type="checkbox"] {
+    @apply rounded w-5 h-5 border-gray-400 transition text-dark focus:ring-dark;
+  }
+  [type="radio"] {
+    @apply border-gray-300 text-indigo-600 focus:ring-indigo-500;
+  }
+  label {
+    @apply font-sans font-bold text-sm leading-5 text-dark dark:text-gray-200;
+  }
 }
 .input-style{
   @apply w-full pl-8 pr-2 py-2.5 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300   dark:focus:ring-gray-500 ;
 }
-
+.MuiOutlinedInput-multiline .MuiInputBase-multiline{
+  padding:0
+}
 
 .wp{
     @apply px-5 md:px-10 lg:px-28;
@@ -23,7 +51,9 @@
 button{
   @apply focus:outline-none;
 }
-
+.error{
+  @apply dark:text-gray-300
+}
  /* for the loader */
  .lds-ring {
     display: inline-block;

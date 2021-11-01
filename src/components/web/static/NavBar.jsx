@@ -2,7 +2,7 @@ import { React, useState, useEffect, useRef } from "react";
 import menu from "../../../assets/images/icons/menu.svg";
 import close from "../../../assets/images/icons/close.svg";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../redux/actions/action";
 import { navlist } from "./navList";
 function NavBar({ loggedIn, lang }) {
@@ -13,6 +13,7 @@ function NavBar({ loggedIn, lang }) {
   const handleLoginToggle = () => {
     setLoginToggle(!loginToggle);
   };
+  const { role } = useSelector((state) => state.darkmode);
   const mobileSidebar = useRef();
   const coverAll = useRef();
   const toggleMobileSidebar = () => {
@@ -97,13 +98,26 @@ function NavBar({ loggedIn, lang }) {
                   {/* Login */}
                 </div>
                 {loggedIn ? (
-                  <Link
-                    to="/dashboard"
-                    onClick={scrollToTop}
-                    className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
-                  >
-                    Profile
-                  </Link>
+                  <>
+                    {role === "SA" && (
+                      <Link
+                        to="/dashboard"
+                        onClick={scrollToTop}
+                        className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
+                      >
+                        Dashboard
+                      </Link>
+                    )}
+                    {role === "USER" && (
+                      <Link
+                        to="/profile"
+                        onClick={scrollToTop}
+                        className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
+                      >
+                        Profile
+                      </Link>
+                    )}
+                  </>
                 ) : (
                   <Link
                     to="/login"

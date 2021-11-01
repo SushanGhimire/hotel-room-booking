@@ -1,8 +1,9 @@
-import { DARK_MODE, TOGGLE_LANG } from "../actions/actionsTypes";
+import { DARK_MODE, TOGGLE_LANG, SET_ROLE } from "../actions/actionsTypes";
 
 const initialState = {
   darkmode: false,
   lang: "EN",
+  role: "USER",
 };
 
 const darkModeReducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const darkModeReducer = (state = initialState, action) => {
       return {
         ...state,
         lang: action.payload,
+      };
+    case SET_ROLE:
+      return {
+        ...state,
+        role: action.payload,
       };
     default:
       return state;

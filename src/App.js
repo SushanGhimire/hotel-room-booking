@@ -51,11 +51,6 @@ function App({ loggedIn }) {
             <PasswordReset loggedIn={loggedIn} lang={lang} {...props} />
           )}
         />
-        <Route
-          exact
-          path="/hotel-register"
-          render={(props) => <PasswordReset lang={lang} {...props} />}
-        />
         {!loggedIn && (
           <>
             <Route

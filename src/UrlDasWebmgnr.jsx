@@ -5,10 +5,12 @@ import jwt_decode from "jwt-decode";
 import DashboardManagement from "./components/dashboard/Dashboard-Management";
 import { useSelector } from "react-redux";
 import PageNotFound from "./components/common/PageNotFound";
+import ProfileDashboardMgnt from "./components/profile_dashboard/ProfileDashboardMgnt";
 // import LoadingPage from "./common/LoadingPage";
 function UrlDasWebmgnr() {
   const [loggedIn, setLoggedIn] = useState(true);
   const histroy = useHistory();
+  const role = "USER";
   // const [loading, setLoading] = useState(false);
   const darkmode = useSelector((state) => state.darkmode.darkmode);
   function tokenManager() {
@@ -30,11 +32,14 @@ function UrlDasWebmgnr() {
   }, [histroy]);
 
   return (
-    <div className={`relative ${darkmode ? "dark" : ""}`}>
+    <div className={`relative font-subHeader ${darkmode ? "dark" : ""}`}>
       <Switch>
         <Route path="/page-not-found" component={PageNotFound} />
-        {loggedIn && (
+        {loggedIn && role === "SA" && (
           <Route path="/dashboard" component={DashboardManagement} />
+        )}
+        {loggedIn && role === "USER" && (
+          <Route path="/profile" component={ProfileDashboardMgnt} />
         )}
         <Route
           path="/"

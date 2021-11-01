@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch, useHistory } from "react-router";
 import PHome from "./home/PHome";
 import HotelRegister from "./hotel_register/HotelRegister";
+import PProfile from "./profile/PProfile";
 import ProfileAside from "./static/ProfileAside";
 import ProfileNavBar from "./static/ProfileNavBar";
 function ProfileDashboardMgnt() {
@@ -14,6 +15,7 @@ function ProfileDashboardMgnt() {
         <Switch>
           {/* <Route exact path="/dashboard/home" component={Home}></Route> */}
           <Route exact path="/profile" component={PHome}></Route>
+          <Route exact path="/profile/profile" component={PProfile}></Route>
           <Route
             exact
             path="/profile/hotel-register"

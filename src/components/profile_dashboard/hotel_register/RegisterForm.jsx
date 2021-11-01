@@ -1,23 +1,7 @@
 import React, { useState, useRef } from "react";
-// import bed from "../../../../assets/images/icons/bed.svg";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import { makeStyles } from "@material-ui/core/styles";
 import axiosInstance from "../../authentication/axiosInstance";
-import TextField from "@material-ui/core/TextField";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  input: {
-    width: "100%",
-  },
-}));
-function RegisterForm({ handleToggle }) {
-  const classes = useStyles();
+
+function RegisterForm() {
   const selectedImageName = useRef();
   const [imageError, setImageError] = useState("");
   const [userFile, setUserFile] = useState("");
@@ -117,6 +101,7 @@ function RegisterForm({ handleToggle }) {
       address === "" ||
       tele_no === "" ||
       description === "" ||
+      userFile === "" ||
       phone_no === ""
     ) {
       setError("Please fill the above fields completely.");
@@ -213,138 +198,109 @@ function RegisterForm({ handleToggle }) {
         autoComplete="off"
       >
         {/* name  */}
-        <div className="">
-          <FormControl
-            variant="outlined"
-            size="small"
-            className={classes.input}
-          >
-            <InputLabel htmlFor="component-outlined">Hotel Name</InputLabel>
-            <OutlinedInput
-              type="text"
-              value={name}
-              id="name1"
-              label="Hotel Name"
-              autoComplete="off"
-              onChange={(e) => handleChange(e, "name")}
-            />
-          </FormControl>
+        <div className="form-group">
+          <label>Hotel Name</label>
+          {/* Select Custom Dropdown */}
+          <input
+            placeholder="Your hotel name ..."
+            type="text"
+            value={name}
+            label="hotelname"
+            autoComplete="off"
+            onChange={(e) => handleChange(e, "name")}
+          />
           {nameErr && <div className="error text-red-600">{nameErr}</div>}
         </div>
         {/* address  */}
-        <div className="">
-          <FormControl
-            variant="outlined"
-            size="small"
-            className={classes.input}
-          >
-            <InputLabel htmlFor="component-outlined">Address</InputLabel>
-            <OutlinedInput
-              type="text"
-              value={address}
-              label="Address"
-              autoComplete="off"
-              onChange={(e) => handleChange(e, "address")}
-            />
-          </FormControl>
+        <div className="form-group">
+          <label>Address</label>
+          {/* Select Custom Dropdown */}
+          <input
+            placeholder="Your address ..."
+            type="text"
+            value={address}
+            autoComplete="off"
+            onChange={(e) => handleChange(e, "address")}
+          />
           {addressErr && <div className="error text-red-600">{addressErr}</div>}
         </div>
         {/* telephone  */}
-        <div className="">
-          <FormControl
-            variant="outlined"
-            size="small"
-            className={classes.input}
-          >
-            <InputLabel htmlFor="component-outlined">
-              Telephone Number
-            </InputLabel>
-            <OutlinedInput
-              type="text"
-              value={tele_no}
-              label="Telephone Number"
-              autoComplete="off"
-              onChange={(e) => handleChange(e, "tele_no")}
-            />
-          </FormControl>
+        <div className="form-group">
+          <label>Telephone Number</label>
+          {/* Select Custom Dropdown */}
+          <input
+            placeholder="Your telephone number ..."
+            type="text"
+            value={tele_no}
+            autoComplete="off"
+            onChange={(e) => handleChange(e, "tele_no")}
+          />
           {tele_noErr && <div className="error text-red-600">{tele_noErr}</div>}
         </div>
         {/* Phone  */}
-        <div className="">
-          <FormControl
-            variant="outlined"
-            size="small"
-            className={classes.input}
-          >
-            <InputLabel htmlFor="component-outlined">Phone Number</InputLabel>
-            <OutlinedInput
-              type="text"
-              value={phone_no}
-              label="Phone Number"
-              autoComplete="off"
-              onChange={(e) => handleChange(e, "phone_no")}
-            />
-          </FormControl>
+        <div className="form-group">
+          <label>Phone Number</label>
+          {/* Select Custom Dropdown */}
+          <input
+            placeholder="Your phone number ..."
+            type="text"
+            value={phone_no}
+            autoComplete="off"
+            onChange={(e) => handleChange(e, "phone_no")}
+          />
           {phone_noErr && (
             <div className="error text-red-600">{phone_noErr}</div>
           )}
         </div>
         {/* pan  */}
-        <div className="">
-          <FormControl
-            variant="outlined"
-            size="small"
-            className={classes.input}
-          >
-            <InputLabel htmlFor="component-outlined">PAN Number</InputLabel>
-            <OutlinedInput
-              type="text"
-              value={pan_no}
-              label="PAN Number"
-              autoComplete="off"
-              onChange={(e) => handleChange(e, "pan_no")}
-            />
-          </FormControl>
+        <div className="form-group">
+          <label>PAN Number</label>
+          {/* Select Custom Dropdown */}
+          <input
+            placeholder="Your address ..."
+            type="text"
+            value={pan_no}
+            autoComplete="off"
+            onChange={(e) => handleChange(e, "pan_no")}
+          />
           {pan_noErr && <div className="error text-red-600">{pan_noErr}</div>}
         </div>
         {/* pandoc  */}
         {/* image  */}
-        <div className="flex flex-col space-y-2 relative ">
-          <label
-            htmlFor="input-file"
-            className="bg-gray-50 border border-gray-300 rounded-md  p-2.5 w-full  pr-20 h-10  text-gray-500 text-sm overflow-hidden"
-            ref={selectedImageName}
-          >
-            Select Image
-          </label>
-          <input
-            type="file"
-            id="input-file"
-            onChange={(event) => {
-              handleImageSet(event.target.files[0]);
-            }}
-            // className="hidden"
-            hidden
-          />
-          <label
-            htmlFor="input-file"
-            className={`bg-gray-200 text-gray-600 -top-2 rounded-r-md  py-2 px-4 text-md absolute  right-0 cursor-pointer `}
-          >
-            Browse...
-          </label>
+        <div className="">
+          <div className="flex flex-col space-y-1 relative ">
+            <label>Select PAN Document Image</label>
+            <label
+              htmlFor="input-file"
+              className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-md  p-2.5  w-full  pr-20 h-11 flex justify-center items-center  text-gray-500 text-sm overflow-hidden"
+              ref={selectedImageName}
+            ></label>
+            <input
+              type="file"
+              id="input-file"
+              onChange={(event) => {
+                handleImageSet(event.target.files[0]);
+              }}
+              // className="hidden"
+              hidden
+            />
+            <label
+              htmlFor="input-file"
+              className={`bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400
+             top-6 rounded  py-2 px-4 text-md absolute  right-1 cursor-pointer `}
+            >
+              Browse...
+            </label>
+          </div>
           {imageError && <div className="error text-red-600">{imageError}</div>}
         </div>
         {/* description  */}
-        <div className="my-5 md:col-span-2">
-          <TextField
-            id="outlined-multiline-static"
-            label="Description"
-            multiline
-            rows={5}
+        <div className="form-group md:col-span-2">
+          <label>Description</label>
+          <textarea
             value={description}
-            variant="outlined"
-            className={classes.input}
             onChange={(e) => handleChange(e, "description")}
+            className="h-32 resize-none"
           />
           {descriptionErr && (
             <div className="error text-red-600">{descriptionErr}</div>

@@ -1,5 +1,5 @@
 import React from "react";
-const RomeOverview = () => {
+const RoomOverview = () => {
   return (
     <div>
       <div className="flex flex-col md:flex-row w-11/12 gap-4 mx-auto pt-20 pb-14 ">
@@ -190,4 +190,4 @@ const RomeOverview = () => {
     </div>
   );
 };
-export default RomeOverview;
+export default RoomOverview;

@@ -32,7 +32,7 @@ function UrlDasWebmgnr() {
   }, [histroy]);
 
   return (
-    <div className={`relative ${darkmode ? "dark" : ""}`}>
+    <div className={`relative font-subHeader ${darkmode ? "dark" : ""}`}>
       <Switch>
         <Route path="/page-not-found" component={PageNotFound} />
         {loggedIn && role === "SA" && (

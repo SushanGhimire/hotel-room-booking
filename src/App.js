@@ -8,6 +8,7 @@ import EmailVerification from "./components/authentication/password-reset/EmailV
 import PasswordReset from "./components/authentication/password-reset/PasswordReset";
 import Rooms from "./components/web/rooms/Rooms";
 import { useSelector } from "react-redux";
+// import HotelRegister from "./components/authentication/hotel_register/HotelRegister";
 
 function App({ loggedIn }) {
   const lang = useSelector((state) => state.darkmode.lang);
@@ -51,11 +52,11 @@ function App({ loggedIn }) {
             <PasswordReset loggedIn={loggedIn} lang={lang} {...props} />
           )}
         />
-        <Route
+        {/* <Route
           exact
           path="/hotel-register"
-          render={(props) => <PasswordReset lang={lang} {...props} />}
-        />
+          render={(props) => <HotelRegister lang={lang} {...props} />}
+        /> */}
         {!loggedIn && (
           <>
             <Route

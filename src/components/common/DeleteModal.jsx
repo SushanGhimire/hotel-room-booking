@@ -1,6 +1,8 @@
 import React, { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useSelector } from "react-redux";
 const DeleteModal = ({ open, closeModal, message }) => {
+  const { darkmode } = useSelector((state) => state.darkmode);
   const cancelButtonRef = useRef();
   return (
     <>
@@ -13,7 +15,11 @@ const DeleteModal = ({ open, closeModal, message }) => {
           open={open}
           onClose={closeModal}
         >
-          <div className="min-h-screen px-4 text-center ">
+          <div
+            className={`min-h-screen px-4 text-center ${
+              darkmode ? "dark" : ""
+            }`}
+          >
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -42,10 +48,10 @@ const DeleteModal = ({ open, closeModal, message }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-gray-800 shadow-xl rounded-2xl">
                 <div>
                   <svg
-                    className={`w-10 h-10 text-green-600  mx-auto my-5`}
+                    className={`w-10 h-10 text-green-600 dark:text-gray-400 mx-auto my-5`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -59,14 +65,14 @@ const DeleteModal = ({ open, closeModal, message }) => {
                     />
                   </svg>
                 </div>
-                <div className="text-gray7 text-center text-xl font-medium">
+                <div className="text-gray7 text-center text-xl font-medium dark:text-gray-200">
                   {message}
                 </div>
 
                 <div className="mt-10 flex justify-center">
                   <button
                     type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-secondary bg-blue-100 border border-transparent rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-secondary bg-blue-100 border border-transparent rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 dark:bg-gray-600 dark:text-gray-200"
                     onClick={closeModal}
                   >
                     Close

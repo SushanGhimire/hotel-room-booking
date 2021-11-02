@@ -111,6 +111,7 @@ function Login({ handleToggle }) {
           const { access, refresh } = res.data;
           localStorage.setItem("access", access);
           localStorage.setItem("refresh", refresh);
+          localStorage.setItem("role", res.data.user_type);
           window.location = "/";
         })
         .catch((err) => {

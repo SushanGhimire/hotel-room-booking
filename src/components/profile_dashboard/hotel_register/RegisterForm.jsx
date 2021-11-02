@@ -4,8 +4,11 @@ import { ToastContainer, toast } from "react-toastify";
 
 function RegisterForm() {
   const selectedImageName = useRef();
+  const selectedPanName = useRef();
   const [imageError, setImageError] = useState("");
   const [userFile, setUserFile] = useState("");
+  const [panFile, setPanFile] = useState("");
+  const [panFileErr, setPanFileErr] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     name: "",
@@ -103,10 +106,12 @@ function RegisterForm() {
       tele_no === "" ||
       description === "" ||
       userFile === "" ||
+      panFile === "" ||
       phone_no === ""
     ) {
       setError("Please fill the above fields completely.");
     } else {
+      console.log(panFile);
       setError("");
       const formData = new FormData();
       formData.append("name", name);
@@ -115,17 +120,15 @@ function RegisterForm() {
       formData.append("tele_no", tele_no);
       formData.append("pan_no", pan_no);
       formData.append("description", description);
-      formData.append("pan_doc", userFile);
+      formData.append("pan_file", userFile);
+      formData.append("hotel_image", userFile);
       setLoading(true);
-      setData({
-        ...data,
-        confirmationEmail: "",
-      });
+
       axiosInstance
         .post("/hotel/register/", formData)
         .then(() => {
           setLoading(false);
-          toast.success("Hotel added sucessfully", {
+          toast.success("Your hotel is sent for preview", {
             position: "top-right",
             autoClose: 2500,
             hideProgressBar: false,
@@ -134,20 +137,28 @@ function RegisterForm() {
             draggable: true,
             progress: undefined,
           });
+          setPanFile("");
+          setUserFile("");
+          setData({
+            name: "",
+            address: "",
+            phone_no: "",
+            tele_no: "",
+            pan_no: "",
+            description: "",
+            confirmPassword: "",
+            errors: {
+              name: "",
+              address: "",
+              phone_no: "",
+              tele_no: "",
+              pan_no: "",
+              description: "",
+            },
+          });
         })
         .catch((err) => {
-          // console.log(err.response);
-          const { email, name } = err.response.data;
-          if (email) {
-            errors.email = "Email already exist";
-          }
-          if (name) {
-            errors.name = "name already exist";
-          }
-          setData({
-            ...data,
-            errors,
-          });
+          console.log(err.response);
           setLoading(false);
         });
     }
@@ -184,6 +195,40 @@ function RegisterForm() {
         setImageError("Invalid file");
       };
       selectedImageName.current.innerHTML = fileName;
+    }
+  };
+  const handlePanFileSet = (file) => {
+    if (file) {
+      const fileName = file.name;
+      const image = new Image();
+      image.src = URL.createObjectURL(file);
+      image.onload = function () {
+        let arr = fileName.split(".");
+        console.log(arr);
+        let extension = arr[arr.length - 1];
+        console.log(extension);
+        const extensions = ["png", "jpg", "jpeg", "webp"];
+        let bool = false;
+        for (let i = 0; i < extensions.length; i++) {
+          if (extensions[i] === extension) {
+            bool = true;
+            i = extensions.length;
+          }
+        }
+        if (bool) {
+          setPanFile(file);
+          // handleImageChange(file);
+          setPanFileErr("");
+        } else {
+          setPanFile("");
+          setPanFileErr("Invalid file");
+        }
+      };
+      image.onerror = function () {
+        // setuserImage("");
+        setPanFileErr("Invalid file");
+      };
+      selectedPanName.current.innerHTML = fileName;
     }
   };
   const { name, pan_no, address, phone_no, tele_no, description, errors } =
@@ -281,10 +326,39 @@ function RegisterForm() {
             {pan_noErr && <div className="error text-red-600">{pan_noErr}</div>}
           </div>
           {/* pandoc  */}
-          {/* image  */}
           <div className="">
             <div className="flex flex-col space-y-1 relative ">
               <label>Select PAN Document Image</label>
+              <label
+                htmlFor="pan-input-file"
+                className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-md  p-2.5  w-full  pr-20 h-11 flex justify-center items-center  text-gray-500 text-sm overflow-hidden"
+                ref={selectedPanName}
+              ></label>
+              <input
+                type="file"
+                id="pan-input-file"
+                onChange={(event) => {
+                  handlePanFileSet(event.target.files[0]);
+                }}
+                // className="hidden"
+                hidden
+              />
+              <label
+                htmlFor="pan-input-file"
+                className={`bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-400
+             top-6 rounded  py-2 px-4 text-md absolute  right-1 cursor-pointer `}
+              >
+                Browse...
+              </label>
+            </div>
+            {panFileErr && (
+              <div className="error text-red-600">{panFileErr}</div>
+            )}
+          </div>
+          {/* image  */}
+          <div className="">
+            <div className="flex flex-col space-y-1 relative ">
+              <label>Select Hotel Image</label>
               <label
                 htmlFor="input-file"
                 className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-md  p-2.5  w-full  pr-20 h-11 flex justify-center items-center  text-gray-500 text-sm overflow-hidden"

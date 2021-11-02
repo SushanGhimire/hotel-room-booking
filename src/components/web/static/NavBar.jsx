@@ -13,7 +13,8 @@ function NavBar({ loggedIn, lang }) {
   const handleLoginToggle = () => {
     setLoginToggle(!loginToggle);
   };
-  const { role } = useSelector((state) => state.darkmode);
+  // const { role } = useSelector((state) => state.darkmode);
+  const role = localStorage.getItem("role");
   const mobileSidebar = useRef();
   const coverAll = useRef();
   const toggleMobileSidebar = () => {
@@ -99,7 +100,7 @@ function NavBar({ loggedIn, lang }) {
                 </div>
                 {loggedIn ? (
                   <>
-                    {role === "SA" && (
+                    {role === "AD" && (
                       <Link
                         to="/dashboard"
                         onClick={scrollToTop}
@@ -108,7 +109,7 @@ function NavBar({ loggedIn, lang }) {
                         Dashboard
                       </Link>
                     )}
-                    {role === "USER" && (
+                    {role === "US" && (
                       <Link
                         to="/profile"
                         onClick={scrollToTop}
@@ -117,7 +118,7 @@ function NavBar({ loggedIn, lang }) {
                         Profile
                       </Link>
                     )}
-                    {role === "H" && (
+                    {role === "ON" && (
                       <Link
                         to="/h-dashboard"
                         onClick={scrollToTop}
@@ -225,7 +226,7 @@ function NavBar({ loggedIn, lang }) {
                 })}
                 {loggedIn ? (
                   <>
-                    {role === "SA" && (
+                    {role === "AD" && (
                       <Link
                         to="/dashboard"
                         className=""
@@ -237,7 +238,7 @@ function NavBar({ loggedIn, lang }) {
                         Dashboard
                       </Link>
                     )}
-                    {role === "USER" && (
+                    {role === "US" && (
                       <Link
                         to="/profile"
                         className=""
@@ -249,7 +250,7 @@ function NavBar({ loggedIn, lang }) {
                         Profile
                       </Link>
                     )}
-                    {role === "H" && (
+                    {role === "On" && (
                       <Link
                         to="/h-dashboard"
                         className=""

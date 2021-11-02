@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../redux/actions/action";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../authentication/axiosInstance";
 function ProfileNavBar() {
   const dispatch = useDispatch();
   const darkmode = useSelector((state) => state.darkmode.darkmode);
@@ -17,6 +18,12 @@ function ProfileNavBar() {
   const handleProfile = () => {
     isNotificationsMenuOpen && setisNotificationsMenuOpen(false);
     setIsprofile((preVal) => !preVal);
+  };
+  const handleLogout = () => {
+    axiosInstance.post(`/user/logout/`).then((res) => {
+      localStorage.clear();
+      window.location = "/";
+    });
   };
   return (
     <div className="z-10 py-4 bg-white shadow-md dark:bg-gray-800 sticky top-0">
@@ -111,28 +118,6 @@ function ProfileNavBar() {
                     className="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                     href="/"
                   >
-                    <span>Messages</span>
-                    <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                      13
-                    </span>
-                  </a>
-                </li>
-                <li className="flex">
-                  <a
-                    className="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                    href="/"
-                  >
-                    <span>Sales</span>
-                    <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
-                      2
-                    </span>
-                  </a>
-                </li>
-                <li className="flex">
-                  <a
-                    className="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                    href="/"
-                  >
                     <span>Alerts</span>
                   </a>
                 </li>
@@ -176,9 +161,9 @@ function ProfileNavBar() {
                   </Link>
                 </li>
                 <li className="flex">
-                  <a
-                    className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                    href="/"
+                  <span
+                    className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200 cursor-pointer"
+                    onClick={handleLogout}
                   >
                     <svg
                       className="w-4 h-4 mr-3"
@@ -193,7 +178,7 @@ function ProfileNavBar() {
                       <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                     </svg>
                     <span>Log out</span>
-                  </a>
+                  </span>
                 </li>
               </ul>
             )}

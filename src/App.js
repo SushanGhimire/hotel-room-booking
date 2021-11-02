@@ -13,7 +13,7 @@ function App({ loggedIn }) {
   const lang = useSelector((state) => state.darkmode.lang);
   const history = useHistory();
   return (
-    <div className="font-header bg-white">
+    <div className="font-subHeader bg-white">
       <NavBar loggedIn={loggedIn} lang={lang} />
       <Switch>
         <Route

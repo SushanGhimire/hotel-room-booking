@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { hotelRoute } from "./hotelRoute";
+import { routes } from "./hotelRoute";
 function Aside() {
   const [activeRoute, setActiveRoute] = useState("");
   const [activeIndex, setActiveIndex] = useState("");
@@ -30,7 +30,7 @@ function Aside() {
           BISRRAM
         </Link>
         <ul className="mt-6">
-          {hotelRoute.map((route, index) => {
+          {routes.map((route, index) => {
             const { name, url, logo, subMenu } = route;
             return (
               <li className="relative px-6 py-3" key={index}>
@@ -81,7 +81,7 @@ function Aside() {
                       </span>
                     </div>
                     <ul
-                      class={`${
+                      className={`${
                         activeIndex === index ? "p-2" : ""
                       }  mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900 transition-all duration-300 ease-in-out cursor-pointer`}
                       style={{
@@ -96,8 +96,8 @@ function Aside() {
                         const { name, url } = sub;
                         return (
                           <li
-                            key={index}
-                            class={`px-2 py-1 transition-colors duration-150  cursor-pointer 
+                            key={url}
+                            className={`px-2 py-1 transition-colors duration-150  cursor-pointer 
                              dark:hover:text-gray-200  dark:text-gray-200   rounded-md
                              ${
                                activeRoute === url
@@ -111,7 +111,7 @@ function Aside() {
                           >
                             <Link
                               to={url}
-                              class="w-full"
+                              className="w-full"
                               onClick={() => setActiveRoute(url)}
                             >
                               {name}
@@ -148,14 +148,6 @@ function Aside() {
             );
           })}
         </ul>
-        <div className="px-6 my-6">
-          <button className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-            Create account
-            <span className="ml-2" aria-hidden="true">
-              +
-            </span>
-          </button>
-        </div>
       </div>
     </aside>
   );

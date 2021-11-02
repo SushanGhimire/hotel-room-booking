@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./store";
 import { Provider } from "react-redux";
 import UrlDasWebmgnr from "./UrlDasWebmgnr";
+import "react-toastify/dist/ReactToastify.css";
 store.subscribe(() => store.getState());
 ReactDOM.render(
   <React.StrictMode>

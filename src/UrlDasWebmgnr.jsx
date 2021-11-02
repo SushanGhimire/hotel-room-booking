@@ -3,43 +3,66 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import App from "./App";
 import jwt_decode from "jwt-decode";
 import DashboardManagement from "./components/dashboard/Dashboard-Management";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PageNotFound from "./components/common/PageNotFound";
 import ProfileDashboardMgnt from "./components/profile_dashboard/ProfileDashboardMgnt";
+import HotelDashboardMgnt from "./components/hotel_dashboard/HotelDashboardMgnt";
+// import * as actions from "./redux/actions/action";
 // import LoadingPage from "./common/LoadingPage";
 function UrlDasWebmgnr() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const histroy = useHistory();
-  const role = "USER";
+  // const dispatch = useDispatch();
+  // const [role, setRole] = useState("");
+  const role = localStorage.getItem("role");
+  // const role = "ON";
   // const [loading, setLoading] = useState(false);
   const darkmode = useSelector((state) => state.darkmode.darkmode);
   function tokenManager() {
-    const token = localStorage.getItem("refresh");
+    const token = localStorage.getItem("access");
     let decoded;
-    try {
-      decoded = jwt_decode(token);
-    } catch (e) {
-      localStorage.clear();
+    if (token) {
+      try {
+        decoded = jwt_decode(token);
+        console.log(decoded);
+      } catch (e) {
+        localStorage.clear();
+      }
+      const loggedIn = decoded && decoded.exp && true;
+      if (Date.now() >= decoded.exp * 1000) {
+        window.location = "/";
+        localStorage.clear();
+      } else {
+        if (loggedIn) {
+          setLoggedIn(loggedIn);
+          // const { user_type } = decoded;
+          // setRole(user_type);
+          // dispatch(actions.setRole(user_type));
+        } else {
+          window.location = "/";
+          localStorage.clear();
+        }
+      }
     }
-    const loggedIn = decoded && decoded.jti ? true : true;
-    setLoggedIn(loggedIn);
-    // setLoading(false);
   }
   useEffect(() => {
-    // setLoading(true);
-    histroy.listen(() => tokenManager());
     tokenManager();
+    histroy.listen(() => tokenManager());
+    // eslint-disable-next-line
   }, [histroy]);
 
   return (
     <div className={`relative font-subHeader ${darkmode ? "dark" : ""}`}>
       <Switch>
         <Route path="/page-not-found" component={PageNotFound} />
-        {loggedIn && role === "SA" && (
+        {loggedIn && role === "AD" && (
           <Route path="/dashboard" component={DashboardManagement} />
         )}
-        {loggedIn && role === "USER" && (
+        {loggedIn && role === "US" && (
           <Route path="/profile" component={ProfileDashboardMgnt} />
+        )}
+        {loggedIn && role === "ON" && (
+          <Route path="/h-dashboard" component={HotelDashboardMgnt} />
         )}
         <Route
           path="/"

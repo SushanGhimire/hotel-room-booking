@@ -49,7 +49,7 @@ function PriceGuests({ lang }) {
         <div className="">
           <input
             type="number"
-            className="bg-white  w-24 focus:outline-none  border-b border-buttonBlue text-lg font-semibold"
+            className=""
             placeholder=""
             value={guests}
             onChange={(e) => setGuests(e.target.value)}

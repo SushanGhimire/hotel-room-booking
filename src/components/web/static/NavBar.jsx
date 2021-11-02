@@ -13,7 +13,8 @@ function NavBar({ loggedIn, lang }) {
   const handleLoginToggle = () => {
     setLoginToggle(!loginToggle);
   };
-  const { role } = useSelector((state) => state.darkmode);
+  // const { role } = useSelector((state) => state.darkmode);
+  const role = localStorage.getItem("role");
   const mobileSidebar = useRef();
   const coverAll = useRef();
   const toggleMobileSidebar = () => {
@@ -85,7 +86,7 @@ function NavBar({ loggedIn, lang }) {
             <div className="flex  justify-center space-x-4 items-center group">
               {/* <div>Register</div> */}
               <div
-                className="w-16 h-16 relative cursor-pointer"
+                className="w-20 h-16 relative cursor-pointer"
                 onMouseEnter={handleLoginToggle}
                 onMouseLeave={handleLoginToggle}
               >
@@ -99,7 +100,7 @@ function NavBar({ loggedIn, lang }) {
                 </div>
                 {loggedIn ? (
                   <>
-                    {role === "SA" && (
+                    {role === "AD" && (
                       <Link
                         to="/dashboard"
                         onClick={scrollToTop}
@@ -108,13 +109,22 @@ function NavBar({ loggedIn, lang }) {
                         Dashboard
                       </Link>
                     )}
-                    {role === "USER" && (
+                    {role === "US" && (
                       <Link
                         to="/profile"
                         onClick={scrollToTop}
                         className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
                       >
                         Profile
+                      </Link>
+                    )}
+                    {role === "ON" && (
+                      <Link
+                        to="/h-dashboard"
+                        onClick={scrollToTop}
+                        className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
+                      >
+                        Dashboard
                       </Link>
                     )}
                   </>
@@ -147,12 +157,16 @@ function NavBar({ loggedIn, lang }) {
                 <select
                   name=""
                   id=""
-                  className=" bg-transparent focus:outline-none text-black 
+                  className=" bg-transparent border-none focus:outline-none  
                   cursor-pointer"
                   onChange={(e) => dispatch(actions.toggleLang(e.target.value))}
                 >
-                  <option value="EN">EN</option>
-                  <option value="NP">NP</option>
+                  <option value="EN" className="text-black">
+                    EN
+                  </option>
+                  <option value="NP" className="text-black">
+                    NP
+                  </option>
                 </select>
               </div>
             </div>
@@ -211,16 +225,44 @@ function NavBar({ loggedIn, lang }) {
                   );
                 })}
                 {loggedIn ? (
-                  <Link
-                    to="/dashboard"
-                    className=""
-                    onClick={() => {
-                      toggleMobileSidebar();
-                      scrollToTop();
-                    }}
-                  >
-                    Profile
-                  </Link>
+                  <>
+                    {role === "AD" && (
+                      <Link
+                        to="/dashboard"
+                        className=""
+                        onClick={() => {
+                          toggleMobileSidebar();
+                          scrollToTop();
+                        }}
+                      >
+                        Dashboard
+                      </Link>
+                    )}
+                    {role === "US" && (
+                      <Link
+                        to="/profile"
+                        className=""
+                        onClick={() => {
+                          toggleMobileSidebar();
+                          scrollToTop();
+                        }}
+                      >
+                        Profile
+                      </Link>
+                    )}
+                    {role === "On" && (
+                      <Link
+                        to="/h-dashboard"
+                        className=""
+                        onClick={() => {
+                          toggleMobileSidebar();
+                          scrollToTop();
+                        }}
+                      >
+                        Dashboard
+                      </Link>
+                    )}
+                  </>
                 ) : (
                   <Link
                     to="/login"

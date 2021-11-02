@@ -249,25 +249,24 @@ function Register({ handleToggle }) {
         {/* login with  */}
         <div className="flex space-x-4 mt-3">
           {/* facebook  */}
-          <div
+          {/* <div
             className="animation transform hover:scale-110 shadow-md w-1/2 flex justify-center py-2 rounded-md cursor-pointer"
             style={{
               backgroundColor: "#1976D2",
             }}
           >
             <img src={facebook} className="w-5 h-5" alt="" />
-          </div>
+          </div> */}
           {/* google  */}
-          <div className="animation transform hover:scale-110 bg-white w-1/2 flex justify-center py-2 rounded-md cursor-pointer  shadow-md">
+          {/* <div className="animation transform hover:scale-110 bg-white w-1/2 flex justify-center py-2 rounded-md cursor-pointer  shadow-md">
             <img src={search} className="w-5 h-5" alt="" />
-          </div>
+          </div> */}
         </div>
         {/* signin button  */}
         <div className="w-full my-5 flex justify-center items-center">
           <button
-            className={`${
-              loading ? "" : "border-2"
-            } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
+            className={`${loading ? "" : "border-2"
+              } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
           >
             {/* <span className="text-gray-600 ">Sign In</span> */}
 

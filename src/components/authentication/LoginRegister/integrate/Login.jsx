@@ -8,6 +8,7 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
+import { GoogleLogin } from "react-google-login"
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -129,6 +130,23 @@ function Login({ handleToggle }) {
         });
     }
   };
+  const responseGoogle = (response) => {
+    console.log(response);
+    const google = {
+      auth_token: response.tokenId
+    }
+    axiosInstance.post(`/social/google/`, google).then((res) => {
+      setLoading(false);
+      console.log(res.data);
+      const { access, refresh } = res.data;
+      localStorage.setItem("access", access);
+      localStorage.setItem("refresh", refresh);
+      localStorage.setItem("role", res.data.user_type);
+      window.location = "/";
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
   const {
     email,
     password,
@@ -190,26 +208,20 @@ function Login({ handleToggle }) {
         {invalid && <div className="error text-red-600">{invalid}</div>}
         {/* login with  */}
         <div className="flex space-x-4 mt-3">
-          {/* facebook  */}
-          <div
-            className="animation transform hover:scale-110 shadow-md w-1/2 flex justify-center py-2 rounded-md cursor-pointer"
-            style={{
-              backgroundColor: "#1976D2",
-            }}
-          >
-            <img src={facebook} className="w-5 h-5" alt="" />
-          </div>
-          {/* google  */}
-          <div className="animation transform hover:scale-110 bg-white w-1/2 flex justify-center py-2 rounded-md cursor-pointer  shadow-md">
-            <img src={search} className="w-5 h-5" alt="" />
-          </div>
+          <GoogleLogin
+            clientId="939925324136-qclm9ubn4lroha2r50utm6712ibpdn0h.apps.googleusercontent.com"
+            buttonText="Login with google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            className="shadow-sm w-full"
+          />
         </div>
         {/* signin button  */}
         <div className="w-full my-5 flex justify-center items-center">
           <button
-            className={`${
-              loading ? "" : "border-2"
-            } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
+            className={`${loading ? "" : "border-2"
+              } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
           >
             {/* <span className="text-gray-600 ">Sign In</span> */}
 

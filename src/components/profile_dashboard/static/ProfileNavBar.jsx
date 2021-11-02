@@ -20,10 +20,10 @@ function ProfileNavBar() {
     setIsprofile((preVal) => !preVal);
   };
   const handleLogout = () => {
-    axiosInstance.post(`/user/logout/`).then((res) => {
-      localStorage.clear();
-      window.location = "/";
-    });
+    localStorage.clear();
+    window.location = "/";
+    // axiosInstance.post(`/user/logout/`).then((res) => {
+    // });
   };
   return (
     <div className="z-10 py-4 bg-white shadow-md dark:bg-gray-800 sticky top-0">

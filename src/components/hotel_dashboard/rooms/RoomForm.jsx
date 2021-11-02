@@ -1,7 +1,24 @@
 import React, { useState, useRef } from "react";
 import axiosInstance from "../../authentication/axiosInstance";
 import { ToastContainer, toast } from "react-toastify";
-
+let roomfeatures = [
+  {
+    name: "Wifi",
+    checked: false
+  },
+  {
+    name: "Kings Bed",
+    checked: false
+  },
+  {
+    name: "Bathub",
+    checked: false
+  },
+  {
+    name: "Breakfast",
+    checked: false
+  }
+]
 function RoomForm() {
   const selectedImageName = useRef();
   const [loading, setLoading] = useState(false);
@@ -26,6 +43,8 @@ function RoomForm() {
       description: "",
     },
   });
+  const [selecetdFeatures, setSelectedFeatures] = useState([])
+  const [features, setFeatures] = useState([])
   const [error, setError] = useState("");
   const handleErrors = (property, value) => {
     setError("");
@@ -117,13 +136,13 @@ function RoomForm() {
       errors,
     } = data;
     if (
-      room_code === "" ||
+      // room_code === "" ||
       room_type === "" ||
       guest_type === "" ||
       guest_number === "" ||
-      check_in === "" ||
-      check_out === "" ||
-      room_feature === "" ||
+      // check_in === "" ||
+      // check_out === "" ||
+      room_feature === [] ||
       status === "" ||
       description === "" ||
       errors === "" ||
@@ -133,20 +152,16 @@ function RoomForm() {
     } else {
       setError("");
       const formData = new FormData();
-      formData.append("room_code", room_code);
+      // formData.append("room_code", room_code);
       formData.append("room_type", room_type);
       formData.append("guest_type", guest_type);
       formData.append("guest_number", guest_number);
-      formData.append("check_in", check_in);
-      formData.append("check_out", check_out);
-      formData.append("room_feature", room_feature);
+      // formData.append("check_in", check_in);
+      // formData.append("check_out", check_out);
       formData.append("status", status);
       formData.append("description", description);
+      formData.append("room_feature", JSON.stringify(selecetdFeatures));
       setLoading(true);
-      setData({
-        ...data,
-        confirmationEmail: "",
-      });
       axiosInstance
         .post("/hotel/room/create/", formData)
         .then(() => {
@@ -162,15 +177,6 @@ function RoomForm() {
           });
         })
         .catch((err) => {
-          toast.success("Room added sucessfully", {
-            position: "top-right",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
           // console.log(err.response);
           const { email, name } = err.response.data;
           if (email) {
@@ -221,13 +227,51 @@ function RoomForm() {
       selectedImageName.current.innerHTML = fileName;
     }
   };
+  const handleFeature = (index, value, checked) => {
+    // console.log(value);
+    let array = [...features]
+    if (!checked) {
+      array[index].checked = true
+      setSelectedFeatures([...selecetdFeatures, parseInt(value)])
+    } else {
+      let newArr = [...selecetdFeatures]
+      const filtered = newArr.filter((data) => data !== value)
+      setSelectedFeatures(filtered)
+      array[index].checked = false
+      // for (let i = 0; i < array.length; i++) {
+      //   if (i === index) {
+      //     array[i].checked = true
+      //   } else {
+      //     array[i].checked = false
+
+      //   }
+      // }
+    }
+    setFeatures(array)
+  }
+  React.useEffect(() => {
+    axiosInstance.get(`/hotel/room-feature/`).then((res) => {
+      console.log(res.data);
+      let arr = []
+      res.data.forEach((data) => {
+        arr.push({
+          id: parseInt(data.id),
+          name: data.name,
+          checked: false
+        })
+      })
+      setFeatures(arr)
+    }).catch((err) => {
+      console.log(err);
+    })
+  }, [])
   const {
     room_code,
     room_type,
     guest_type,
     guest_number,
-    check_in,
-    check_out,
+    // check_in,
+    // check_out,
     room_feature,
     status,
     description,
@@ -238,12 +282,12 @@ function RoomForm() {
     // room_type: room_typeErr,
     // guest_type: guest_typeErr,
     guest_number: guest_numberErr,
-    check_in: check_inErr,
-    check_out: check_outErr,
+    // check_in: check_inErr,
+    // check_out: check_outErr,
     room_feature: room_featureErr,
     description: descriptionErr,
   } = errors;
-  console.log(userFile);
+  console.log(selecetdFeatures);
   return (
     <>
       <ToastContainer />
@@ -257,9 +301,8 @@ function RoomForm() {
           autoComplete="off"
         >
           {/* room code  */}
-          <div className="form-group">
+          {/* <div className="form-group">
             <label>Room Code</label>
-            {/* Select Custom Dropdown */}
             <input
               placeholder="Your room code ..."
               type="text"
@@ -270,7 +313,7 @@ function RoomForm() {
             {room_codeErr && (
               <div className="error text-red-600">{room_codeErr}</div>
             )}
-          </div>
+          </div> */}
           {/* room type  */}
           <div className="form-group">
             <label>Room Type</label>
@@ -322,36 +365,6 @@ function RoomForm() {
               <div className="error text-red-600">{guest_numberErr}</div>
             )}
           </div>
-          {/* Check In  */}
-          <div className="form-group">
-            <label>Check In</label>
-            {/* Select Custom Dropdown */}
-            <input
-              placeholder="Your room code ..."
-              type="date"
-              value={check_in}
-              autoComplete="off"
-              onChange={(e) => handleChange(e, "check_in")}
-            />
-            {check_inErr && (
-              <div className="error text-red-600">{check_inErr}</div>
-            )}
-          </div>
-          {/* Check Out  */}
-          <div className="form-group">
-            <label>Check Out</label>
-            {/* Select Custom Dropdown */}
-            <input
-              placeholder="Your room code ..."
-              type="date"
-              value={check_out}
-              autoComplete="off"
-              onChange={(e) => handleChange(e, "check_out")}
-            />
-            {check_outErr && (
-              <div className="error text-red-600">{check_outErr}</div>
-            )}
-          </div>
           {/* image  */}
           <div className="">
             <div className="flex flex-col space-y-1 relative ">
@@ -394,11 +407,11 @@ function RoomForm() {
               onChange={(e) => handleChange(e, "status")}
             >
               <option value="DF">Draft</option>
-              <option value="PH">Publish</option>
+              <option value="PU">Publish</option>
             </select>
           </div>
           {/* Room Feature  */}
-          <div className="form-group md:col-span-2">
+          {/* <div className="form-group md:col-span-2">
             <label>Room Feature</label>
             <textarea
               value={room_feature}
@@ -408,6 +421,21 @@ function RoomForm() {
             {room_featureErr && (
               <div className="error text-red-600">{room_featureErr}</div>
             )}
+          </div> */}
+          <div className="form-group">
+            <label>Room Features</label>
+            {features.map((r, index) => {
+              return (
+                <div className="" key={index}>
+                  <input type="checkbox" checked={r.checked}
+                    name={index}
+                    value={r.id}
+                    onChange={(e) => handleFeature(index, e.target.value, r.checked)}
+                  />
+                  <label htmlFor={index} className="ml-4 cursor-pointer">{r.name}</label>
+                </div>
+              )
+            })}
           </div>
           {/* description  */}
           <div className="form-group md:col-span-2">
@@ -425,9 +453,8 @@ function RoomForm() {
           {/* signin button  */}
           <div className="col-span-1 md:col-span-2 w-full my-5 flex justify-center items-center">
             <button
-              className={`${
-                loading ? "" : "border-2"
-              } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
+              className={`${loading ? "" : "border-2"
+                } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
             >
               {/* <span className="text-gray-600 ">Sign In</span> */}
 

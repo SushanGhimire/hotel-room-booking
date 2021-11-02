@@ -18,7 +18,7 @@ function PopularHotel({ lang }) {
     axiosInstance
       .get("/hotel/")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setHotelData(res.data);
       })
       .catch((err) => {
@@ -91,11 +91,11 @@ function PopularHotel({ lang }) {
               slidesPerView: 5,
             },
           }}
-          // slidesPerView={4}
+        // slidesPerView={4}
         >
           {Array.isArray(hotelData) &&
             hotelData.map((hotel, index) => {
-              const { name, star, address, image } = hotel;
+              const { name, star, address, hotel_image } = hotel;
               return (
                 <SwiperSlide className="" key={index}>
                   <div className="flex flex-col w-full bg-white shadow-md h-full font-header cursor-pointer relative group rounded overflow-hidden transform hover:scale-105 animation">
@@ -107,7 +107,7 @@ function PopularHotel({ lang }) {
                         </button>
                       </div>
                       <img
-                        src={image}
+                        src={hotel_image}
                         alt=""
                         className="w-full h-full object-cover"
                       />

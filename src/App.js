@@ -8,6 +8,7 @@ import EmailVerification from "./components/authentication/password-reset/EmailV
 import PasswordReset from "./components/authentication/password-reset/PasswordReset";
 import Rooms from "./components/web/rooms/Rooms";
 import { useSelector } from "react-redux";
+import RoomOverview from "./components/web/rooms/RoomOverview";
 
 function App({ loggedIn }) {
   const lang = useSelector((state) => state.darkmode.lang);
@@ -62,7 +63,7 @@ function App({ loggedIn }) {
             />
           </>
         )}
-
+        <Route path="/rooms/:slug" component={RoomOverview} />
         <Route
           path="*"
           render={() => {

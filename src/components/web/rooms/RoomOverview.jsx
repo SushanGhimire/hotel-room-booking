@@ -1,12 +1,27 @@
 import React from "react";
+import { useParams } from "react-router-dom"
+import axiosInstance from "../../authentication/axiosInstance";
 const RoomOverview = () => {
+  const [roomDetail, setRoomDetail] = React.useState([])
+  const { id } = useParams()
+  React.useEffect(() => {
+    if (id) {
+      axiosInstance(`/hotel/room/${id}/`).then((res) => {
+        console.log(res.data);
+        setRoomDetail(res.data);
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+  }, [])
+  const { room_type, room_image, hotel, description, room_feature } = roomDetail
   return (
     <div>
       <div className="flex flex-col md:flex-row w-11/12 gap-4 mx-auto pt-20 pb-14 ">
         <div className="flex-1">
           <div className="flex justify-center  items-center">
             <img
-              src="https://wallpapercave.com/wp/wp6957266.jpg"
+              src={room_image}
               alt="img"
               style={{ height: "50vh" }}
               className="rounded-3xl"
@@ -40,17 +55,21 @@ const RoomOverview = () => {
             </div>
           </div>
           <div className="text-2xl mt-2 text-gray-700  font-bold">
-            Nabin Kharel Nabin Kharel
+            {room_type === "NR" && "Norma"}
+            {room_type === "DL" && "Dilux"}
+            {room_type === "LU" && "Luxury"}
+            {room_type === "PR" && "Presidental"}
+            {room_type === "DI" && "Divine"}
           </div>
           <div className=" mt-2 font-semibold text-sm text-gray-500 ">
-            Nabin Kharel Nabin Kharel
+            {hotel && hotel.address}
           </div>
           <div className="w-full overflow-auto">
             <div className="flex mt-4 gap-8">
               <div className="text-sm border-b-2 border-white hover:border-blue-500 font-semibold text-gray-700 cursor-pointer hover:text-blue-500">
                 Descreption
               </div>
-              <div className="text-sm border-b-2 border-white hover:border-blue-500 font-semibold text-gray-700 cursor-pointer hover:text-blue-500">
+              {/* <div className="text-sm border-b-2 border-white hover:border-blue-500 font-semibold text-gray-700 cursor-pointer hover:text-blue-500">
                 Features
               </div>
               <div className="text-sm border-b-2 border-white hover:border-blue-500 font-semibold text-gray-700 cursor-pointer hover:text-blue-500">
@@ -58,68 +77,79 @@ const RoomOverview = () => {
               </div>
               <div className="text-sm border-b-2 flex flex-shrink-0 border-white hover:border-blue-500 font-semibold text-gray-700 cursor-pointer hover:text-blue-500">
                 Price & Task history
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="text-base mt-4 text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-            porttitor felis sit amet elit blandit, in pharetra purus porta. Sed
-            vel urna quis lectus maximus tincidunt vel ac nunc. Aliquam
-            efficitur nisl tempus ex ultricies gravida eu in mauris. Vivamus
-            viverra enim eu lorem vehicula, non tincidunt nunc finibus
+            {description}
           </div>
           <div className="font-semibold text-gray-700 my-4">
             Hotels features
           </div>
           <div className="w-full overflow-auto">
             <div className="flex flex-shrink-0 my-4 gap-8">
-              <div className="text-sm flex flex-shrink-0 gap-1 font-semibold text-gray-600">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
-                  />
-                </svg>
-                <div>wi-fi</div>
-              </div>
-              <div className="text-sm font-semibold text-gray-600 flex flex-shrink-0 gap-1">
-                <div>
-                  <img
-                    className="w-5 h-5"
-                    src="https://img.icons8.com/ios/50/000000/bed.png"
-                    alt=""
-                  />
-                </div>
-                <div>Kings bed</div>
-              </div>
-              <div className="text-sm font-semibold flex flex-shrink-0 gap-1 text-gray-600">
-                <div>
-                  <img
-                    className="w-5 h-5"
-                    src="https://img.icons8.com/pastel-glyph/64/000000/bath--v2.png"
-                    alt=""
-                  />
-                </div>
-                Bathup
-              </div>
-              <div className="text-sm font-semibold flex flex-shrink-0 gap-1 text-gray-600">
-                <div>
-                  <img
-                    className="w-5 h-5"
-                    alt=""
-                    src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-breakfast-morning-routine-flatart-icons-outline-flatarticons-1.png"
-                  />
-                </div>
-                <div>Breakfast</div>
-              </div>
+              {Array.isArray(room_feature) && room_feature.map((room, index) => {
+                return (
+                  <div div key={index}>
+                    {room.name === "wifi" && (
+                      <div className="text-sm flex flex-shrink-0 gap-1 font-semibold text-gray-600">
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
+                          />
+                        </svg>
+                        <div>wi-fi</div>
+                      </div>
+                    )}
+                    {room.name === "Kings Bed" && (
+                      <div className="text-sm font-semibold text-gray-600 flex flex-shrink-0 gap-1">
+                        <div>
+                          <img
+                            className="w-5 h-5"
+                            src="https://img.icons8.com/ios/50/000000/bed.png"
+                            alt=""
+                          />
+                        </div>
+                        <div>Kings bed</div>
+                      </div>
+                    )}
+                    {room.name === "Bathtub" && (
+
+                      <div className="text-sm font-semibold flex flex-shrink-0 gap-1 text-gray-600">
+                        <div>
+                          <img
+                            className="w-5 h-5"
+                            src="https://img.icons8.com/pastel-glyph/64/000000/bath--v2.png"
+                            alt=""
+                          />
+                        </div>
+                        Bathup
+                      </div>
+                    )}
+                    {room.name === "Breakfast" && (
+                      <div className="text-sm font-semibold flex flex-shrink-0 gap-1 text-gray-600">
+                        <div>
+                          <img
+                            className="w-5 h-5"
+                            alt=""
+                            src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-breakfast-morning-routine-flatart-icons-outline-flatarticons-1.png"
+                          />
+                        </div>
+                        <div>Breakfast</div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>

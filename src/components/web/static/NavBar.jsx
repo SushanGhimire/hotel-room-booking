@@ -56,9 +56,8 @@ function NavBar({ loggedIn, lang }) {
   return (
     <div className="fixed z-30 w-full font-header">
       <div
-        className={`w-full text-white flex justify-between px-5 md:px-10 lg:px-28 font-subHeader items-center py-5 lg:py-0 bg-opacity-40 animation ${
-          position ? "bg-black 0" : ""
-        } `}
+        className={`w-full text-white flex justify-between px-5 md:px-10 lg:px-28 font-subHeader
+         items-center py-5 lg:py-3 bg-opacity-40 animation bg-black `}
       >
         {/* logo */}
         <div>
@@ -91,9 +90,8 @@ function NavBar({ loggedIn, lang }) {
                 onMouseLeave={handleLoginToggle}
               >
                 <div
-                  className={`absolute w-full transition-all duration-300 ease-in-out ${
-                    loginToggle ? "h-full" : "h-0"
-                  } z-0 bg-alert top-0 right-0 flex justify-center items-center`}
+                  className={`absolute w-full transition-all duration-300 ease-in-out ${loginToggle ? "h-full" : "h-0"
+                    } z-0 bg-alert top-0 right-0 flex justify-center items-center`}
                 >
                   {/* {loginToggle ? "Login" : ""} */}
                   {/* Login */}

@@ -133,22 +133,25 @@ function PopularRoom({ lang }) {
               slidesPerView: 5,
             },
           }}
-          // slidesPerView={4}
+        // slidesPerView={4}
         >
           {Array.isArray(roomData) &&
             roomData.map((room, index) => {
-              const { name, description } = room;
+              const { name, description, room_type, room_image, price, id } = room;
               return (
                 <SwiperSlide className="" key={index}>
                   <div className="flex flex-col w-full bg-white shadow-md h-full font-subHeader cursor-pointer relative group rounded overflow-hidden text-gray-600 transform hover:scale-105 animation">
                     <div className="h-56 w-full relative">
                       <div className="absolute w-full h-full bg-black bg-opacity-0 animation group-hover:bg-opacity-40 top-0 right-0 flex justify-center items-center">
-                        <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm">
+                        <Link to={`/rooms/${id}`} onClick={() => {
+
+                          window.scrollTo(0, 0)
+                        }} className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm">
                           More Details
-                        </button>
+                        </Link>
                       </div>
                       <img
-                        src={roomImg[index].img}
+                        src={room_image}
                         alt=""
                         className="w-full h-full object-cover"
                       />
@@ -156,12 +159,16 @@ function PopularRoom({ lang }) {
                     <div className="flex flex-col px-4 space-y-1 pt-4 pb-6">
                       <div className="flex justify-between items-center font-semibold font-header text-gray-800">
                         <span className="text-lg">{name}</span>
-                        <span className="text-highlight">Rs 12000/day</span>
+                        <span className="text-highlight">Rs {price}/per night</span>
                       </div>
                       <div className="flex text-xl font-header font-semibold text-highlight">
-                        A Star Hotel
+                        {room_type === "NR" && "Norma"}
+                        {room_type === "DL" && "Dilux"}
+                        {room_type === "LU" && "Luxury"}
+                        {room_type === "PR" && "Presidental"}
+                        {room_type === "DI" && "Divine"}
                       </div>
-                      <div className="flex text-sm">{description}</div>
+                      <div className="flex text-sm line-clamp-3 text-justify">{description}</div>
                       <div className="flex items-center  space-x-3 text-sm">
                         <span>Review</span>
                         <span className="flex">

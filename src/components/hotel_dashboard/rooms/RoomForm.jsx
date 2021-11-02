@@ -1,31 +1,14 @@
 import React, { useState, useRef } from "react";
 import axiosInstance from "../../authentication/axiosInstance";
 import { ToastContainer, toast } from "react-toastify";
-let roomfeatures = [
-  {
-    name: "Wifi",
-    checked: false
-  },
-  {
-    name: "Kings Bed",
-    checked: false
-  },
-  {
-    name: "Bathub",
-    checked: false
-  },
-  {
-    name: "Breakfast",
-    checked: false
-  }
-]
+import { useParams } from "react-router-dom"
 function RoomForm() {
+  const { id } = useParams()
   const selectedImageName = useRef();
   const [loading, setLoading] = useState(false);
   const [imageError, setImageError] = useState("");
   const [userFile, setUserFile] = useState("");
   const [data, setData] = useState({
-    room_code: "",
     room_type: "NR",
     guest_type: "1A",
     guest_number: "",
@@ -34,8 +17,9 @@ function RoomForm() {
     room_feature: "",
     status: "DF",
     description: "",
+    price: "",
     errors: {
-      room_code: "",
+      price: "",
       guest_number: "",
       check_in: "",
       check_out: "",
@@ -43,6 +27,7 @@ function RoomForm() {
       description: "",
     },
   });
+  const [hId, setHId] = useState("")
   const [selecetdFeatures, setSelectedFeatures] = useState([])
   const [features, setFeatures] = useState([])
   const [error, setError] = useState("");
@@ -66,11 +51,19 @@ function RoomForm() {
           result = true;
         }
       } else if (property === "guest_number") {
-        if (value === "") {
+        if (value === "" || isNaN(value)) {
           errors.guest_number = "Guest number cannot be left emppty";
           result = false;
         } else {
           errors.guest_number = "";
+          result = true;
+        }
+      } else if (property === "price") {
+        if (value === "" || isNaN(value)) {
+          errors.price = "Guest number cannot be left emppty";
+          result = false;
+        } else {
+          errors.price = "";
           result = true;
         }
       } else if (property === "check_in") {
@@ -133,6 +126,7 @@ function RoomForm() {
       room_feature,
       status,
       description,
+      price,
       errors,
     } = data;
     if (
@@ -140,6 +134,7 @@ function RoomForm() {
       room_type === "" ||
       guest_type === "" ||
       guest_number === "" ||
+      price === "" ||
       // check_in === "" ||
       // check_out === "" ||
       room_feature === [] ||
@@ -155,12 +150,15 @@ function RoomForm() {
       // formData.append("room_code", room_code);
       formData.append("room_type", room_type);
       formData.append("guest_type", guest_type);
+      formData.append("price", price);
       formData.append("guest_number", guest_number);
+      formData.append("hotel", hId);
+      formData.append("room_image", userFile);
       // formData.append("check_in", check_in);
       // formData.append("check_out", check_out);
       formData.append("status", status);
       formData.append("description", description);
-      formData.append("room_feature", JSON.stringify(selecetdFeatures));
+      formData.append("room_feature", [selecetdFeatures]);
       setLoading(true);
       axiosInstance
         .post("/hotel/room/create/", formData)
@@ -175,6 +173,9 @@ function RoomForm() {
             draggable: true,
             progress: undefined,
           });
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
         })
         .catch((err) => {
           // console.log(err.response);
@@ -232,24 +233,26 @@ function RoomForm() {
     let array = [...features]
     if (!checked) {
       array[index].checked = true
-      setSelectedFeatures([...selecetdFeatures, parseInt(value)])
+      setSelectedFeatures(parseInt(value))
     } else {
       let newArr = [...selecetdFeatures]
-      const filtered = newArr.filter((data) => data !== value)
+      console.log(newArr);
+      const filtered = newArr.filter((data) => data !== parseInt(value))
       setSelectedFeatures(filtered)
-      array[index].checked = false
-      // for (let i = 0; i < array.length; i++) {
-      //   if (i === index) {
-      //     array[i].checked = true
-      //   } else {
-      //     array[i].checked = false
+      // array[index].checked = false
+    }
+    for (let i = 0; i < array.length; i++) {
+      if (i === index) {
+        array[i].checked = true
+      } else {
+        array[i].checked = false
 
-      //   }
-      // }
+      }
     }
     setFeatures(array)
   }
   React.useEffect(() => {
+
     axiosInstance.get(`/hotel/room-feature/`).then((res) => {
       console.log(res.data);
       let arr = []
@@ -264,15 +267,47 @@ function RoomForm() {
     }).catch((err) => {
       console.log(err);
     })
+    axiosInstance.get(`/hotel/`).then((res) => {
+      setHId(res.data[0].hotel_owner.id);
+    }).catch((err) => {
+      console.log(err);
+    })
+    if (id) {
+      axiosInstance.get(`/hotel/room/${id}/`).then((res) => {
+        console.log(res.data);
+        let val = {
+          room_type: res.data.room_type,
+          guest_type: res.data.guest_type,
+          guest_number: res.data.guest_number,
+          status: res.data.status,
+          description: res.data.description,
+          price: res.data.price,
+        }
+        // setData({
+        //   val,
+        //   errors: {
+        //     price: "",
+        //     guest_number: "",
+        //     check_in: "",
+        //     check_out: "",
+        //     room_feature: "",
+        //     description: "",
+        //   },
+        // })
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
   }, [])
   const {
-    room_code,
+    // room_code,
     room_type,
     guest_type,
     guest_number,
     // check_in,
     // check_out,
-    room_feature,
+    // room_feature,
+    price,
     status,
     description,
     errors,
@@ -284,6 +319,7 @@ function RoomForm() {
     guest_number: guest_numberErr,
     // check_in: check_inErr,
     // check_out: check_outErr,
+    price: priceErr,
     room_feature: room_featureErr,
     description: descriptionErr,
   } = errors;
@@ -409,6 +445,21 @@ function RoomForm() {
               <option value="DF">Draft</option>
               <option value="PU">Publish</option>
             </select>
+          </div>
+          {/* GUest Number  */}
+          <div className="form-group">
+            <label>Price Per Night</label>
+            {/* Select Custom Dropdown */}
+            <input
+              placeholder="Guest number ..."
+              type="text"
+              value={price}
+              autoComplete="off"
+              onChange={(e) => handleChange(e, "price")}
+            />
+            {priceErr && (
+              <div className="error text-red-600">{priceErr}</div>
+            )}
           </div>
           {/* Room Feature  */}
           {/* <div className="form-group md:col-span-2">

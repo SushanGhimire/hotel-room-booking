@@ -31,6 +31,7 @@ function App({ loggedIn }) {
             <Rooms loggedIn={loggedIn} lang={lang} {...props} />
           )}
         />
+        <Route path="/rooms/:id" component={RoomOverview} />
         <Route
           exact
           path="/user/email-verify/:token"
@@ -63,7 +64,6 @@ function App({ loggedIn }) {
             />
           </>
         )}
-        <Route path="/rooms/:slug" component={RoomOverview} />
         <Route
           path="*"
           render={() => {

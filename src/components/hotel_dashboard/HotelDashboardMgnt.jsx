@@ -16,6 +16,7 @@ function HotelDashboardMgnt() {
           {/* <Route exact path="/dashboard/home" component={Home}></Route> */}
           <Route exact path="/h-dashboard" component={HHome}></Route>
           <Route exact path="/h-dashboard/add-room" component={Room}></Route>
+          <Route exact path="/h-dashboard/add-room/:id" component={Room}></Route>
           <Route
             exact
             path="/h-dashboard/add-room/:id"

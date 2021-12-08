@@ -1,7 +1,9 @@
-import React from "react";
+import React,{useState} from "react";
 import { useParams } from "react-router-dom"
 import axiosInstance from "../../authentication/axiosInstance";
+import {ReactComponent as StarIcon} from '../../../assets/images/icons/star.svg';
 const RoomOverview = () => {
+  const rating = [1,2,3,4,5]
   const [roomDetail, setRoomDetail] = React.useState([])
   const { id } = useParams()
   React.useEffect(() => {
@@ -14,210 +16,171 @@ const RoomOverview = () => {
       })
     }
   }, [])
+  const [info, setInfo] = useState({
+    checkIn:'',
+    checkOut:'',
+    guests:'',
+    extraFeature:''
+  })
+  const changeHandler =(e) => {
+    const {name, value} = e.target;
+    console.log(value);
+    setInfo({
+      ...info,
+      [name]:value
+    })
+  }
+  const submitHandler =(e) => {
+    e.preventDefault();
+    console.log(info)
+  }
+  const[toggleState, setToggleState] = useState('description');
+  const toggleTab = (index) => {
+      setToggleState(index)
+  }
   const { room_type, room_image, hotel, description, room_feature } = roomDetail
   return (
-    <div>
-      <div className="flex flex-col md:flex-row w-11/12 gap-4 mx-auto pt-20 pb-14 ">
-        <div className="flex-1">
-          <div className="flex justify-center  items-center">
-            <img
-              src={room_image}
-              alt="img"
-              style={{ height: "50vh" }}
-              className="rounded-3xl"
-            />
-          </div>
-          <div className="mt-10 flex gap-2">
-            <div className="text-sm w-8 rounded-md font-medium h-6 flex justify-center items-center bg-gray-100 text-green-500 ">
-              5.0
-            </div>
-            <div className="text-sm text-green-500 font-medium">Perfect</div>
-            <div className="flex gap-1 items-center">
-              {[1, 2, 3, 4].map((item, index) => {
-                return (
-                  <svg
-                    key={index}
-                    className="w-4 h-4 text-yellow-300"
-                    fill="yellow"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                    />
-                  </svg>
-                );
-              })}
-            </div>
-          </div>
-          <div className="text-2xl mt-2 text-gray-700  font-bold">
-            {room_type === "NR" && "Norma"}
-            {room_type === "DL" && "Dilux"}
-            {room_type === "LU" && "Luxury"}
-            {room_type === "PR" && "Presidental"}
-            {room_type === "DI" && "Divine"}
-          </div>
-          <div className=" mt-2 font-semibold text-sm text-gray-500 ">
-            {hotel && hotel.address}
-          </div>
-          <div className="w-full overflow-auto">
-            <div className="flex mt-4 gap-8">
-              <div className="text-sm border-b-2 border-white hover:border-blue-500 font-semibold text-gray-700 cursor-pointer hover:text-blue-500">
-                Descreption
-              </div>
-              {/* <div className="text-sm border-b-2 border-white hover:border-blue-500 font-semibold text-gray-700 cursor-pointer hover:text-blue-500">
-                Features
-              </div>
-              <div className="text-sm border-b-2 border-white hover:border-blue-500 font-semibold text-gray-700 cursor-pointer hover:text-blue-500">
-                Virtual
-              </div>
-              <div className="text-sm border-b-2 flex flex-shrink-0 border-white hover:border-blue-500 font-semibold text-gray-700 cursor-pointer hover:text-blue-500">
-                Price & Task history
-              </div> */}
-            </div>
-          </div>
-          <div className="text-base mt-4 text-gray-600">
-            {description}
-          </div>
-          <div className="font-semibold text-gray-700 my-4">
-            Hotels features
-          </div>
-          <div className="w-full overflow-auto">
-            <div className="flex flex-shrink-0 my-4 gap-8">
-              {Array.isArray(room_feature) && room_feature.map((room, index) => {
-                return (
-                  <div div key={index}>
-                    {room.name === "wifi" && (
-                      <div className="text-sm flex flex-shrink-0 gap-1 font-semibold text-gray-600">
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
-                          />
-                        </svg>
-                        <div>wi-fi</div>
-                      </div>
-                    )}
-                    {room.name === "Kings Bed" && (
-                      <div className="text-sm font-semibold text-gray-600 flex flex-shrink-0 gap-1">
-                        <div>
-                          <img
-                            className="w-5 h-5"
-                            src="https://img.icons8.com/ios/50/000000/bed.png"
-                            alt=""
-                          />
-                        </div>
-                        <div>Kings bed</div>
-                      </div>
-                    )}
-                    {room.name === "Bathtub" && (
-
-                      <div className="text-sm font-semibold flex flex-shrink-0 gap-1 text-gray-600">
-                        <div>
-                          <img
-                            className="w-5 h-5"
-                            src="https://img.icons8.com/pastel-glyph/64/000000/bath--v2.png"
-                            alt=""
-                          />
-                        </div>
-                        Bathup
-                      </div>
-                    )}
-                    {room.name === "Breakfast" && (
-                      <div className="text-sm font-semibold flex flex-shrink-0 gap-1 text-gray-600">
-                        <div>
-                          <img
-                            className="w-5 h-5"
-                            alt=""
-                            src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-breakfast-morning-routine-flatart-icons-outline-flatarticons-1.png"
-                          />
-                        </div>
-                        <div>Breakfast</div>
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-        <div className="w-full md:w-2/6 lg:w-1/4">
-          <div className="border border-gray-300 rounded-3xl p-4 mx-auto">
-            <div className="flex border-b justify-between pb-2  border-gray-300 ">
-              <div className="flex ">
-                <div className="">$310</div>
-                <div className="text-gray-500">/night</div>
-              </div>
-            </div>
-            <div className="flex flex-1 justify-between mt-4">
-              <div>
-                <p className="text-xs text-gray-700 font-semibold">Check-in</p>
-                <input
-                  className="w-24 rounded-lg bg-gray-50 py-1 px-2 text-sm"
-                  type="date"
-                />
-              </div>
-              <div>
-                <p className="text-xs text-gray-700 font-semibold">Check-out</p>
-                <input
-                  className="w-24 rounded-lg bg-gray-50 py-1 px-2 text-sm"
-                  type="date"
-                />
-              </div>
-            </div>
+    <>
+      <div className="felx  pt-24 px-4 md:px-10">
+        <div className="flex  flex-1 flex-col md:flex-row">
+          <div className="mx-2">
             <div>
-              <p className="text-xs text-gray-700 font-semibold mt-4">Guest</p>
-              <select
-                type="text"
-                value="2 Adults"
-                className="w-full rounded-lg bg-gray-50 py-1 px-2 text-sm"
-              >
-                <option value="2 Adults">2 Adults</option>
-              </select>
+              <img src="https://source.unsplash.com/collection/190727/1519x580" alt="" className="rounded-xl w-screen h-100 object-cover"/>
             </div>
-            <div className="mt-4">
-              <p className="text-xs text-gray-700 font-semibold mt-4">Price</p>
-              <div className="bg-gray-100 rounded-lg w-full">
-                <div className="w-11/12 mx-auto my-2">
-                  <div className="flex justify-between py-1">
-                    <div className="text-xs">1 Nights</div>
-                    <div className="text-xs font-semibold">$510</div>
-                  </div>
-                  <div className="flex justify-between py-1">
-                    <div className="text-xs">1 Nights</div>
-                    <div className="text-xs font-semibold">$510</div>
-                  </div>
+            <div className="py-5">
+            <div className="flex  flex-col gap-y-3">
+              {/* Room Rating */}
+              <div className="flex gap-x-2 flex-wrap items-center">
+                <p className="text-green-500 font-bold bg-green-100 rounded-md px-2">{`${rating.length}.0`}</p>
+                <p className="text-green-500 font-bold"> Perfect</p>
+                <small className="text-blue-500 bg-blue-100 rounded-md px-2 text-xs ">Hotels</small>
+                <small className="text-red-500 bg-red-100 rounded-md px-2 text-xs">New Buildings</small>
+                <small className="text-yellow-500 bg-yellow-100 rounded-md px-2 text-xs">Top value</small>
+                {
+                  rating.map((rate) => {
+                    return(
+                    <div>
+                      <StarIcon/>
+                    </div>
+                      
+                    )
+                  })
+                }
+              </div>
+              {/* Room Header */}
+              <div>
+                <div className="flex flex-col gap-y-2">
+                  <h2 className="text-3xl font-bold">Hotel Srijan Pokhrel Very Very Luxury</h2>
+                  <p className="text-gray-dark text-sm">Chitwan, Belchowk</p>
                 </div>
               </div>
-              <div className="my-4 flex justify-between">
-                <div className="text-sm">Total Price</div>
-                <div className="text-xs font-semibold">$510</div>
+              {/* Description */}
+              <div className="relative">
+                <div className="flex-1 md:flex gap-x-6 text-gray-dark text-sm cursor-pointer ">
+                  <div>
+                    <h1 className={toggleState === 'description' ? 'text-blue-500 border-b-2 border-blue-500': ''} onClick={() => toggleTab('description')}>Description</h1>
+                    <p  className={`${toggleState === 'description' ? 'block' : 'hidden'} md:absolute py-4`}>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi tenetur dolorem similique fuga saepe totam dicta non expedita ratione, eum iste voluptas. Incidunt nesciunt ipsam minima earum debitis, officia quasi suscipit veniam quae exercitationem esse, sed, impedit ducimus ipsum ex.</p>
+                  </div>
+                  <div>
+                    <h1 className={toggleState === 'features' ? 'text-blue-500 border-b-2 border-blue-500': ''} onClick={() => toggleTab('features')}>Features</h1>
+                    <p className={`${toggleState === 'features' ? 'block' : 'hidden'} md:absolute left-0 py-4`}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, ut?</p>
+                  </div>
+                  <div>
+                    <h1 className={toggleState === 'virtual' ? 'text-blue-500 border-b-2 border-blue-500': ''} onClick={() => toggleTab('virtual')}>Virtual</h1>
+                    <p className={`${toggleState === 'virtual' ? 'block' : 'hidden'} md:absolute left-0 py-4`}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi quae harum obcaecati officiis est numquam consectetur voluptates assumenda omnis nesciunt?</p>
+                  </div>
+                  <div>
+                    <h1 className={toggleState === 'price&taskhistory' ? 'text-blue-500 border-b-2 border-blue-500': ''} onClick={() => toggleTab('price&taskhistory')}>Price & Task history</h1>
+                    <p className={`${toggleState === 'price&taskhistory' ? 'block' : 'hidden'} md:absolute left-0 py-4`}>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt quo commodi quisquam aut non ad eveniet pariatur repellendus repudiandae ipsa consequuntur esse fugiat dignissimos omnis illo mollitia ex consequatur deserunt adipisci, corrupti cupiditate laudantium aliquam voluptas possimus! Hic, eius non recusandae ad ab quae numquam aliquid quia, ut nobis libero!
+                    </p>
+                   </div>
+                </div>
               </div>
-              <div className="w-full mx-auto">
-                <button className="rounded-lg py-2 text-sm text-center bg-blue-500 text-white w-full">
-                  Book Now
-                </button>
+            </div>
+            </div>
+          </div>
+          {/* Form Content */}
+          <div className="mx-3 mb-4">
+            <div className="p-5 rounded-3xl border-2">
+              <div className="flex justify-between my-4">
+                <p className="font-bold text-2xl">$310/night</p>
+                <p className="text-white bg-primaryBlue px-3 py-1 rounded-full text-xs items-center flex">20% off</p>
               </div>
-              <div className="text-center text-xs mt-2 text-gray-400">
-                You will not get charged yet
+              <div className="border-t-2 py-4">
+                <form action="" className="flex flex-col gap-y-5" onSubmit={submitHandler}>
+                  {/* Date */}
+                  <div className="flex gap-x-4">
+                    <div>
+                      <label htmlFor="checkin" className="text-xs text-gray-400">Check-In</label>
+                      <input name="checkIn" type="date" className="p-2 bg-gray-100 border-none text-sm " value={info.checkIn} onChange={changeHandler}/>
+                    </div>
+                    <div>
+                      <label htmlFor="checkout" className="text-xs text-gray-400">Check-out</label>
+                      <input name="checkOut" type="date" className="p-2 bg-gray-100 border-none text-sm " value={info.checkOut} onChange={changeHandler}/>
+                    </div>
+                  </div>
+                  {/* Guest */}
+                  <div>
+                    <div>
+                      <label htmlFor="guests" className="text-xs text-gray-400">Guests</label>
+                      <select name="guests" value={info.guests} id="guests"className="text-sm rounded-xl bg-gray-100 focus:bg-gray-100 focus:outline-none" onChange={changeHandler}>
+                        <option value="2 adults,1 children" className="focus:rounded-xl p-10">2 adults,1 children</option>
+                        <option value="2 adults" >2 adults</option>
+                      </select>
+                    </div>
+                  </div>
+                  {/* Extra fratures */}
+                  <div>
+                    <div>
+                      <p className="text-xs text-gray-400">Extra Features</p>
+                      <textarea name="extraFeature" id="" cols="20" rows="4" className="p-1" value={info.extraFeature} onChange={changeHandler}></textarea>
+                    </div>
+                  </div>
+                  {/* Price */}
+                  <div className="">
+                    <div className="flex flex-col gap-y-2">
+                      <p className="text-xs text-gray-400">Price</p>
+                      <div className="bg-gray-100 p-4 rounded-md text-xs font-bold text-gray-700">
+                        <ul>
+                        <li className="flex justify-between p-2">
+                            <h5>1 Night</h5>
+                            <p>$501</p>
+                          </li>
+                          <li className="flex justify-between p-2">
+                            <h5>Discount</h5>
+                            <p>20%</p>
+                          </li>
+                          <li className="flex justify-between p-2">
+                            <h5>Breakfast a day per person</h5>
+                            <p>$10</p>
+                          </li>
+                          <li className="flex justify-between p-2">
+                            <h5>Service fee</h5>
+                            <p>$5</p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="flex justify-between p-2">
+                        <small className="text-xs text-gray-400">Total Payment</small>
+                        <p className="text-xs text-gray-400">$361</p>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Button */}
+                  <div className="text-white shadow-lg">
+                    <button type="submit" className="block w-full rounded-lg p-3 bg-primaryBlue">
+                      Book Now
+                    </button>
+                  </div>
+                </form>
+                <p className="text-sm text-gray-400 text-center py-3">You will not get charged yet</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default RoomOverview;

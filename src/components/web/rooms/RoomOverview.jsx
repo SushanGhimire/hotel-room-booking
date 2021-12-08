@@ -32,7 +32,7 @@ const RoomOverview = () => {
   }
   const submitHandler =(e) => {
     e.preventDefault();
-    console.log(info)
+    alert(info.checkIn)
   }
   const[toggleState, setToggleState] = useState('description');
   const toggleTab = (index) => {
@@ -42,10 +42,10 @@ const RoomOverview = () => {
   return (
     <>
       <div className="felx  pt-24 px-4 md:px-10">
-        <div className="flex  flex-1 flex-col md:flex-row">
-          <div className="mx-2">
+        <div className="flex  flex-1 flex-col md:flex-row ">
+          <div className="mx-2 md:w-screen">
             <div>
-              <img src="https://source.unsplash.com/collection/190727/1519x580" alt="" className="rounded-xl w-screen h-100 object-cover"/>
+              <img src="https://source.unsplash.com/collection/190727/1519x580" alt="" className="rounded-xl w-full h-100 object-cover"/>
             </div>
             <div className="py-5">
             <div className="flex  flex-col gap-y-3">
@@ -76,7 +76,7 @@ const RoomOverview = () => {
               </div>
               {/* Description */}
               <div className="relative">
-                <div className="flex-1 md:flex gap-x-6 text-gray-dark text-sm cursor-pointer ">
+                <div className="flex-1 md:flex gap-x-6 text-gray-dark text-sm md:cursor-pointer ">
                   <div>
                     <h1 className={toggleState === 'description' ? 'text-blue-500 border-b-2 border-blue-500': ''} onClick={() => toggleTab('description')}>Description</h1>
                     <p  className={`${toggleState === 'description' ? 'block' : 'hidden'} md:absolute py-4`}>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi tenetur dolorem similique fuga saepe totam dicta non expedita ratione, eum iste voluptas. Incidunt nesciunt ipsam minima earum debitis, officia quasi suscipit veniam quae exercitationem esse, sed, impedit ducimus ipsum ex.</p>

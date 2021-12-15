@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PageNotFound from "./components/common/PageNotFound";
 import ProfileDashboardMgnt from "./components/profile_dashboard/ProfileDashboardMgnt";
 import HotelDashboardMgnt from "./components/hotel_dashboard/HotelDashboardMgnt";
+import UserDashboardManagement from "./components/userDashboard/UserDashboardManagement";
 // import * as actions from "./redux/actions/action";
 // import LoadingPage from "./common/LoadingPage";
 function UrlDasWebmgnr() {
@@ -58,9 +59,10 @@ function UrlDasWebmgnr() {
         {loggedIn && role === "AD" && (
           <Route path="/dashboard" component={DashboardManagement} />
         )}
-        {loggedIn && role === "US" && (
+        {/* {loggedIn && role === "US" && ( */}
           <Route path="/profile" component={ProfileDashboardMgnt} />
-        )}
+          <Route path="/user" component={UserDashboardManagement} />
+        {/* )} */}
         {loggedIn && role === "ON" && (
           <Route path="/h-dashboard" component={HotelDashboardMgnt} />
         )}

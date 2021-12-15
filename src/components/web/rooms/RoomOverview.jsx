@@ -19,7 +19,7 @@ const RoomOverview = () => {
   const [info, setInfo] = useState({
     checkIn:'',
     checkOut:'',
-    guests:'',
+    guests:'2 adults,1 children',
     extraFeature:''
   })
   const changeHandler =(e) => {
@@ -32,7 +32,7 @@ const RoomOverview = () => {
   }
   const submitHandler =(e) => {
     e.preventDefault();
-    alert(info.checkIn)
+    console.log(info)
   }
   const[toggleState, setToggleState] = useState('description');
   const toggleTab = (index) => {
@@ -59,7 +59,7 @@ const RoomOverview = () => {
                 {
                   rating.map((rate) => {
                     return(
-                    <div>
+                    <div key={rate}>
                       <StarIcon/>
                     </div>
                       
@@ -70,8 +70,8 @@ const RoomOverview = () => {
               {/* Room Header */}
               <div>
                 <div className="flex flex-col gap-y-2">
-                  <h2 className="text-3xl font-bold">Hotel Srijan Pokhrel Very Very Luxury</h2>
-                  <p className="text-gray-dark text-sm">Chitwan, Belchowk</p>
+                  <h2 className="text-3xl font-bold">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis, quae!</h2>
+                  <p className="text-gray-dark text-sm">Lorem, ipsum dolor, sit.</p>
                 </div>
               </div>
               {/* Description */}
@@ -110,7 +110,7 @@ const RoomOverview = () => {
               <div className="border-t-2 py-4">
                 <form action="" className="flex flex-col gap-y-5" onSubmit={submitHandler}>
                   {/* Date */}
-                  <div className="flex gap-x-4">
+                  <div className="flex flex-col md:flex-row gap-x-4">
                     <div>
                       <label htmlFor="checkin" className="text-xs text-gray-400">Check-In</label>
                       <input name="checkIn" type="date" className="p-2 bg-gray-100 border-none text-sm " value={info.checkIn} onChange={changeHandler}/>

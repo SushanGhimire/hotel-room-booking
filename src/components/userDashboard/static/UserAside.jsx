@@ -3,20 +3,33 @@ import { NavLink } from "react-router-dom";
 import axiosInstance from "../../authentication/axiosInstance";
 import CommonPopup from "../../common/CommonPopup";
 import RegisterForm from "../../profile_dashboard/hotel_register/RegisterForm";
+import HotelSucess from "./HotelSucess";
 function UserAside() {
   const [open, setOpen] = useState(false);
+  const [slug, setSlug] = useState("");
+  const [isHotelOpen, setIsHotelOpen] = useState(false);
   const [isHotel, setIsHotel] = useState(false);
+  const [message, setMessage] = useState("");
   const closeModal = () => {
     setOpen(false);
+    setIsHotelOpen(false);
   };
   const fetchHotelInfo = async () => {
     try {
       const res = await axiosInstance.get(`/hotel/`);
       console.log(res);
-      if (res.data.is_verified) {
-        localStorage.clear();
-        window.location = "/login";
+      setSlug(res.data[0].slug);
+      if (res.data[0].verified_hotel === "AC") {
+        setMessage("Your hotel is verified sucessfylly.");
+        setIsHotelOpen(true);
+        setIsHotel(true);
+      } else if (res.data[0].verified_hotel === "PE") {
+        setMessage("Your hotel is Currently under review.");
+        setIsHotelOpen(true);
+        setIsHotel(true);
       } else {
+        setMessage("Your hotel is been rejected. Please try again.");
+        setIsHotelOpen(true);
         setIsHotel(false);
       }
     } catch (err) {
@@ -29,7 +42,10 @@ function UserAside() {
   return (
     <>
       <CommonPopup width="max-w-2xl" open={open} closeModal={closeModal}>
-        <RegisterForm />
+        <RegisterForm fetchHotelInfo={fetchHotelInfo} />
+      </CommonPopup>
+      <CommonPopup width="max-w-md" open={isHotelOpen} closeModal={closeModal}>
+        <HotelSucess slug={slug} closeModal={closeModal} message={message} />
       </CommonPopup>
       <div className="w-72">
         <div className="flex flex-col gap-y-10 justify-center items-center m-auto border-b-2 p-4 border-green-200">
@@ -75,12 +91,20 @@ function UserAside() {
               </NavLink>
             </p>
             <div>
-              <div className="" onClick={() => setOpen(true)}>
-                <button className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                  Register Your Hotel
-                  <span className="ml-2">+</span>
-                </button>
-              </div>
+              {isHotel ? (
+                <div className="" onClick={fetchHotelInfo}>
+                  <button className="flex items-center justify-between w-full px-4  py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    Your hotel is under preview
+                  </button>
+                </div>
+              ) : (
+                <div className="" onClick={() => setOpen(true)}>
+                  <button className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    Register Your Hotel
+                    <span className="ml-2">+</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -105,7 +105,6 @@ function Register({ handleToggle }) {
       .then(() => {
         setLoading(false);
         setConfirmationEmail("Confirmation link has been sent to your email");
-        window.location = "/login";
         setData({
           username: "",
           email: "",
@@ -118,6 +117,9 @@ function Register({ handleToggle }) {
             confirmPassword: "",
           },
         });
+        setTimeout(() => {
+          window.location = "/login";
+        }, 3000);
       })
       .catch((err) => {
         // console.log(err.response);

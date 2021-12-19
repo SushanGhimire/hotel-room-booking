@@ -8,28 +8,30 @@ import ProfileNavBar from "./static/ProfileNavBar";
 function ProfileDashboardMgnt() {
   const history = useHistory();
   return (
-    <div className="bg-lightWhite dark:bg-gray-900 h-screen flex font-rubik relative ">
-      <ProfileAside />
-      <div className="flex-1 flex flex-col overflow-auto">
-        <ProfileNavBar />
-        <Switch>
-          {/* <Route exact path="/dashboard/home" component={Home}></Route> */}
-          <Route exact path="/profile" component={PHome}></Route>
-          <Route exact path="/profile/profile" component={PProfile}></Route>
-          <Route
-            exact
-            path="/profile/hotel-register"
-            component={HotelRegister}
-          ></Route>
-          <Route
-            path="*"
-            render={() => {
-              history.push("/page-not-found");
-            }}
-          />
-        </Switch>
+    <>
+      <div className="bg-lightWhite dark:bg-gray-900 h-screen flex font-rubik relative ">
+        <ProfileAside />
+        <div className="flex-1 flex flex-col overflow-auto">
+          <ProfileNavBar />
+          <Switch>
+            {/* <Route exact path="/dashboard/home" component={Home}></Route> */}
+            <Route exact path="/profile" component={PHome}></Route>
+            <Route exact path="/profile/profile" component={PProfile}></Route>
+            <Route
+              exact
+              path="/profile/hotel-register"
+              component={HotelRegister}
+            ></Route>
+            <Route
+              path="*"
+              render={() => {
+                history.push("/page-not-found");
+              }}
+            />
+          </Switch>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

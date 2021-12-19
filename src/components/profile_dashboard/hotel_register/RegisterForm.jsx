@@ -40,7 +40,7 @@ let stars = [
   },
 ];
 
-function RegisterForm() {
+function RegisterForm({ fetchHotelInfo }) {
   const selectedImageName = useRef();
   const selectedPanName = useRef();
   const [imageError, setImageError] = useState("");
@@ -209,6 +209,9 @@ function RegisterForm() {
               description: "",
             },
           });
+          setTimeout(() => {
+            fetchHotelInfo();
+          }, 2000);
         })
         .catch((err) => {
           console.log(err.response);

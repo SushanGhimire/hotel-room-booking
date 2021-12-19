@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import DashboardManagement from "./components/dashboard/Dashboard-Management";
 import { useSelector, useDispatch } from "react-redux";
 import PageNotFound from "./components/common/PageNotFound";
-import ProfileDashboardMgnt from "./components/profile_dashboard/ProfileDashboardMgnt";
+// import ProfileDashboardMgnt from "./components/profile_dashboard/ProfileDashboardMgnt";
 import HotelDashboardMgnt from "./components/hotel_dashboard/HotelDashboardMgnt";
 import UserDashboardManagement from "./components/userDashboard/UserDashboardManagement";
 // import * as actions from "./redux/actions/action";
@@ -59,10 +59,10 @@ function UrlDasWebmgnr() {
         {loggedIn && role === "AD" && (
           <Route path="/dashboard" component={DashboardManagement} />
         )}
-        {/* {loggedIn && role === "US" && ( */}
-          <Route path="/profile" component={ProfileDashboardMgnt} />
+        {loggedIn && role === "US" && (
           <Route path="/user" component={UserDashboardManagement} />
-        {/* )} */}
+        )}
+        {/* <Route path="/profile" component={ProfileDashboardMgnt} /> */}
         {loggedIn && role === "ON" && (
           <Route path="/h-dashboard" component={HotelDashboardMgnt} />
         )}

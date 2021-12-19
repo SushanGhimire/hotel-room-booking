@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import axiosInstance from "../../authentication/axiosInstance";
 import { ToastContainer, toast } from "react-toastify";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 function RoomForm() {
-  const { id } = useParams()
+  const { id } = useParams();
   const selectedImageName = useRef();
   const [loading, setLoading] = useState(false);
   const [imageError, setImageError] = useState("");
@@ -27,9 +27,9 @@ function RoomForm() {
       description: "",
     },
   });
-  const [hId, setHId] = useState("")
-  const [selecetdFeatures, setSelectedFeatures] = useState([])
-  const [features, setFeatures] = useState([])
+  const [hId, setHId] = useState("");
+  const [selecetdFeatures, setSelectedFeatures] = useState([]);
+  const [features, setFeatures] = useState([]);
   const [error, setError] = useState("");
   const handleErrors = (property, value) => {
     setError("");
@@ -174,7 +174,7 @@ function RoomForm() {
             progress: undefined,
           });
           setTimeout(() => {
-            window.location.reload()
+            window.location.reload();
           }, 2000);
         })
         .catch((err) => {
@@ -230,75 +230,82 @@ function RoomForm() {
   };
   const handleFeature = (index, value, checked) => {
     // console.log(value);
-    let array = [...features]
+    let array = [...features];
     if (!checked) {
-      array[index].checked = true
-      setSelectedFeatures(parseInt(value))
+      array[index].checked = true;
+      setSelectedFeatures(parseInt(value));
     } else {
-      let newArr = [...selecetdFeatures]
+      let newArr = [...selecetdFeatures];
       console.log(newArr);
-      const filtered = newArr.filter((data) => data !== parseInt(value))
-      setSelectedFeatures(filtered)
+      const filtered = newArr.filter((data) => data !== parseInt(value));
+      setSelectedFeatures(filtered);
       // array[index].checked = false
     }
     for (let i = 0; i < array.length; i++) {
       if (i === index) {
-        array[i].checked = true
+        array[i].checked = true;
       } else {
-        array[i].checked = false
-
+        array[i].checked = false;
       }
     }
-    setFeatures(array)
-  }
+    setFeatures(array);
+  };
   React.useEffect(() => {
-
-    axiosInstance.get(`/hotel/room-feature/`).then((res) => {
-      console.log(res.data);
-      let arr = []
-      res.data.forEach((data) => {
-        arr.push({
-          id: parseInt(data.id),
-          name: data.name,
-          checked: false
-        })
+    axiosInstance
+      .get(`/hotel/`)
+      .then((res) => {
+        setHId(res.data[0].id);
       })
-      setFeatures(arr)
-    }).catch((err) => {
-      console.log(err);
-    })
-    axiosInstance.get(`/hotel/`).then((res) => {
-      setHId(res.data[0].hotel_owner.id);
-    }).catch((err) => {
-      console.log(err);
-    })
-    if (id) {
-      axiosInstance.get(`/hotel/room/${id}/`).then((res) => {
-        console.log(res.data);
-        let val = {
-          room_type: res.data.room_type,
-          guest_type: res.data.guest_type,
-          guest_number: res.data.guest_number,
-          status: res.data.status,
-          description: res.data.description,
-          price: res.data.price,
-        }
-        // setData({
-        //   val,
-        //   errors: {
-        //     price: "",
-        //     guest_number: "",
-        //     check_in: "",
-        //     check_out: "",
-        //     room_feature: "",
-        //     description: "",
-        //   },
-        // })
-      }).catch((err) => {
+      .catch((err) => {
         console.log(err);
+      });
+    axiosInstance
+      .get(`/hotel/room-feature/`)
+      .then((res) => {
+        console.log(res.data);
+        let arr = [];
+        res.data.forEach((data) => {
+          arr.push({
+            id: parseInt(data.id),
+            name: data.name,
+            checked: false,
+          });
+        });
+        setFeatures(arr);
       })
+      .catch((err) => {
+        console.log(err);
+      });
+    if (id) {
+      axiosInstance
+        .get(`/hotel/room/${id}/`)
+        .then((res) => {
+          console.log(res.data);
+          let val = {
+            room_type: res.data.room_type,
+            guest_type: res.data.guest_type,
+            guest_number: res.data.guest_number,
+            status: res.data.status,
+            description: res.data.description,
+            price: res.data.price,
+          };
+          // setData({
+          //   val,
+          //   errors: {
+          //     price: "",
+          //     guest_number: "",
+          //     check_in: "",
+          //     check_out: "",
+          //     room_feature: "",
+          //     description: "",
+          //   },
+          // })
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, [])
+  }, []);
   const {
     // room_code,
     room_type,
@@ -323,7 +330,7 @@ function RoomForm() {
     room_feature: room_featureErr,
     description: descriptionErr,
   } = errors;
-  console.log(selecetdFeatures);
+  console.log(hId);
   return (
     <>
       <ToastContainer />
@@ -457,9 +464,7 @@ function RoomForm() {
               autoComplete="off"
               onChange={(e) => handleChange(e, "price")}
             />
-            {priceErr && (
-              <div className="error text-red-600">{priceErr}</div>
-            )}
+            {priceErr && <div className="error text-red-600">{priceErr}</div>}
           </div>
           {/* Room Feature  */}
           {/* <div className="form-group md:col-span-2">
@@ -478,14 +483,20 @@ function RoomForm() {
             {features.map((r, index) => {
               return (
                 <div className="" key={index}>
-                  <input type="checkbox" checked={r.checked}
+                  <input
+                    type="checkbox"
+                    checked={r.checked}
                     name={index}
                     value={r.id}
-                    onChange={(e) => handleFeature(index, e.target.value, r.checked)}
+                    onChange={(e) =>
+                      handleFeature(index, e.target.value, r.checked)
+                    }
                   />
-                  <label htmlFor={index} className="ml-4 cursor-pointer">{r.name}</label>
+                  <label htmlFor={index} className="ml-4 cursor-pointer">
+                    {r.name}
+                  </label>
                 </div>
-              )
+              );
             })}
           </div>
           {/* description  */}
@@ -504,8 +515,9 @@ function RoomForm() {
           {/* signin button  */}
           <div className="col-span-1 md:col-span-2 w-full my-5 flex justify-center items-center">
             <button
-              className={`${loading ? "" : "border-2"
-                } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
+              className={`${
+                loading ? "" : "border-2"
+              } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
             >
               {/* <span className="text-gray-600 ">Sign In</span> */}
 

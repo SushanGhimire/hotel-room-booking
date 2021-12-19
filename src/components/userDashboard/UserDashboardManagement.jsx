@@ -11,9 +11,9 @@ function UserDashboardManagement() {
   const history = useHistory();
   return (
     <div className="bg-lightWhite dark:bg-gray-900 h-screen flex font-rubik relative ">
-        <NavBar />
+      <NavBar user="user" />
       <div className="flex-1 flex  overflow-auto mt-32">
-      <UserAside />
+        <UserAside />
         <Switch>
           {/* <Route exact path="/dashboard/home" component={Home}></Route> */}
           <Route exact path="/user" component={User}></Route>

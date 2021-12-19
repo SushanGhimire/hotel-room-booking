@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../redux/actions/action";
 import { navlist } from "./navList";
-function NavBar({ loggedIn, lang }) {
+function NavBar({ loggedIn, user }) {
+  const lang = useSelector((state) => state.darkmode.lang);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const [position, setPosition] = useState(0);
@@ -56,8 +57,12 @@ function NavBar({ loggedIn, lang }) {
   return (
     <div className="fixed z-30 w-full font-header">
       <div
-        className={`w-full text-white flex justify-between px-5 md:px-10 lg:px-28 font-subHeader
-         items-center py-5 lg:py-3 bg-opacity-40 animation bg-black `}
+        className={`w-full  flex justify-between px-5 md:px-10 lg:px-28 font-subHeader
+         items-center py-5 lg:py-3 ${
+           user
+             ? "bg-white text-black"
+             : "bg-opacity-40 animation bg-black text-white"
+         }  `}
       >
         {/* logo */}
         <div>
@@ -90,8 +95,9 @@ function NavBar({ loggedIn, lang }) {
                 onMouseLeave={handleLoginToggle}
               >
                 <div
-                  className={`absolute w-full transition-all duration-300 ease-in-out ${loginToggle ? "h-full" : "h-0"
-                    } z-0 bg-alert top-0 right-0 flex justify-center items-center`}
+                  className={`absolute w-full transition-all duration-300 ease-in-out ${
+                    loginToggle ? "h-full" : "h-0"
+                  } z-0 bg-alert top-0 right-0 flex justify-center items-center`}
                 >
                   {/* {loginToggle ? "Login" : ""} */}
                   {/* Login */}

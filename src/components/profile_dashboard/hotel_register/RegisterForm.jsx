@@ -120,7 +120,7 @@ function RegisterForm() {
       formData.append("tele_no", tele_no);
       formData.append("pan_no", pan_no);
       formData.append("description", description);
-      formData.append("pan_file", userFile);
+      formData.append("pan_file", panFile);
       formData.append("hotel_image", userFile);
       setLoading(true);
 
@@ -130,7 +130,7 @@ function RegisterForm() {
           setLoading(false);
           toast.success("Your hotel is sent for preview", {
             position: "top-right",
-            autoClose: 2500,
+            autoClose: 4000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -139,6 +139,8 @@ function RegisterForm() {
           });
           setPanFile("");
           setUserFile("");
+          selectedImageName.current.innerHTML = "";
+          selectedPanName.current.innerHTML = "";
           setData({
             name: "",
             address: "",

@@ -11,6 +11,7 @@ function ProfileAside() {
       setActiveIndex(ind);
     }
   };
+
   useEffect(() => {
     let nav = window.location.pathname.split("/")[2];
     if (nav === undefined) {
@@ -18,6 +19,7 @@ function ProfileAside() {
     } else {
       setActiveRoute(`/${nav}`);
     }
+
     return () => {};
   }, []);
   return (

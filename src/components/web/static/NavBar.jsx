@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../redux/actions/action";
 import { navlist } from "./navList";
 function NavBar({ loggedIn }) {
+  console.log(loggedIn);
   const lang = useSelector((state) => state.darkmode.lang);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
@@ -14,8 +15,8 @@ function NavBar({ loggedIn }) {
   const handleLoginToggle = () => {
     setLoginToggle(!loginToggle);
   };
-  // const { role } = useSelector((state) => state.darkmode);
-  const role = localStorage.getItem("role");
+  const { role } = useSelector((state) => state.darkmode);
+  // const role = localStorage.getItem("role");
   const mobileSidebar = useRef();
   const coverAll = useRef();
   const toggleMobileSidebar = () => {
@@ -111,7 +112,7 @@ function NavBar({ loggedIn }) {
                     )}
                     {role === "US" && (
                       <Link
-                        to="/profile"
+                        to="/user"
                         onClick={scrollToTop}
                         className="w-full h-full absolute top-0 right-0 flex justify-center items-center z-20"
                       >

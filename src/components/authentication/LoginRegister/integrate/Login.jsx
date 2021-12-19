@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
 // import bed from "../../../../assets/images/icons/bed.svg";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -7,6 +7,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
 import { GoogleLogin } from "react-google-login";
+import jwt_decode from "jwt-decode";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Login({ handleToggle }) {
+  const history = useHistory();
   const classes = useStyles();
   const [authData, setAuthData] = useState({
     email: "",
@@ -106,12 +108,13 @@ function Login({ handleToggle }) {
         .post("user/login/", formData)
         .then((res) => {
           setLoading(false);
-          console.log(res.data);
           const { access, refresh } = res.data;
+          let decoded = jwt_decode(refresh);
+          localStorage.setItem("role", decoded.user_type);
           localStorage.setItem("access", access);
           localStorage.setItem("refresh", refresh);
-          localStorage.setItem("role", res.data.user_type);
-          window.location = "/";
+          localStorage.setItem("uid", decoded.user_id);
+          history.push("/");
         })
         .catch((err) => {
           setLoading(false);
@@ -142,7 +145,7 @@ function Login({ handleToggle }) {
         localStorage.setItem("access", access);
         localStorage.setItem("refresh", refresh);
         localStorage.setItem("role", res.data.user_type);
-        window.location = "/";
+        history.push("/");
       })
       .catch((err) => {
         console.log(err);

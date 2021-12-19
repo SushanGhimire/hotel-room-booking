@@ -1,6 +1,44 @@
 import React, { useState, useRef } from "react";
 import axiosInstance from "../../authentication/axiosInstance";
 import { ToastContainer, toast } from "react-toastify";
+let stars = [
+  {
+    name: "None",
+    value: 0,
+  },
+  {
+    name: "One",
+    value: 1,
+  },
+  {
+    name: "Two",
+    value: 2,
+  },
+  {
+    name: "Three",
+    value: 3,
+  },
+  {
+    name: "Four",
+    value: 4,
+  },
+  {
+    name: "Five",
+    value: 5,
+  },
+  {
+    name: "Six",
+    value: 6,
+  },
+  {
+    name: "Seven",
+    value: 7,
+  },
+  {
+    name: "Seven Plus",
+    value: "7+",
+  },
+];
 
 function RegisterForm() {
   const selectedImageName = useRef();
@@ -18,6 +56,7 @@ function RegisterForm() {
     pan_no: "",
     description: "",
     confirmPassword: "",
+    star: "",
     errors: {
       name: "",
       address: "",
@@ -25,6 +64,7 @@ function RegisterForm() {
       tele_no: "",
       pan_no: "",
       description: "",
+      star: "",
     },
   });
   const [error, setError] = useState("");
@@ -71,6 +111,14 @@ function RegisterForm() {
           errors.phone_no = "";
           result = true;
         }
+      } else if (property === "star") {
+        if (value === "") {
+          errors.star = "Hotel star is required";
+          result = false;
+        } else {
+          errors.phone_no = "";
+          result = true;
+        }
       } else if (property === "description") {
         if (value === "") {
           errors.description = "Discription cannot be left emppty";
@@ -97,7 +145,8 @@ function RegisterForm() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { name, pan_no, address, phone_no, tele_no, description } = data;
+    const { name, pan_no, address, phone_no, tele_no, description, star } =
+      data;
     if (
       name === "" ||
       pan_no === "" ||
@@ -106,6 +155,7 @@ function RegisterForm() {
       description === "" ||
       userFile === "" ||
       panFile === "" ||
+      star === "" ||
       phone_no === ""
     ) {
       setError("Please fill the above fields completely.");
@@ -113,6 +163,7 @@ function RegisterForm() {
       console.log(panFile);
       setError("");
       const formData = new FormData();
+      formData.append("user", localStorage.getItem("uid"));
       formData.append("name", name);
       formData.append("address", address);
       formData.append("phone_no", phone_no);
@@ -120,6 +171,7 @@ function RegisterForm() {
       formData.append("pan_no", pan_no);
       formData.append("description", description);
       formData.append("pan_file", panFile);
+      formData.append("star", star);
       formData.append("hotel_image", userFile);
       setLoading(true);
 
@@ -232,9 +284,18 @@ function RegisterForm() {
       selectedPanName.current.innerHTML = fileName;
     }
   };
-  const { name, pan_no, address, phone_no, tele_no, description, errors } =
-    data;
   const {
+    name,
+    pan_no,
+    address,
+    phone_no,
+    tele_no,
+    star,
+    description,
+    errors,
+  } = data;
+  const {
+    star: starErr,
     name: nameErr,
     pan_no: pan_noErr,
     phone_no: phone_noErr,
@@ -385,6 +446,24 @@ function RegisterForm() {
             {imageError && (
               <div className="error text-red-600">{imageError}</div>
             )}
+          </div>
+          {/* Start  */}
+          <div className="form-group">
+            <label>Description</label>
+            <select value={star} onChange={(e) => handleChange(e, "star")}>
+              <option value="" hidden>
+                Select Hotel Star
+              </option>
+              {stars.map((data, index) => {
+                const { name, value } = data;
+                return (
+                  <option value={value} key={index}>
+                    {name}
+                  </option>
+                );
+              })}
+            </select>
+            {starErr && <div className="error text-red-600">{starErr}</div>}
           </div>
           {/* description  */}
           <div className="form-group md:col-span-2">

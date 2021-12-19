@@ -1,6 +1,6 @@
 import React, { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-function CommonPopup({ open, closeModal, children }) {
+function CommonPopup({ open, closeModal, children, width }) {
   const cancelButtonRef = useRef();
   return (
     <>
@@ -43,7 +43,7 @@ function CommonPopup({ open, closeModal, children }) {
               leaveTo="opacity-0 scale-95"
             >
               <div
-                className={`inline-block w-full scrollbar max-w-2xl  my-8 overflow-auto text-left align-middle transition-all transform border bg-white shadow-xl rounded-3xl p-5`}
+                className={`inline-block w-full scrollbar ${width} my-8 overflow-auto text-left align-middle transition-all transform border bg-white shadow-xl rounded-3xl p-5`}
                 style={{
                   maxHeight: "798px",
                 }}

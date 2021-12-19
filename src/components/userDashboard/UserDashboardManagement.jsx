@@ -7,11 +7,11 @@ import Bookmark from "./Bookmark";
 import History from "./History";
 import ContactUs from "./ContactUs";
 import FAQs from "./FAQs";
-function UserDashboardManagement() {
+function UserDashboardManagement({ loggedIn }) {
   const history = useHistory();
   return (
     <div className="bg-lightWhite dark:bg-gray-900 h-screen flex font-rubik relative ">
-      <NavBar user="user" />
+      <NavBar loggedIn={loggedIn} user="user" />
       <div className="flex-1 flex  overflow-auto mt-32">
         <UserAside />
         <Switch>

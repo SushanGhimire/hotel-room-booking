@@ -3,23 +3,22 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import App from "./App";
 import jwt_decode from "jwt-decode";
 import DashboardManagement from "./components/dashboard/Dashboard-Management";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import PageNotFound from "./components/common/PageNotFound";
 // import ProfileDashboardMgnt from "./components/profile_dashboard/ProfileDashboardMgnt";
 import HotelDashboardMgnt from "./components/hotel_dashboard/HotelDashboardMgnt";
 import UserDashboardManagement from "./components/userDashboard/UserDashboardManagement";
-// import * as actions from "./redux/actions/action";
+import * as actions from "./redux/actions/action";
 // import LoadingPage from "./common/LoadingPage";
 function UrlDasWebmgnr() {
   const [loggedIn, setLoggedIn] = useState(false);
   const histroy = useHistory();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const [role, setRole] = useState("");
-  const role = localStorage.getItem("role");
   // const role = "ON";
   // const [loading, setLoading] = useState(false);
-  const darkmode = useSelector((state) => state.darkmode.darkmode);
+  const { darkmode, role } = useSelector((state) => state.darkmode);
   function tokenManager() {
     const token = localStorage.getItem("access");
     let decoded;
@@ -37,9 +36,9 @@ function UrlDasWebmgnr() {
       } else {
         if (loggedIn) {
           setLoggedIn(loggedIn);
-          // const { user_type } = decoded;
+          const { user_type } = decoded;
           // setRole(user_type);
-          // dispatch(actions.setRole(user_type));
+          dispatch(actions.setRole(user_type));
         } else {
           window.location = "/";
           localStorage.clear();
@@ -61,7 +60,12 @@ function UrlDasWebmgnr() {
           <Route path="/dashboard" component={DashboardManagement} />
         )}
         {loggedIn && role === "US" && (
-          <Route path="/user" component={UserDashboardManagement} />
+          <Route
+            path="/user"
+            render={(props) => (
+              <UserDashboardManagement loggedIn={loggedIn} {...props} />
+            )}
+          />
         )}
         {/* <Route path="/profile" component={ProfileDashboardMgnt} /> */}
         {loggedIn && role === "ON" && (

@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../authentication/axiosInstance";
 import { ReactComponent as StarIcon } from "../../../assets/images/icons/star.svg";
+import CommonPopup from "../../common/CommonPopup";
+import PaymentPopup from "./integrate/PaymentPopup";
 const RoomOverview = () => {
   const rating = [1, 2, 3, 4, 5];
   const [roomDetail, setRoomDetail] = React.useState([]);
   const { id } = useParams();
-
+  const [open, setOpen] = useState(false);
+  const closeModal = () => {
+    setOpen(false);
+  };
   const [info, setInfo] = useState({
     checkIn: "",
     checkOut: "",
@@ -46,6 +51,9 @@ const RoomOverview = () => {
   // const { room_type, room_image, hotel, description, room_feature } = roomDetail
   return (
     <>
+      <CommonPopup width="max-w-lg" open={open} closeModal={closeModal}>
+        <PaymentPopup />
+      </CommonPopup>
       <div className="felx  pt-24 px-4 md:px-10">
         <div className="flex  flex-1 flex-col md:flex-row ">
           <div className="mx-2 md:w-screen">
@@ -314,6 +322,7 @@ const RoomOverview = () => {
                     <button
                       type="submit"
                       className="block w-full rounded-lg p-3 bg-primaryBlue"
+                      onClick={() => setOpen(true)}
                     >
                       Book Now
                     </button>

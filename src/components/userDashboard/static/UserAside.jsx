@@ -1,15 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import axiosInstance from "../../authentication/axiosInstance";
 import CommonPopup from "../../common/CommonPopup";
 import RegisterForm from "../../profile_dashboard/hotel_register/RegisterForm";
 function UserAside() {
   const [open, setOpen] = useState(false);
+  const [isHotel, setIsHotel] = useState(false);
   const closeModal = () => {
     setOpen(false);
   };
+  const fetchHotelInfo = async () => {
+    try {
+      const res = await axiosInstance.get(`/hotel/`);
+      console.log(res);
+      if (res.data.is_verified) {
+        localStorage.clear();
+        window.location = "/login";
+      } else {
+        setIsHotel(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    fetchHotelInfo();
+  }, []);
   return (
     <>
-      <CommonPopup open={open} closeModal={closeModal}>
+      <CommonPopup width="max-w-2xl" open={open} closeModal={closeModal}>
         <RegisterForm />
       </CommonPopup>
       <div className="w-72">

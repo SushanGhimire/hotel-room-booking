@@ -52,7 +52,7 @@ const RoomOverview = () => {
   return (
     <>
       <CommonPopup width="max-w-lg" open={open} closeModal={closeModal}>
-        <PaymentPopup />
+        <PaymentPopup amount="120" roomId={id} />
       </CommonPopup>
       <div className="felx  pt-24 px-4 md:px-10">
         <div className="flex  flex-1 flex-col md:flex-row ">

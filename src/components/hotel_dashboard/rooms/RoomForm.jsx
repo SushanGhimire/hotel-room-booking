@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 function RoomForm() {
   const { id } = useParams();
+  const [roomList, setRoomList] = useState([]);
   const selectedImageName = useRef();
   const [loading, setLoading] = useState(false);
   const [imageError, setImageError] = useState("");
@@ -15,8 +16,9 @@ function RoomForm() {
     check_in: "",
     check_out: "",
     room_feature: "",
-    status: "DF",
+    status: "AV",
     description: "",
+    room_code: "",
     price: "",
     errors: {
       price: "",
@@ -25,12 +27,14 @@ function RoomForm() {
       check_out: "",
       room_feature: "",
       description: "",
+      room_code: "",
     },
   });
+  const [update, setUpdate] = useState(false);
   const [hId, setHId] = useState("");
-  const [selecetdFeatures, setSelectedFeatures] = useState([]);
   const [features, setFeatures] = useState([]);
   const [error, setError] = useState("");
+  const [formFeature, setFormFeature] = useState([]);
   const handleErrors = (property, value) => {
     setError("");
     const { errors } = data;
@@ -117,26 +121,21 @@ function RoomForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const {
-      // room_code,
       room_type,
       guest_type,
-      guest_number,
-      // check_in,
-      // check_out,
+      // guest_number,
       room_feature,
       status,
       description,
       price,
+      room_code,
       errors,
     } = data;
     if (
-      // room_code === "" ||
-      room_type === "" ||
+      room_code === "" ||
       guest_type === "" ||
-      guest_number === "" ||
+      // guest_number === "" ||
       price === "" ||
-      // check_in === "" ||
-      // check_out === "" ||
       room_feature === [] ||
       status === "" ||
       description === "" ||
@@ -145,54 +144,75 @@ function RoomForm() {
     ) {
       setError("Please fill the above fields completely.");
     } else {
-      setError("");
       const formData = new FormData();
-      // formData.append("room_code", room_code);
       formData.append("room_type", room_type);
       formData.append("guest_type", guest_type);
       formData.append("price", price);
-      formData.append("guest_number", guest_number);
+      formData.append("room_code", room_code);
       formData.append("hotel", hId);
       formData.append("room_image", userFile);
-      // formData.append("check_in", check_in);
-      // formData.append("check_out", check_out);
-      formData.append("status", status);
+      formData.append("room_status", status);
+      formData.append("status", "PU");
       formData.append("description", description);
-      formData.append("room_feature", [selecetdFeatures]);
-      setLoading(true);
-      axiosInstance
-        .post("/hotel/room/create/", formData)
-        .then(() => {
-          setLoading(false);
-          toast.success("Room added sucessfully", {
-            position: "top-right",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
+      // setLoading(true);
+      if (id) {
+        setError("");
+        axiosInstance
+          .patch(`/hotel/room/${id}/`, formData)
+          .then((res) => {
+            updateFeature(res.data.id);
+          })
+          .catch((err) => {
+            setLoading(false);
           });
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        })
-        .catch((err) => {
-          // console.log(err.response);
-          const { email, name } = err.response.data;
-          if (email) {
-            errors.email = "Email already exist";
+      } else {
+        let stop = false;
+        for (let i = 0; i < roomList.length; i++) {
+          if (roomList[i].room_code === room_code) {
+            stop = true;
+            setError("Room already exist.");
+            return;
           }
-          if (name) {
-            errors.name = "name already exist";
-          }
-          setData({
-            ...data,
-            errors,
-          });
-          setLoading(false);
-        });
+        }
+        if (!stop) {
+          setError("");
+          axiosInstance
+            .post("/hotel/room/create/", formData)
+            .then((res) => {
+              updateFeature(res.data.id);
+            })
+            .catch((err) => {
+              setLoading(false);
+            });
+        }
+      }
     }
+  };
+  const updateFeature = (id) => {
+    let val = {
+      room_id: id,
+      feature: formFeature,
+    };
+    axiosInstance
+      .post(`/hotel/room/feature/add/`, val)
+      .then((res) => {
+        setLoading(false);
+        toast.success("Room added sucessfully", {
+          position: "top-right",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const handleImageSet = (file) => {
     if (file) {
@@ -201,9 +221,7 @@ function RoomForm() {
       image.src = URL.createObjectURL(file);
       image.onload = function () {
         let arr = fileName.split(".");
-        console.log(arr);
         let extension = arr[arr.length - 1];
-        console.log(extension);
         const extensions = ["png", "jpg", "jpeg", "webp"];
         let bool = false;
         for (let i = 0; i < extensions.length; i++) {
@@ -228,26 +246,18 @@ function RoomForm() {
       selectedImageName.current.innerHTML = fileName;
     }
   };
-  const handleFeature = (index, value, checked) => {
-    // console.log(value);
+  const handleFeature = (index, checked) => {
     let array = [...features];
-    if (!checked) {
-      array[index].checked = true;
-      setSelectedFeatures(parseInt(value));
+    if (checked) {
+      array[index].checked = false;
     } else {
-      let newArr = [...selecetdFeatures];
-      console.log(newArr);
-      const filtered = newArr.filter((data) => data !== parseInt(value));
-      setSelectedFeatures(filtered);
-      // array[index].checked = false
+      array[index].checked = true;
     }
-    for (let i = 0; i < array.length; i++) {
-      if (i === index) {
-        array[i].checked = true;
-      } else {
-        array[i].checked = false;
-      }
-    }
+    let newFeature = [];
+    array.forEach((data) => {
+      data.checked && newFeature.push(data.id);
+    });
+    setFormFeature(newFeature);
     setFeatures(array);
   };
   React.useEffect(() => {
@@ -260,47 +270,96 @@ function RoomForm() {
         console.log(err);
       });
     axiosInstance
-      .get(`/hotel/room-feature/`)
+      .get(`/hotel/user-room-feature/`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         let arr = [];
         res.data.forEach((data) => {
           arr.push({
-            id: parseInt(data.id),
+            id: data.id,
             name: data.name,
             checked: false,
           });
         });
         setFeatures(arr);
+        setUpdate(!update);
       })
       .catch((err) => {
         console.log(err);
       });
+
+    // eslint-disable-next-line
+  }, []);
+  const getAllRooms = () => {
+    axiosInstance
+      .get(`/hotel/room/`)
+      .then((res) => {
+        setRoomList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  React.useEffect(() => {
+    getAllRooms();
+  }, []);
+  React.useEffect(() => {
     if (id) {
       axiosInstance
         .get(`/hotel/room/${id}/`)
         .then((res) => {
           console.log(res.data);
-          // let val = {
-          //   room_type: res.data.room_type,
-          //   guest_type: res.data.guest_type,
-          //   guest_number: res.data.guest_number,
-          //   status: res.data.status,
-          //   description: res.data.description,
-          //   price: res.data.price,
-          // };
+          const {
+            room_type,
+            guest_type,
+            room_feature,
+            status,
+            description,
+            price,
+            room_code,
+          } = res.data;
+          let val = {
+            room_type,
+            guest_type,
+            room_feature,
+            status,
+            description,
+            price,
+            room_code,
+            errors: {
+              price: "",
+              guest_number: "",
+              check_in: "",
+              check_out: "",
+              room_feature: "",
+              description: "",
+              room_code: "",
+            },
+          };
+          let arr = [...features];
+          let formArr = [];
+          for (let i = 0; i < features.length; i++) {
+            console.log(features[i].id);
+            for (let j = 0; j < room_feature.length; j++) {
+              if (features[i].id === room_feature[j].id) {
+                arr[i].checked = true;
+                formArr.push(room_feature[j].id);
+              }
+            }
+          }
+          setFeatures(arr);
+          setData(val);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [update]);
   const {
-    // room_code,
+    room_code,
     room_type,
     guest_type,
-    guest_number,
+    // guest_number,
     // check_in,
     // check_out,
     // room_feature,
@@ -310,17 +369,12 @@ function RoomForm() {
     errors,
   } = data;
   const {
-    // room_code: room_codeErr,
-    // room_type: room_typeErr,
-    // guest_type: guest_typeErr,
-    guest_number: guest_numberErr,
-    // check_in: check_inErr,
-    // check_out: check_outErr,
+    room_code: room_codeErr,
+    // guest_number: guest_numberErr,
     price: priceErr,
-    // room_feature: room_featureErr,
     description: descriptionErr,
   } = errors;
-  console.log(hId);
+  // console.log(hId);
   return (
     <>
       <ToastContainer />
@@ -334,7 +388,7 @@ function RoomForm() {
           autoComplete="off"
         >
           {/* room code  */}
-          {/* <div className="form-group">
+          <div className="form-group">
             <label>Room Code</label>
             <input
               placeholder="Your room code ..."
@@ -346,7 +400,7 @@ function RoomForm() {
             {room_codeErr && (
               <div className="error text-red-600">{room_codeErr}</div>
             )}
-          </div> */}
+          </div>
           {/* room type  */}
           <div className="form-group">
             <label>Room Type</label>
@@ -383,21 +437,6 @@ function RoomForm() {
               <option value="4+">4+ Adult</option>
             </select>
           </div>
-          {/* GUest Number  */}
-          <div className="form-group">
-            <label>Guest Number</label>
-            {/* Select Custom Dropdown */}
-            <input
-              placeholder="Guest number ..."
-              type="text"
-              value={guest_number}
-              autoComplete="off"
-              onChange={(e) => handleChange(e, "guest_number")}
-            />
-            {guest_numberErr && (
-              <div className="error text-red-600">{guest_numberErr}</div>
-            )}
-          </div>
           {/* image  */}
           <div className="">
             <div className="flex flex-col space-y-1 relative ">
@@ -430,7 +469,7 @@ function RoomForm() {
           </div>
           {/* Status  */}
           <div className="form-group">
-            <label>Status</label>
+            <label>Room Status</label>
             {/* Select Custom Dropdown */}
 
             <select
@@ -439,8 +478,9 @@ function RoomForm() {
               value={status}
               onChange={(e) => handleChange(e, "status")}
             >
-              <option value="DF">Draft</option>
-              <option value="PU">Publish</option>
+              <option value="AV">Available</option>
+              <option value="BO">Booked</option>
+              <option value="MA">Maintenance</option>
             </select>
           </div>
           {/* GUest Number  */}
@@ -456,18 +496,6 @@ function RoomForm() {
             />
             {priceErr && <div className="error text-red-600">{priceErr}</div>}
           </div>
-          {/* Room Feature  */}
-          {/* <div className="form-group md:col-span-2">
-            <label>Room Feature</label>
-            <textarea
-              value={room_feature}
-              onChange={(e) => handleChange(e, "room_feature")}
-              className="h-32 resize-none"
-            />
-            {room_featureErr && (
-              <div className="error text-red-600">{room_featureErr}</div>
-            )}
-          </div> */}
           <div className="form-group">
             <label>Room Features</label>
             {features.map((r, index) => {
@@ -477,10 +505,8 @@ function RoomForm() {
                     type="checkbox"
                     checked={r.checked}
                     name={index}
-                    value={r.id}
-                    onChange={(e) =>
-                      handleFeature(index, e.target.value, r.checked)
-                    }
+                    // value={r.id}
+                    onChange={(e) => handleFeature(index, r.checked)}
                   />
                   <label htmlFor={index} className="ml-4 cursor-pointer">
                     {r.name}

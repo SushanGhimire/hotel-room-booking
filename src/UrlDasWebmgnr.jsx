@@ -25,7 +25,7 @@ function UrlDasWebmgnr() {
     if (token) {
       try {
         decoded = jwt_decode(token);
-        console.log(decoded);
+        // console.log(decoded);
       } catch (e) {
         localStorage.clear();
       }

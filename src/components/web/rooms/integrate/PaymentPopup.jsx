@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import esewa from "../../../../assets/images/esewa.png";
 import stripe from "../../../../assets/images/stripe.png";
-function PaymentPopup() {
+import post from "../../../esewa/SubmitEsewaData";
+function PaymentPopup({ amount, roomId }) {
+  const handleEsewa = () => {
+    post(amount, roomId);
+  };
+  useEffect(() => {
+    localStorage.setItem("rid", roomId);
+  }, []);
   return (
     <>
       <div className="p-5">
@@ -11,7 +18,10 @@ function PaymentPopup() {
           </span>
         </div>
         <div className="flex mt-8 items-center gap-4">
-          <div className="border p-5 shadow-md rounded-lg cursor-pointer">
+          <div
+            className="border p-5 shadow-md rounded-lg cursor-pointer"
+            onClick={handleEsewa}
+          >
             <img src={esewa} className="h-12" alt="" />
           </div>
           <div className="border p-5 shadow-md rounded-lg cursor-pointer">

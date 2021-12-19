@@ -7,6 +7,7 @@ import History from "./History";
 import ContactUs from "./ContactUs";
 import FAQs from "./FAQs";
 import UserNavBar from "./static/UserNavBar";
+import EsewaSucessPage from "../esewa/EsewaSucessPage";
 function UserDashboardManagement({ loggedIn }) {
   const history = useHistory();
   return (
@@ -19,6 +20,11 @@ function UserDashboardManagement({ loggedIn }) {
             {/* <Route exact path="/dashboard/home" component={Home}></Route> */}
             <Route exact path="/user" component={User}></Route>
             <Route exact path="/user/bookmarks" component={Bookmark}></Route>
+            <Route
+              exact
+              path="/user/sucess"
+              component={EsewaSucessPage}
+            ></Route>
             <Route exact path="/user/history" component={History}></Route>
             <Route exact path="/user/contact-us" component={ContactUs}></Route>
             <Route exact path="/user/faqs" component={FAQs}></Route>

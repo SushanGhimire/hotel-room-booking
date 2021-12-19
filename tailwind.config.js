@@ -4,6 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        danger: "#f36",
+        sucess: "#10b759",
         primaryBlue: "#457b9d",
         buttonBlue: "#1d3557",
         alert: "#e63946",
@@ -11,6 +13,7 @@ module.exports = {
         lightBlue: "#a8dadc",
         highlight: "#E0A975",
         border: "#DEE2E6",
+        primaryYellow: "#FFB605",
         gray: {
           light: "#F5F5F5",
           DEFAULT: "#FAFAFA",
@@ -42,5 +45,8 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/aspect-ratio"), require('@tailwindcss/line-clamp'),],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/line-clamp"),
+  ],
 };

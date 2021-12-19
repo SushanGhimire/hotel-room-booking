@@ -9,7 +9,7 @@ function HotelFeature() {
   const [hId, setHId] = useState("");
   const fetchFeatureLists = async () => {
     try {
-      const res = await axiosInstance.get(`/hotel/room-feature/`);
+      const res = await axiosInstance.get(`/hotel/user-room-feature/`);
       console.log(res.data);
       setFeatureLists(res.data);
     } catch (err) {

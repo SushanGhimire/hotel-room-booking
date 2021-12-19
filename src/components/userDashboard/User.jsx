@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import errorHandler from "../common/errorHandler";
 
 function User() {
   const [userInfo, setUserInfo] = useState({
@@ -6,17 +7,22 @@ function User() {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(userInfo);
-    setUserInfo({
-      username: "",
-      email: "",
-      password: "",
-    });
-    alert(
-      `subject:${userInfo.username} \nusername:${userInfo.email} \ncomplain:${userInfo.password}`
-    );
+    // const { username, email, password } = userInfo;
+    let validate = ["username", "email", "password"];
+    let goAhead = true;
+    for (let i = 0; i < validate.length; i++) {
+      const error = errorHandler(validate[i], userInfo[validate[i]]);
+      if (error) {
+        goAhead = false;
+        setErrors({
+          ...errors,
+          [validate[i]]: error,
+        });
+      }
+    }
   };
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -25,8 +31,9 @@ function User() {
       [name]: value,
     });
   };
+  console.log(errors);
   return (
-    <div className="w-1/3">
+    <div className="w-full max-w-2xl">
       <div className="flex flex-col gap-y-3 ">
         <div className="text-primaryBlue text-4xl font-bold">
           <h1>User Profile</h1>
@@ -35,7 +42,7 @@ function User() {
           <img
             src="https://source.unsplash.com/collection/190727/1519x480"
             alt=""
-            className="w-1/3 object-cover rounded-xl"
+            className="w-64 h-52 object-cover rounded-xl"
           />
           <form
             onSubmit={submitHandler}

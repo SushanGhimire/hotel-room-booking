@@ -117,12 +117,12 @@ function RoomForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const {
-      room_code,
+      // room_code,
       room_type,
       guest_type,
       guest_number,
-      check_in,
-      check_out,
+      // check_in,
+      // check_out,
       room_feature,
       status,
       description,
@@ -281,30 +281,20 @@ function RoomForm() {
         .get(`/hotel/room/${id}/`)
         .then((res) => {
           console.log(res.data);
-          let val = {
-            room_type: res.data.room_type,
-            guest_type: res.data.guest_type,
-            guest_number: res.data.guest_number,
-            status: res.data.status,
-            description: res.data.description,
-            price: res.data.price,
-          };
-          // setData({
-          //   val,
-          //   errors: {
-          //     price: "",
-          //     guest_number: "",
-          //     check_in: "",
-          //     check_out: "",
-          //     room_feature: "",
-          //     description: "",
-          //   },
-          // })
+          // let val = {
+          //   room_type: res.data.room_type,
+          //   guest_type: res.data.guest_type,
+          //   guest_number: res.data.guest_number,
+          //   status: res.data.status,
+          //   description: res.data.description,
+          //   price: res.data.price,
+          // };
         })
         .catch((err) => {
           console.log(err);
         });
     }
+    // eslint-disable-next-line
   }, []);
   const {
     // room_code,
@@ -320,14 +310,14 @@ function RoomForm() {
     errors,
   } = data;
   const {
-    room_code: room_codeErr,
+    // room_code: room_codeErr,
     // room_type: room_typeErr,
     // guest_type: guest_typeErr,
     guest_number: guest_numberErr,
     // check_in: check_inErr,
     // check_out: check_outErr,
     price: priceErr,
-    room_feature: room_featureErr,
+    // room_feature: room_featureErr,
     description: descriptionErr,
   } = errors;
   console.log(hId);

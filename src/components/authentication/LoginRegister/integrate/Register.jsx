@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import facebook from "../../../../assets/images/icons/facebook.svg";
-import search from "../../../../assets/images/icons/search.svg";
-// import bed from "../../../../assets/images/icons/bed.svg";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -265,8 +262,9 @@ function Register({ handleToggle }) {
         {/* signin button  */}
         <div className="w-full my-5 flex justify-center items-center">
           <button
-            className={`${loading ? "" : "border-2"
-              } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
+            className={`${
+              loading ? "" : "border-2"
+            } p-4 rounded-xl cursor-pointer animation transform hover:scale-110 hover:border-gray-300 group flex space-x-1 focus:outline-none`}
           >
             {/* <span className="text-gray-600 ">Sign In</span> */}
 

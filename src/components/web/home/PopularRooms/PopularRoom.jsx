@@ -15,29 +15,29 @@ SwiperCore.use([Autoplay, Pagination, Navigation]);
 function PopularRoom({ lang }) {
   const [roomData, setRoomData] = useState([]);
   let star = [];
-  const roomImg = [
-    {
-      img: "https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1592229505678-cf99a9908e03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1592229505726-ca121723b8ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1560635921-171138a3955e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
-    },
-  ];
+  // const roomImg = [
+  //   {
+  //     img: "https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80",
+  //   },
+  //   {
+  //     img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+  //   },
+  //   {
+  //     img: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
+  //   },
+  //   {
+  //     img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80",
+  //   },
+  //   {
+  //     img: "https://images.unsplash.com/photo-1592229505678-cf99a9908e03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
+  //   },
+  //   {
+  //     img: "https://images.unsplash.com/photo-1592229505726-ca121723b8ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
+  //   },
+  //   {
+  //     img: "https://images.unsplash.com/photo-1560635921-171138a3955e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
+  //   },
+  // ];
   for (let i = 0; i < 5; i++) {
     star.push(
       <svg
@@ -133,20 +133,24 @@ function PopularRoom({ lang }) {
               slidesPerView: 5,
             },
           }}
-        // slidesPerView={4}
+          // slidesPerView={4}
         >
           {Array.isArray(roomData) &&
             roomData.map((room, index) => {
-              const { name, description, room_type, room_image, price, id } = room;
+              const { name, description, room_type, room_image, price, id } =
+                room;
               return (
                 <SwiperSlide className="" key={index}>
                   <div className="flex flex-col w-full bg-white shadow-md h-full font-subHeader cursor-pointer relative group rounded overflow-hidden text-gray-600 transform hover:scale-105 animation">
                     <div className="h-56 w-full relative">
                       <div className="absolute w-full h-full bg-black bg-opacity-0 animation group-hover:bg-opacity-40 top-0 right-0 flex justify-center items-center">
-                        <Link to={`/rooms/${id}`} onClick={() => {
-
-                          window.scrollTo(0, 0)
-                        }} className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm">
+                        <Link
+                          to={`/rooms/${id}`}
+                          onClick={() => {
+                            window.scrollTo(0, 0);
+                          }}
+                          className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm"
+                        >
                           More Details
                         </Link>
                       </div>
@@ -159,7 +163,9 @@ function PopularRoom({ lang }) {
                     <div className="flex flex-col px-4 space-y-1 pt-4 pb-6">
                       <div className="flex justify-between items-center font-semibold font-header text-gray-800">
                         <span className="text-lg">{name}</span>
-                        <span className="text-highlight">Rs {price}/per night</span>
+                        <span className="text-highlight">
+                          Rs {price}/per night
+                        </span>
                       </div>
                       <div className="flex text-xl font-header font-semibold text-highlight">
                         {room_type === "NR" && "Norma"}
@@ -168,7 +174,9 @@ function PopularRoom({ lang }) {
                         {room_type === "PR" && "Presidental"}
                         {room_type === "DI" && "Divine"}
                       </div>
-                      <div className="flex text-sm line-clamp-3 text-justify">{description}</div>
+                      <div className="flex text-sm line-clamp-3 text-justify">
+                        {description}
+                      </div>
                       <div className="flex items-center  space-x-3 text-sm">
                         <span>Review</span>
                         <span className="flex">

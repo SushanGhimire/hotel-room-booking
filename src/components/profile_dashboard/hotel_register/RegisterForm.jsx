@@ -97,8 +97,7 @@ function RegisterForm() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { name, pan_no, address, phone_no, tele_no, description, errors } =
-      data;
+    const { name, pan_no, address, phone_no, tele_no, description } = data;
     if (
       name === "" ||
       pan_no === "" ||

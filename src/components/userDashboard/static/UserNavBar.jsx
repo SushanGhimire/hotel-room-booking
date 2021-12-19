@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../redux/actions/action";
 import { Link } from "react-router-dom";
-import axiosInstance from "../../authentication/axiosInstance";
+// import axiosInstance from "../../authentication/axiosInstance";
 function UserNavBar() {
   const dispatch = useDispatch();
   const darkmode = useSelector((state) => state.darkmode.darkmode);

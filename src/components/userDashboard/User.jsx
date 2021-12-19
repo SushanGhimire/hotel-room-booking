@@ -23,6 +23,7 @@ function User() {
         });
       }
     }
+    console.log(goAhead);
   };
   const changeHandler = (e) => {
     const { name, value } = e.target;

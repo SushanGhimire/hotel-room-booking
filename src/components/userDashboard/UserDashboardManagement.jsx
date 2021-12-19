@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch, useHistory } from "react-router";
-import NavBar from "../web/static/NavBar";
 import UserAside from "./static/UserAside";
 import User from "./User";
 import Bookmark from "./Bookmark";

@@ -4,11 +4,11 @@ import DeleteModal from "../../common/DeleteModal";
 import DeleteAlertModal from "../../common/DeleteAlertModal";
 import axiosInstance from "../../authentication/axiosInstance";
 function RoomsList() {
-  const [message, setMessage] = useState("Data deleted sucessfully!");
   const [deleteUrl, setDeleteUrl] = useState("");
   const [open, setOpen] = useState(false);
-  const [openDeleteSucess, setOpenDeleteSucess] = useState(false);
   const [roomList, setRoomList] = useState([])
+  const [message, setMessage] = useState("Data deleted sucessfully!");
+  const [openDeleteSucess, setOpenDeleteSucess] = useState(false);
   const popUpDeleteModal = (id) => {
     setDeleteUrl(`/hotel/room/${id}/`);
     setOpen(true);

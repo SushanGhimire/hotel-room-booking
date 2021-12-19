@@ -9,7 +9,7 @@ function HotelSucess({ message, closeModal, slug }) {
   };
   const HandleTryAgain = async () => {
     try {
-      const res = axiosInstance.delete(`/hotel/${slug}/`);
+      await axiosInstance.delete(`/hotel/${slug}/`);
       setTimeout(() => {
         window.location.reload();
       }, 2000);

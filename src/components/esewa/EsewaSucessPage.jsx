@@ -36,6 +36,18 @@ function EsewaSucessPage() {
             console.log("error");
           } else {
             setMessage("Payment Sucessfull");
+            let val = {
+              check_in: localStorage.getItem("checkIn"),
+              check_out: localStorage.getItem("checkOut"),
+              user: localStorage.getItem("uid"),
+              room_status: "BO",
+            };
+            axiosInstance
+              .patch(`/hotel/room/${localStorage.getItem("rid")}/`)
+              .then((res) => {})
+              .catch((err) => {
+                setLoading(false);
+              });
           }
         })
         .catch((err) => {
@@ -66,7 +78,7 @@ function EsewaSucessPage() {
         <PaymentFaild message={message} />
       )}
       {message === "Payment Sucessfull" && (
-        <div className="bg-gray-50 px-10 py-8 rounded-md shadow-md flex flex-col space-y-4 z-10">
+        <div className="bg-gray-50 px-10 py-12 rounded-xl shadow-md flex flex-col space-y-4 z-10">
           <div className="mx-auto text-sucess">
             <CheckCircleOutlineOutlinedIcon
               style={{
@@ -77,19 +89,10 @@ function EsewaSucessPage() {
           <div className="mx-auto text-2xl font-semibold">{message}</div>
           <div
             // to={`/profile/attempted-quiz/${quizId}/questions/${refId}`}
-            className="bg-sucess px-20 py-2  text-white rounded-md cursor-pointer"
-            // onClick={handleQuiz}
+            className="bg-sucess px-20 py-2  text-white rounded-md cursor-pointer text-center"
+            onClick={() => (window.location = "/user")}
           >
-            {loading ? (
-              <div className="lds-ring">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            ) : (
-              "Proceed to question"
-            )}
+            Done
           </div>
         </div>
       )}

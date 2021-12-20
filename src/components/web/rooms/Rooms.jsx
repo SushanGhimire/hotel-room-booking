@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import rooms from "../../../assets/images/rooms/rooms.jpg";
 import FlightHotel from "../home/home/integrate/FlightHotel";
 import RoomCard from "./integrate/RoomCard";
+import axiosInstance from "../../authentication/axiosInstance";
 function Rooms({ lang }) {
   let card = [];
-  for (let i = 0; i < 8; i++) {
-    card.push(<RoomCard />);
-  }
+  const [roomData, setRoomData] = useState([]);
+  useEffect(() => {
+    axiosInstance
+      .get("/hotel/room/")
+      .then((res) => {
+        console.log(res.data);
+        setRoomData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <>
       <div
@@ -38,7 +48,10 @@ function Rooms({ lang }) {
         <div className="w-36 mt-1 bg-black h-0.5 mx-auto"></div>
         {/* rooms  */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-2 mt-10">
-          {card}
+          {Array.isArray(roomData) &&
+            roomData.map((room, index) => {
+              return <RoomCard room={room} key={index} />;
+            })}
         </div>
       </div>
     </>

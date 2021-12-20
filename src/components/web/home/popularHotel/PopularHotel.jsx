@@ -16,7 +16,7 @@ function PopularHotel({ lang }) {
   const [hotelData, setHotelData] = useState([]);
   useEffect(() => {
     axiosInstance
-      .get("/hotel/")
+      .get("/hotel/all-hotels/")
       .then((res) => {
         // console.log(res.data);
         setHotelData(res.data);
@@ -91,7 +91,7 @@ function PopularHotel({ lang }) {
               slidesPerView: 5,
             },
           }}
-        // slidesPerView={4}
+          // slidesPerView={4}
         >
           {Array.isArray(hotelData) &&
             hotelData.map((hotel, index) => {
@@ -102,9 +102,9 @@ function PopularHotel({ lang }) {
                     {/* image  */}
                     <div className="h-80 w-full relative">
                       <div className="absolute w-full h-full bg-black bg-opacity-0 animation group-hover:bg-opacity-40 top-0 right-0 flex justify-center items-center">
-                        <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm">
+                        {/* <button className="border border-lightWhite text-white px-3 py-2 rounded-lg font-medium font-subHeader opacity-0 hover:bg-alert hover:border-alert transform hover:scale-110 group-hover:opacity-100 animation text-sm">
                           More Details
-                        </button>
+                        </button> */}
                       </div>
                       <img
                         src={hotel_image}

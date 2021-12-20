@@ -23,7 +23,7 @@
   [multiple],
   textarea,
   select {
-    @apply px-5 py-2 w-full rounded-md  border-2 placeholder-gray-dark focus:outline-none focus:border-purple-300 dark:focus:border-gray-500 focus:bg-transparent focus:ring-0  border-border dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600;
+    @apply px-5 py-2 w-full rounded-md  border-2 placeholder-gray-dark focus:outline-none focus:border-purple-300 dark:focus:border-gray-500 focus:bg-transparent focus:ring-0  border-border dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 ;
   }
   [type="checkbox"] {
     @apply rounded w-5 h-5 border-gray-400 transition text-dark focus:ring-dark;

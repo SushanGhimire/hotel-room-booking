@@ -13,31 +13,7 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 function PopularRoom({ lang }) {
-  const [roomData, setRoomData] = useState([]);
   let star = [];
-  // const roomImg = [
-  //   {
-  //     img: "https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1592229505678-cf99a9908e03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1592229505726-ca121723b8ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1560635921-171138a3955e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
-  //   },
-  // ];
   for (let i = 0; i < 5; i++) {
     star.push(
       <svg
@@ -51,6 +27,7 @@ function PopularRoom({ lang }) {
       </svg>
     );
   }
+  const [roomData, setRoomData] = useState([]);
   useEffect(() => {
     axiosInstance
       .get("/hotel/room/")
@@ -168,7 +145,7 @@ function PopularRoom({ lang }) {
                         </span>
                       </div>
                       <div className="flex text-xl font-header font-semibold text-highlight">
-                        {room_type === "NR" && "Norma"}
+                        {room_type === "NR" && "Normal"}
                         {room_type === "DL" && "Dilux"}
                         {room_type === "LU" && "Luxury"}
                         {room_type === "PR" && "Presidental"}

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://192.168.1.77:8000/";
+const baseURL = "http://192.168.32.218:8000/";
 // const baseURL = "https://hotel-register.herokuapp.com/";
 
 const axiosInstance = axios.create({
